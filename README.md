@@ -1,5 +1,5 @@
 # EazyWash
 
 # Next + Prisma
-npm install
+npm install\
 npm run dev
