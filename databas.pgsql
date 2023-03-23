@@ -54,3 +54,25 @@ begin
 	commit;
 end; $$
 
+create table Organisation(
+	org_id serial primary key,
+	namn varchar(60) not null,
+	adress varchar(100),
+	email varchar(50) not null
+);
+
+create table Person(
+	per_id serial primary key,
+	användarnamn varchar(50) not null,
+	lösenord varchar(30) not null,
+	org_id int,
+	foreign key(org_id) references Organisation(org_id)
+);
+
+create table BokingSchema(
+	bok_id serial primary key,
+	start_time time not null,
+	end_time time not null,
+	per_id int not null,
+	foreign key(per_id) references Person(per_id)
+);
