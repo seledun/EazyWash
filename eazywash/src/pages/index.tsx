@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/index.module.css'
 
@@ -14,18 +13,15 @@ export default function Index() {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
 
-        <link rel="stylesheet" type="text/css" href="main.css" />
         <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='anonymous' />
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet" />
 
       </Head>
       <main className={styles.main}>
       <header>
         <a href="#"className="logo"><i className='bx bxs-washer' /><span>EazyWash</span></a>
-
         <ul className="navbar">
             <li><a href="#" className="active">Home</a></li>
             <li><a href="#">Boka tid</a></li>
@@ -36,14 +32,12 @@ export default function Index() {
             <a href="#" className="user"><i className="ri-user-fill"></i>Logga In</a>
             <a href="#">Registera</a>
             <div className="bx bx-menu"id="menu-icon"></div>            
-
         </div>
-
      </header>
         <div className="videoBackground">
             <video autoPlay={true} loop muted plays-inline className="back-video">
                 <source src="laundry-basics.mp4" type="video/mp4" />
-            </video>
+          </video>
         </div>
 
         <div className="tips-box">
