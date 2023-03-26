@@ -1,15 +1,12 @@
 import Head from 'next/head'
-import { Inter } from 'next/font/google'
 import styles from '@/styles/index.module.css'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export default function Index() {
   return (
     <>
       <Head>
         <title>Document</title>
-        <meta charSet='UTF-8' />
+        <meta charSet="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -17,7 +14,7 @@ export default function Index() {
       </Head>
       <main className={styles.main}>
       <header>
-        <a href="#"className="logo"><i className='bx bxs-washer' /><span>EazyWash</span></a>
+        <a href="#"className="logo"><i className="bx bxs-washer" /><span>EazyWash</span></a>
         <ul className="navbar">
             <li><a href="#" className="active">Home</a></li>
             <li><a href="#">Boka tid</a></li>
