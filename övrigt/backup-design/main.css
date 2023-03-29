@@ -116,11 +116,6 @@ header{
     display: inline-block;
 }
 
-.Tips-box{
-    color:var(--text-color);
-
-}
-
 .tips-box {
     display: flex;
     color: var(--body-color);
@@ -133,7 +128,6 @@ header{
     margin: 0 2%;
     color: var(--body-color);
     box-sizing: border-box;
-    
   }
 
 
