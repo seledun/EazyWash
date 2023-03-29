@@ -1,7 +1,8 @@
 .logo{
-display: flex;
-align-items: center;
+  display: flex;
+  align-items: center;
 }
+
 .logo i{
   color: var(--main-color);
   font-size: 28px;
@@ -43,8 +44,8 @@ align-items: center;
 .main a{
   margin-right: 25px;
   margin-left: 10px;
-  color:var(--text-color);
-  font-size: 1.1rem;
+  color: var(--text-color);
+  font-size: 1.4rem;
   font-weight: 500;
   transition:all .50s ease;
 }
@@ -83,14 +84,8 @@ align-items: center;
   display: inline-block;
 }
 
-.Tips-box{
-  color:var(--text-color);
-
-}
-
-.tips-box {
-  display: flex;
-  color: var(--body-color);
+.header {
+  background-color: rgb(128, 56, 56) !important;
 }
 
 .divbox {
@@ -100,4 +95,9 @@ align-items: center;
   margin: 0 2%;
   color: var(--body-color);
   box-sizing: border-box;
+}
+
+.tips-box {
+  display: flex;
+  color: var(--body-color);
 }
