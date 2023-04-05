@@ -1,3 +1,8 @@
+/**
+*@author Petter Carlsson, Teo Gefors
+*
+*/
+
 create table TestTablePerson (
 	person_id serial,
 	f_name varchar(20),
@@ -54,7 +59,7 @@ begin
 	commit;
 end; $$
 
-create table Organisation(
+create table Organization(
 	org_id serial primary key,
 	name varchar(60) not null,
 	address varchar(100),
@@ -66,7 +71,7 @@ create table Person(
 	username varchar(50) not null,
 	password varchar(30) not null,
 	org_id int,
-	foreign key(org_id) references Organisation(org_id)
+	foreign key(org_id) references Organization(org_id)
 );
 
 create table BookingSchema(
@@ -86,7 +91,7 @@ CREATE OR REPLACE PROCEDURE add_organization(
 LANGUAGE plpgsql
 AS $$
 BEGIN
-    INSERT INTO Organisation (name, address, email)
+    INSERT INTO Organization (name, address, email)
     VALUES (p_name, p_address, p_email);
 COMMIT;
 END;
@@ -117,6 +122,70 @@ AS $$
 BEGIN
     INSERT INTO BookingSchema (start_time, end_time, per_id, booking_date)
     VALUES (p_start_time, p_end_time, p_per_id, p_booking_date);
+COMMIT;
+END;
+$$;
+
+CREATE OR REPLACE PROCEDURE remove_booking(
+    p_per_id INT,
+    p_start_time TIME,
+    p_end_time TIME,
+    p_booking_date DATE
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    DELETE FROM BookingSchema WHERE per_id = p_per_id AND start_time = p_start_time AND end_time = p_end_time AND booking_date = p_booking_date;
+COMMIT;
+END;
+$$;
+
+CREATE OR REPLACE PROCEDURE remove_all_bookings_for_person(
+    p_per_id INT
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    DELETE FROM BookingSchema WHERE per_id = p_per_id;
+COMMIT;
+END;
+$$;
+
+CREATE OR REPLACE PROCEDURE remove_person(
+	p_username VARCHAR(50), 
+	p_org_id INT
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    DELETE FROM Person WHERE username = p_username AND org_id = p_org_id;
+COMMIT;
+END;
+$$;
+
+CREATE OR REPLACE PROCEDURE remove_all_persons_for_org(
+    p_org_id INT
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    DELETE FROM BookingSchema
+    WHERE per_id IN (SELECT per_id FROM Person WHERE org_id = p_org_id);
+    DELETE FROM Person WHERE org_id = p_org_id;
+COMMIT;
+END;
+$$;
+
+CREATE OR REPLACE PROCEDURE remove_org(
+    p_org_id INT
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    DELETE FROM BookingSchema
+    WHERE per_id IN (SELECT per_id FROM Person WHERE org_id = p_org_id);
+    DELETE FROM Person WHERE org_id = p_org_id;
+    DELETE FROM Organization WHERE org_id = p_org_id;
 COMMIT;
 END;
 $$;
