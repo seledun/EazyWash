@@ -17,7 +17,7 @@ export default function Index() {
 
       <main className={styles.main}>
           <header className='container-fluid header'>            
-            <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
+            <nav className="navbar navb navbar-dark bg-dark navbar-expand-lg">
               <div className="container-fluid">
                 <a className="navbar-brand" href="#"><i className="bx bxs-washer nav-logo"></i>EazyWash</a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,24 +26,24 @@ export default function Index() {
                 <div className="collapse navbar-collapse" id="navbarText">
                   <ul className="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
                   <li className="nav-item">
-                      <a className="nav-link active" aria-current="page" href="#">Home</a>
+                      <a className="nav-link" href="#">Home</a>
                     </li>
                     <li className="nav-item">
-                      <a className="nav-link active" aria-current="page" href="#">Boka tid</a>
+                      <a className="nav-link" href="#">Boka tid</a>
                     </li>
                     <li className="nav-item">
-                      <a className="nav-link active" aria-current="page" href="#">Tips</a>
+                      <a className="nav-link" href="#">Tips</a>
                     </li>
                     <li className="nav-item">
-                      <a className="nav-link active" aria-current="page" href="#">Kontakta oss</a>
+                      <a className="nav-link" href="#">Kontakta oss</a>
                     </li>
                   </ul>
                   <ul className="navbar-nav mb-2 mb-lg-0"> 
                       <li className="nav-item">
-                      <a className="nav-link active" href="#"><i className="ri-user-fill"></i>Logga in</a>
+                      <a className="nav-link" href="#"><i className="ri-user-fill"></i>Logga in</a>
                     </li>
                     <li className="nav-item">
-                      <a className="nav-link active" href="#">Registrera</a>
+                      <a className="nav-link" href="#">Registrera</a>
                     </li>
                   </ul>
                 </div>
