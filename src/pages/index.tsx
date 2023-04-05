@@ -17,7 +17,7 @@ export default function Index() {
 
       <main className={styles.main}>
           <header className='container-fluid header'>            
-            <nav className="navbar navb navbar-dark bg-dark navbar-expand-lg">
+            <nav className="navbar navb navbar-dark bg-dark navbar-expand-lg py-3">
               <div className="container-fluid">
                 <a className="navbar-brand" href="#"><i className="bx bxs-washer nav-logo"></i>EazyWash</a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
