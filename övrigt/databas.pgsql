@@ -56,23 +56,67 @@ end; $$
 
 create table Organisation(
 	org_id serial primary key,
-	namn varchar(60) not null,
-	adress varchar(100),
-	email varchar(50) not null
+	name varchar(60) not null,
+	address varchar(100),
+	email varchar(50) not null	
 );
 
 create table Person(
 	per_id serial primary key,
-	användarnamn varchar(50) not null,
-	lösenord varchar(30) not null,
+	username varchar(50) not null,
+	password varchar(30) not null,
 	org_id int,
 	foreign key(org_id) references Organisation(org_id)
 );
 
-create table BokingSchema(
+create table BookingSchema(
 	bok_id serial primary key,
 	start_time time not null,
 	end_time time not null,
 	per_id int not null,
+	booking_date date not null,
 	foreign key(per_id) references Person(per_id)
 );
+
+CREATE OR REPLACE PROCEDURE add_organization(
+    p_name VARCHAR(60),
+    p_address VARCHAR(100),
+    p_email VARCHAR(50)
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    INSERT INTO Organisation (name, address, email)
+    VALUES (p_name, p_address, p_email);
+COMMIT;
+END;
+$$;
+
+CREATE OR REPLACE PROCEDURE add_person(
+    p_username VARCHAR(50),
+    p_password VARCHAR(30),
+    p_org_id INT
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    INSERT INTO Person (username, password, org_id)
+    VALUES (p_username, p_password, p_org_id);
+COMMIT;
+END;
+$$;
+
+CREATE OR REPLACE PROCEDURE add_booking(
+    p_start_time TIME,
+    p_end_time TIME,
+    p_per_id INT,
+    p_booking_date DATE
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    INSERT INTO BookingSchema (start_time, end_time, per_id, booking_date)
+    VALUES (p_start_time, p_end_time, p_per_id, p_booking_date);
+COMMIT;
+END;
+$$;
