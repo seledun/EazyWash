@@ -26,24 +26,24 @@ export default function Index() {
                 <div className="collapse navbar-collapse" id="navbarText">
                   <ul className="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
                   <li className="nav-item">
-                      <a className="nav-link" href="#">Home</a>
+                      <a className="nav-link px-4" href="#">Home</a>
                     </li>
                     <li className="nav-item">
-                      <a className="nav-link" href="#">Boka tid</a>
+                      <a className="nav-link px-4" href="#">Boka tid</a>
                     </li>
                     <li className="nav-item">
-                      <a className="nav-link" href="#">Tips</a>
+                      <a className="nav-link px-4" href="#">Tips</a>
                     </li>
                     <li className="nav-item">
-                      <a className="nav-link" href="#">Kontakta oss</a>
+                      <a className="nav-link px-4" href="#">Kontakta oss</a>
                     </li>
                   </ul>
                   <ul className="navbar-nav mb-2 mb-lg-0"> 
                       <li className="nav-item">
-                      <a className="nav-link" href="#"><i className="ri-user-fill"></i>Logga in</a>
+                      <a className="nav-link px-4" href="#"><i className="ri-user-fill"></i>Logga in</a>
                     </li>
                     <li className="nav-item">
-                      <a className="nav-link" href="#">Registrera</a>
+                      <a className="nav-link px-4" href="#">Registrera</a>
                     </li>
                   </ul>
                 </div>
