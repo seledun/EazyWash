@@ -189,3 +189,21 @@ BEGIN
 COMMIT;
 END;
 $$;
+
+CREATE OR REPLACE FUNCTION get_booking_info_by_org_id(
+	p_org_id INT
+	)
+RETURNS TABLE(
+	start_time TIME, 
+	end_time TIME, 
+	booking_date DATE
+	) 
+AS $$
+BEGIN
+    RETURN QUERY
+        SELECT bs.start_time, bs.end_time, bs.booking_date
+        FROM BookingSchema bs
+        JOIN Person p ON bs.per_id = p.per_id
+        WHERE p.org_id = p_org_id;
+END;
+$$ LANGUAGE plpgsql;
