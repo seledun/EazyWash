@@ -198,6 +198,7 @@ RETURNS TABLE(
 	end_time TIME, 
 	booking_date DATE
 	) 
+LANGUAGE plpgsql
 AS $$
 BEGIN
     RETURN QUERY
@@ -206,20 +207,37 @@ BEGIN
         JOIN Person p ON bs.per_id = p.per_id
         WHERE p.org_id = p_org_id;
 END;
-$$ LANGUAGE plpgsql;
+$$ 
 
 //select * from get_booking_info_by_org_id(n);
 
 CREATE OR REPLACE FUNCTION check_booking_limit(
 	p_id int
 )
-RETURNS boolean AS $$
+RETURNS boolean 
+LANGUAGE plpgsql
+AS $$
 DECLARE
   booking_count int;
 BEGIN
   SELECT COUNT(*) INTO booking_count FROM BookingSchema WHERE per_id = p_id;
   RETURN booking_count < 2;
 END;
-$$ LANGUAGE plpgsql;
+$$ 
 
 //select check_booking_limit(n);
+
+CREATE OR REPLACE FUNCTION delete_past_bookings()
+RETURNS TRIGGER 
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  DELETE FROM BookingSchema WHERE booking_date <= now()::date;
+  RETURN NULL;
+END;
+$$
+
+CREATE TRIGGER delete_past_bookings_trigger
+AFTER INSERT OR UPDATE ON BookingSchema
+FOR EACH ROW
+EXECUTE FUNCTION delete_past_bookings();
