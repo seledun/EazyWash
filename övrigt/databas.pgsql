@@ -207,3 +207,19 @@ BEGIN
         WHERE p.org_id = p_org_id;
 END;
 $$ LANGUAGE plpgsql;
+
+//select * from get_booking_info_by_org_id(n);
+
+CREATE OR REPLACE FUNCTION check_booking_limit(
+	p_id int
+)
+RETURNS boolean AS $$
+DECLARE
+  booking_count int;
+BEGIN
+  SELECT COUNT(*) INTO booking_count FROM BookingSchema WHERE per_id = p_id;
+  RETURN booking_count < 2;
+END;
+$$ LANGUAGE plpgsql;
+
+//select check_booking_limit(n);
