@@ -13,11 +13,20 @@ export default function login(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
-    if (req.method === 'POST') { // Only need to handle POST-requests for the login.
-        res.status(200).json({sucess: 'true'});
+    if (req.method === 'POST') {
+
+        const {id, pin} = req.body;
+        let parsedPin = Number(pin);
+
+        if (!isNaN(parsedPin) && id.length < 12) { // If pin-code is numeric && id length < 12 chars
+            res.status(200).json({success: 'true'});
+        } 
         
+        else {
+            res.status(500).json({success: 'false'});
+        }
 
     } else {
-        res.status(501); // GET-requests not implemented.
+        res.status(501); // Only respond to POST-request type.
     }
 }
