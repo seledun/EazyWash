@@ -2,9 +2,6 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from '@prisma/client'
 
 /**
- * Login API, needs a POST-object from the user containing 
- * username and a 4-number PIN.
- * 
  * @param req Request-object from the client.
  * @param res Response-object to for the client to get a response
  * @author Sebastian Ledung
@@ -13,7 +10,8 @@ import { PrismaClient } from '@prisma/client'
  */
 
 /**
- * pin can only be between 1-30 characters long
+ * Validation of the supplied password / pin code\
+ * check: pin can only be between 1-30 characters long
  * @author Sebastian Ledung
  */
 function validatePinCode(pin: string) {
@@ -21,9 +19,10 @@ function validatePinCode(pin: string) {
 }
 
 /**
- * id can only be length > 0 and length < 50
- * id can only be letters and numbers a-z, A-Z and 0-9
+ * check: id.length > 0 and id.length < 50.\
+ * check: id needs to be a letter (case-insensitive) or a number.
  * @param id id to validate
+ * @return true if id passes the checks above.
  * @author Sebastian Ledung 
  */
 function validateUserName(id: string) {
@@ -32,6 +31,15 @@ function validateUserName(id: string) {
     return (lengthValid && charsValid);
 }
 
+/**
+ * Function that handles the endpoint /api/login.ts\
+ * validates form-data and tries to authenticate the user.
+ * @param req Request-object handling information sent by the user.
+ * @param res Response-object handling our response to the requesting user.
+ * @author Sebastian Ledung
+ * @author Teo Gefors
+ * @author Petter Carlsson
+ */
 export default async function login(
     req: NextApiRequest,
     res: NextApiResponse
