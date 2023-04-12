@@ -5,6 +5,6 @@ Tvätta med oss!
 Kräver NodeJs, https://nodejs.org/en (Senaste LTS versionen)
 
 # Instruktioner
-Öppna en terminal i mappen och kör kommandona:
+Öppna en terminal i mappen och kör kommandona:\
 npm install\
 npm run dev
