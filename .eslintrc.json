@@ -20,5 +20,6 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "complexity": ["warn", {"max" : 5}]
     }
 }
