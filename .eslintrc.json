@@ -20,6 +20,9 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "complexity": ["warn", {"max" : 5}]
+        "complexity": ["warn", {"max" : 5}],
+        "indent": ["error", 2],
+        "react/react-in-jsx-scope": "off",
+        "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }] //should add ".ts" if typescript project
     }
 }

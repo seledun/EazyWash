@@ -12,14 +12,14 @@ import type { NextApiRequest, NextApiResponse } from "next";
  */
 
 export default function booking(
-    req: NextApiRequest,
-    res: NextApiResponse
+  req: NextApiRequest,
+  res: NextApiResponse
 ) {
-    if (req.method === 'GET') { // Only need to handle POST-requests for the login.
-        res.status(200).json({sucess: 'true'});
+  if (req.method === 'GET') { // Only need to handle POST-requests for the login.
+    res.status(200).json({sucess: 'true'});
         
 
-    } else {
-        res.status(501); // GET-requests not implemented.
-    }
+  } else {
+    res.status(501); // GET-requests not implemented.
+  }
 }

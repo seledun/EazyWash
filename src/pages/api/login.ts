@@ -15,7 +15,7 @@ import { PrismaClient } from '@prisma/client'
  * @author Sebastian Ledung
  */
 function validatePinCode(pin: string) {
-    return (pin.length > 0 && pin.length <= 30);
+  return (pin.length > 0 && pin.length <= 30);
 }
 
 /**
@@ -26,9 +26,9 @@ function validatePinCode(pin: string) {
  * @author Sebastian Ledung 
  */
 function validateUserName(id: string) {
-    let lengthValid = (id.length > 0 && id.length <= 50);
-    let charsValid = id.match(/^[A-Za-z0-9]*$/);
-    return (lengthValid && charsValid);
+  const lengthValid = (id.length > 0 && id.length <= 50);
+  const charsValid = id.match(/^[A-Za-z0-9]*$/);
+  return (lengthValid && charsValid);
 }
 
 /**
@@ -41,35 +41,34 @@ function validateUserName(id: string) {
  * @author Petter Carlsson
  */
 export default async function login(
-    req: NextApiRequest,
-    res: NextApiResponse
+  req: NextApiRequest,
+  res: NextApiResponse
 ) {
-    if (req.method === 'POST') {
+  if (req.method === 'POST') {
 
-        const {id, pin} = req.body;
-        let parsedPin = Number(pin);
+    const {id, pin} = req.body;
+ 
+    if (validateUserName(id) && validatePinCode(pin)) {
+      const prisma = new PrismaClient()
+      res.status(200).json({success: 'true'});
 
-        if (validateUserName(id) && validatePinCode(pin)) {
-            const prisma = new PrismaClient()
-            res.status(200).json({success: 'true'});
+      // const result = await prisma.$queryRaw`call add_person('test1231', '123', 2);`;
 
-            // const result = await prisma.$queryRaw`call add_person('test1231', '123', 2);`;
+      const result = await prisma.person.findFirst(id);
+      const password = result?.password;
 
-            const result = await prisma.person.findFirst(id);
-            let password = result?.password;
+      if (password === pin) {
+        console.log("Nice! du är inne");
+      }
 
-            if (password === pin) {
-                console.log("Nice! du är inne");
-            }
-
-            prisma.$disconnect;
-        } 
+      prisma.$disconnect;
+    } 
         
-        else {
-            res.status(500).json({success: 'false'});
-        }
-
-    } else {
-        res.status(501); // Only respond to POST-request type.
+    else {
+      res.status(500).json({success: 'false'});
     }
+
+  } else {
+    res.status(501); // Only respond to POST-request type.
+  }
 }
