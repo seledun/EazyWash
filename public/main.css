@@ -193,7 +193,7 @@ header{
 
   .btn-close:hover{
    transition: 0.5s;
-   color: var(--main-color);
+   color: var(--main-color) !important;
   }
 
   .button{
