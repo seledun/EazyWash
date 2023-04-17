@@ -44,9 +44,12 @@ export default async function login(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  res.setHeader('Access-Control-Allow-Origin', '*'); // Only for testing, remove later
+
   if (req.method === 'POST') {
 
     const {id, pin} = req.body;
+    
  
     if (validateUserName(id) && validatePinCode(pin)) {
       const prisma = new PrismaClient()
@@ -54,8 +57,9 @@ export default async function login(
 
       // const result = await prisma.$queryRaw`call add_person('test1231', '123', 2);`;
 
-      const result = await prisma.$queryRaw`select log_in({id}, {pin})`;
-      
+      const result = await prisma.$queryRaw`select log_in(${id}, ${pin})`;
+      console.log(result);
+
       if (result === true) {
         console.log("Nice! du är inne");
       }
