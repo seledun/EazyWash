@@ -1,10 +1,5 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import styles from '@/styles/index.module.css'
-import backgroundImage from 'public/xp.png'
-import loginImage from 'public/user.svg'
-import washerLogo from 'public/washer.svg'
-
 
 export default function Index() {
   return (
@@ -19,56 +14,54 @@ export default function Index() {
       </Head>
 
       <main className={styles.main}>
-        <header className='container-fluid header'>            
-          <nav className="navbar navb navbar-dark bg-dark navbar-expand-lg">
-            <div className="container-fluid">
-              <a className="navbar-brand" href="#"><Image src={washerLogo} alt="Logotyp" />EazyWash</a>
-              <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-              </button>
-              <div className="collapse navbar-collapse" id="navbarText">
-                <ul className="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
-                  <li className="nav-item">
-                    <a className="nav-link mx-4 my-2" href="#">Home</a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link mx-4 my-2" href="#">Boka tid</a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link mx-4 my-2" href="#">Tips</a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link mx-4 my-2" href="#">Kontakta oss</a>
-                  </li>
-                </ul>
-                <ul className="navbar-nav mb-2 mb-lg-0"> 
-                  <li className="nav-item">
-                    <a className="nav-link mx-4 my-2" href="#"><Image src={loginImage} alt="Login image" />Logga in</a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link mx-4 my-2" href="#">Registrera</a>
-                  </li>
-                </ul>
-              </div>
+        <header>
+          <a href="#"className="logo"><i className='bx bxs-washer'></i><span>EazyWash</span></a>
+
+          <ul className="navbar">
+            <li><a href="#home" className="active">Home</a></li>
+            <li><a href="#bookTime">Boka Tid</a></li>
+            <li><a href="#tips"> Tips</a></li>
+            <li><a href="#kontaktaOss"> Kontakta oss</a></li>
+          </ul>
+        
+
+          <div className="main">
+            <a href="#" className="user"><i className="ri-user-fill"></i>Logga in</a>
+          </div>
+          <div className="popup">
+            <div className="popup-content">
+              <form><i className="ri-user-fill"></i>
+                <button data-close-button className="btn-close">&times;</button>
+                <h2>Sign in</h2>
+                <div className="InputBox">
+                  <input type="text" required={true} />
+                  <span>Username</span>
+                  <i></i>
+                </div>
+                <div className="InputBox">
+                  <input type="password" required={true} />
+                  <span>password</span>
+                  <i></i>
+                </div>
+                <div className="Links"> 
+                  <a href="#">Forgot Password</a>
+                </div>
+                <a href="#" className="button">Login</a>
+              </form>
             </div>
-          </nav>
+          </div>
         </header>
       </main>
 
-      <div className="container-fluid">
-        <Image src={backgroundImage} alt="background image" />
-        <div className="tips-box">
-          <div className="divbox">
-            <h2>This is the content of the first div box</h2>
-            <p>Here is some text for the first div box</p>
-          </div>
-          <div className="divbox">
-            <h2>This is the content of the second div box</h2>
-            <p>Here is some text for the second div box</p>
-          </div>
-        </div>
-      </div>
-
+      <section id="home">EazyWash</section>
+      <section></section>
+      <section></section>
+      <section></section>
+      <section></section>
+      <section id="bookTime">BokaTid</section>
+      <section id="tips">Tips</section>
+      <section id="kontaktaOss">Kontakta oss</section>
+      <script src="main.js" />
     </>
   )
 }
