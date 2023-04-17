@@ -1,10 +1,12 @@
-*{
+* {
     margin: 0;
     box-sizing: border-box;
     font-family: 'poppins',sans-serif; 
-    text-decoration: none;
+    text-decoration: none !important;
+    scroll-behavior: smooth;
     list-style: none;
 }
+
 :root{
     --bg-color: #222327;
     --text-color: #fff;
@@ -24,13 +26,14 @@ header{
     width: 100%;
     top: 0px;
     right: 0px;
-    z-index: 1000;
+    position: fixed;
     display: flex;
     align-items: center;
     justify-content: space-between;
     background:var(--bg-color);
     padding:20px;
-    transition: all, .50s ease;
+    transition: .3s;
+    z-index: 100;
 }
 
 .logo{
@@ -139,24 +142,33 @@ header{
 
   .popup{
     background-color:rgba(0, 0, 0, 0.6);
-    width: 100% ;
-    height: 100%;
+    width: 100vh;
+    height: 100vh;
     position: absolute;
     top: 0;
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     text-align: center;
   }
 
   .popup-content{
-    height: 250px;
-    width: 500px;
-    background-color: var(--button-color);
-    padding: 20px;
-    border-radius: 5px;
-    position:relative;
+    position: relative;
+    width: 300px;
+    height: 420px;
+    background: #1c1c1c;
+    border-radius: 8px;
+  }
 
+  .popup-content form{
+    position: absolute;
+    inset: 4px;
+    background-color: rgb(59, 49, 49);
+    padding: 50px 40px;
+   border-radius:8px ;
+   z-index: 2;
+   display: flex;
+   flex-direction: column;
   }
 
   input{
@@ -181,7 +193,7 @@ header{
 
   .btn-close:hover{
    transition: 0.5s;
-   color: var(--button-hoverColor);
+   color: var(--main-color);
   }
 
   .button{
@@ -197,10 +209,22 @@ header{
   }
 
   .button:hover{
-    background:var(--button-hoverColor);
+    background:var(--main-color);
     letter-spacing: 0.25em;
-    box-shadow: 0 0 35px var(--button-hoverColor);
+    box-shadow: 0 0 35px var(--main-color);
     
+  }
+
+
+  section{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--bg-color);
+    font-size: 100px;
+    color: var(--text-color);
+    font-weight: 600;
   }
 
   .ri-user-fill{
@@ -211,5 +235,8 @@ header{
   ::placeholder{
     color: var(--bg-color);
   }
+
+
+ 
 
  
