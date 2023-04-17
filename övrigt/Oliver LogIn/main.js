@@ -1,5 +1,3 @@
-import { PrismaClient } from '@prisma/client'
-const prisma = new PrismaClient();
 
 document.getElementsByClassName("LoggaInButton")[0].addEventListener("click",function(){
 	document.querySelector(".popup").style.display="flex";
@@ -20,5 +18,16 @@ loginButton.addEventListener('click', function() {
   const username = usernameInput.value;
   const password = passwordInput.value;
 
+  fetch('http://localhost:3000/api/login', {
+    method: 'POST',
+    headers:{
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },    
+    body: new URLSearchParams({
+        'id': username,
+        'pin': password
+    })
+});
+  
   console.log(`Username: ${username}, Password: ${password}`);
 });

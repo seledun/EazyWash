@@ -54,10 +54,9 @@ export default async function login(
 
       // const result = await prisma.$queryRaw`call add_person('test1231', '123', 2);`;
 
-      const result = await prisma.person.findFirst(id);
-      const password = result?.password;
-
-      if (password === pin) {
+      const result = await prisma.$queryRaw`select log_in({id}, {pin})`;
+      
+      if (result === true) {
         console.log("Nice! du är inne");
       }
 
