@@ -241,3 +241,53 @@ CREATE TRIGGER delete_past_bookings_trigger
 AFTER INSERT OR UPDATE ON BookingSchema
 FOR EACH ROW
 EXECUTE FUNCTION delete_past_bookings();
+
+CREATE OR REPLACE FUNCTION log_in(
+    p_username varchar(50),
+    p_password varchar(30)
+)
+RETURNS BOOLEAN
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    found_person RECORD;
+BEGIN
+    SELECT *
+    INTO found_person
+    FROM Person
+    WHERE username = p_username AND password = p_password;
+    
+    IF found_person IS NOT NULL THEN
+        RETURN TRUE;
+    ELSE
+        RETURN FALSE;
+    END IF;
+END;
+$$
+
+//select log_in('5B', '123')
+
+CREATE OR REPLACE FUNCTION get_person_id(
+    p_username varchar(50),
+    p_password varchar(30)
+)
+RETURNS INTEGER
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    found_person RECORD;
+BEGIN
+    SELECT per_id
+    INTO found_person
+    FROM Person
+    WHERE username = p_username AND password = p_password;
+    
+    IF found_person IS NOT NULL THEN
+        RETURN found_person.per_id;
+    ELSE
+        RETURN NULL;
+    END IF;
+END;
+$$
+
+//select get_person_id('5B', '123')
