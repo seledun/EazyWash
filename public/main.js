@@ -29,7 +29,11 @@ document.getElementsByClassName("btn-close")[0].addEventListener("click",functio
   document.querySelector(".popup").style.display = "none";
 		
 })
-  
+/**
+ * @author Sebastian Ledung
+ * @author Teo Gefors
+ * @author Petter Carlsson
+ */  
 const loginButton = document.querySelector('.button');
 loginButton.addEventListener('click', function() {
   
