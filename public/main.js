@@ -1,6 +1,7 @@
+// oliver
 let sections = document.querySelectorAll('section');
 let navLinks = document.querySelectorAll('header .navbar a');
-
+// oliver
 window.onscroll = () => {
   sections.forEach(sec => {
     let top = window.scrollY;
@@ -19,11 +20,11 @@ window.onscroll = () => {
     }
   });
 };
-
+// oliver
 document.getElementsByClassName("user")[0].addEventListener("click",function(){
   document.querySelector(".popup").style.display="flex";
 })
-
+// Oliver 
 document.getElementsByClassName("btn-close")[0].addEventListener("click",function(){
   console.log("hej");
   document.querySelector(".popup").style.display = "none";
