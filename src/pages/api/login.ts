@@ -25,10 +25,10 @@ function validatePinCode(pin: string) {
  * @return true if id passes the checks above.
  * @author Sebastian Ledung 
  */
-function validateUserName(id: string) {
-  const lengthValid = (id.length > 0 && id.length <= 50);
-  const charsValid = id.match(/^[A-Za-z0-9]*$/);
-  return (lengthValid && charsValid);
+function validateUsername(id: string) {
+  const LENGHTVALID = (id.length > 0 && id.length <= 50);
+  const CHARSVALID = id.match(/^[A-Za-z0-9]*$/);
+  return (LENGHTVALID && CHARSVALID);
 }
 
 /**
@@ -49,22 +49,21 @@ export default async function login(
   if (req.method === 'POST') {
 
     const {id, pin} = req.body;
-    
- 
-    if (validateUserName(id) && validatePinCode(pin)) {
-      const prisma = new PrismaClient()
+     
+    if (validateUsername(id) && validatePinCode(pin)) {
+      const PRISMA = new PrismaClient();
       res.status(200).json({success: 'true'});
 
       // const result = await prisma.$queryRaw`call add_person('test1231', '123', 2);`;
 
-      const result = await prisma.$queryRaw`select log_in(${id}, ${pin})`;
-      console.log(result);
+      const RESULT = await PRISMA.$queryRaw`select log_in(${id}, ${pin})`;
+      console.log(RESULT);
 
-      if (result === true) {
+      if (RESULT === true) {
         console.log("Nice! du är inne");
       }
 
-      prisma.$disconnect;
+      PRISMA.$disconnect;
     } 
         
     else {
