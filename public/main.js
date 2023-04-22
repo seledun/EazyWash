@@ -63,6 +63,7 @@ LOGINBUTTON.addEventListener('click', async function() {
     // else, raises authentication error.
     .then(response => {
       if (!response.ok) {
+        const API_RESPONSE = response.status;
         throw new Error("Authentication failed, StatusCode: " + response.status);
       }
       return response.json();
