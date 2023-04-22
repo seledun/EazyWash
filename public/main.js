@@ -40,7 +40,8 @@ document.getElementsByClassName("btn-close")[0].addEventListener("click",functio
  * @author Petter Carlsson
  */  
 const LOGINBUTTON = document.querySelector('.button');
-LOGINBUTTON.addEventListener('click', function() {
+
+LOGINBUTTON.addEventListener('click', async function() {
   
   const USERNAMEINPUT = document.querySelector('input[type="text"]');
   const PASSWORDINPUT = document.querySelector('input[type="password"]');
@@ -57,8 +58,23 @@ LOGINBUTTON.addEventListener('click', function() {
       'id': USERNAME,
       'pin': PASSWORD
     })
-  });
-    
-  console.log(`Username: ${USERNAME}, Password: ${PASSWORD}`);
+  })
+    // Checks the status code if the authentication was successful,
+    // else, raises authentication error.
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Authentication failed, StatusCode: " + response.status);
+      }
+      return response.json();
+    })
+
+    // Outputs the JSON-response to console.
+    .then(json => {
+      console.log(json);
+    })
+
+    // Catch-all for authentication errors.
+    .catch(function() {
+      console.log("Authentication failed");
+    });
 });
-  
