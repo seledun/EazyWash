@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import { cookies } from 'next/headers';
 import prisma from '../../utils/prisma';
 import crypto from 'crypto';
 import { time } from "console";
@@ -66,20 +67,40 @@ export default async function login(
       type LoginRequest = {
         status: boolean;
       };
-      
-      const RESULT:LoginRequest[] = await prisma.$queryRaw`select log_in(${id}, ${pin}) as status`;
 
+      const RESULT:LoginRequest[] = await prisma.$queryRaw`select log_in(${id}, ${pin}) as status`;
 
       if (RESULT[0].status === true) {
         console.log("Nice! du är inne");
 
-        res.status(200).json({success: 'true'}); // Authentication success.
+        const FIND_ID = await prisma.person.findFirst({
+          where: {
+            username: id
+          }
+        });
 
+        // Creates session variables.
+        const PERSON_ID = FIND_ID?.per_id;
         const TOKEN = crypto.randomUUID();
-        let timeNow = Date.now();
+        const EXPIRES = new Date((Date.now() + (1000 * 60 * 30)));
 
-        timeNow = timeNow + (1000 * 60 * 60); // Expires 
+        // Creates a session for the authenticated user.
+        await prisma.authentication.create({
+          data: {
+            person: PERSON_ID,
+            username: id,
+            token: TOKEN,
+            expires: new Date(EXPIRES)
+          }
+        });
 
+        // Sets the client cookie with a session-id and the expiry time for the cookie.
+        res.setHeader('set-cookie', [
+          'session-id=' + TOKEN + '; SameSite=strict',
+          'expires=' + EXPIRES.getTime() + '; SameSite=strict'
+        ]);
+
+        res.status(200).json({success: 'true', username: id, session: TOKEN}); // Authentication success.
 
       } else {
         res.status(401).json({success: 'false'}); // Wrong username or password.
