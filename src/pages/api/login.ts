@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from '../../utils/prisma';
+import crypto from 'crypto';
 
 /**
  * @param req Request-object from the client.
@@ -40,14 +41,6 @@ function validateUsername(id: string) : boolean {
 }
 
 /**
- * Defines the response-type for the login request.
- * @author Sebastian Ledung
- */
-type LoginRequest = {
-  status: boolean;
-};
-
-/**
  * Function that handles the endpoint /api/login.ts\
  * validates form-data and tries to authenticate the user.
  * @param req Request-object handling information sent by the user.
@@ -67,11 +60,20 @@ export default async function login(
     const {id, pin} = req.body;
      
     if (validateUsername(id) && validatePinCode(pin)) {
+      
+      type LoginRequest = {
+        status: boolean;
+      };
+      
       const RESULT:LoginRequest[] = await prisma.$queryRaw`select log_in(${id}, ${pin}) as status`;
+
 
       if (RESULT[0].status === true) {
         console.log("Nice! du är inne");
+
         res.status(200).json({success: 'true'}); // Authentication success.
+
+        const UUID:string = crypto.randomUUID();
 
       } else {
         res.status(401).json({success: 'false'}); // Wrong username or password.
