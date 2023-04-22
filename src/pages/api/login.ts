@@ -1,6 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from '../../utils/prisma';
 import crypto from 'crypto';
+import { time } from "console";
+import { PrismaClient } from "@prisma/client";
 
 /**
  * @param req Request-object from the client.
@@ -73,7 +75,11 @@ export default async function login(
 
         res.status(200).json({success: 'true'}); // Authentication success.
 
-        const UUID:string = crypto.randomUUID();
+        const TOKEN = crypto.randomUUID();
+        let timeNow = Date.now();
+
+        timeNow = timeNow + (1000 * 60 * 60); // Expires 
+
 
       } else {
         res.status(401).json({success: 'false'}); // Wrong username or password.
