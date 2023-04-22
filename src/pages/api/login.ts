@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { PrismaClient } from '@prisma/client'
+import prisma from '../../utils/prisma';
 
 /**
  * @param req Request-object from the client.
@@ -14,8 +14,12 @@ import { PrismaClient } from '@prisma/client'
  * check: pin can only be between 1-30 characters long
  * @author Sebastian Ledung
  */
-function validatePinCode(pin: string) {
-  return (pin.length > 0 && pin.length <= 30);
+function validatePinCode(pin: string) : boolean {
+  if (pin !== undefined) {
+    return (pin.length > 0 && pin.length <= 30);
+  }
+  
+  return false;
 }
 
 /**
@@ -25,11 +29,23 @@ function validatePinCode(pin: string) {
  * @return true if id passes the checks above.
  * @author Sebastian Ledung 
  */
-function validateUsername(id: string) {
-  const LENGHTVALID = (id.length > 0 && id.length <= 50);
-  const CHARSVALID = id.match(/^[A-Za-z0-9]*$/);
-  return (LENGHTVALID && CHARSVALID);
+function validateUsername(id: string) : boolean {
+  if (id !== undefined) {
+    const LENGHTVALID = (id.length > 0 && id.length <= 50);
+    const CHARSVALID = id.match(/^[A-Za-z0-9]*$/);
+    return (LENGHTVALID && (CHARSVALID !== null));
+  }
+
+  return false;
 }
+
+/**
+ * Defines the response-type for the login request.
+ * @author Sebastian Ledung
+ */
+type LoginRequest = {
+  status: boolean;
+};
 
 /**
  * Function that handles the endpoint /api/login.ts\
@@ -51,19 +67,15 @@ export default async function login(
     const {id, pin} = req.body;
      
     if (validateUsername(id) && validatePinCode(pin)) {
-      const PRISMA = new PrismaClient();
       res.status(200).json({success: 'true'});
 
-      // const result = await prisma.$queryRaw`call add_person('test1231', '123', 2);`;
+      const RESULT:LoginRequest[] = await prisma.$queryRaw`select log_in(${id}, ${pin}) as status`;
 
-      const RESULT = await PRISMA.$queryRaw`select log_in(${id}, ${pin})`;
-      console.log(RESULT);
-
-      if (RESULT === true) {
+      if (RESULT[0].status === true) {
         console.log("Nice! du är inne");
       }
 
-      PRISMA.$disconnect;
+      prisma.$disconnect;
     } 
         
     else {
