@@ -67,19 +67,21 @@ export default async function login(
     const {id, pin} = req.body;
      
     if (validateUsername(id) && validatePinCode(pin)) {
-      res.status(200).json({success: 'true'});
-
       const RESULT:LoginRequest[] = await prisma.$queryRaw`select log_in(${id}, ${pin}) as status`;
 
       if (RESULT[0].status === true) {
         console.log("Nice! du är inne");
+        res.status(200).json({success: 'true'}); // Authentication success.
+
+      } else {
+        res.status(401).json({success: 'false'}); // Wrong username or password.
       }
 
       prisma.$disconnect;
     } 
         
     else {
-      res.status(500).json({success: 'false'});
+      res.status(500).json({success: 'false'}); // If any validation fails.
     }
 
   } else {
