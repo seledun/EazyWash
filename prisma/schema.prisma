@@ -25,13 +25,13 @@ model organization {
 }
 
 model person {
-  per_id                                       Int             @id @default(autoincrement())
-  username                                     String          @db.VarChar(50)
-  password                                     String          @db.VarChar(30)
+  per_id                                       Int              @id @default(autoincrement())
+  username                                     String           @db.VarChar(50)
+  password                                     String           @db.VarChar(30)
   org_id                                       Int?
-  authentication_authentication_personToperson authentication? @relation("authentication_personToperson")
+  authentication_authentication_personToperson authentication[] @relation("authentication_personToperson")
   bookingschema                                bookingschema[]
-  organization                                 organization?   @relation(fields: [org_id], references: [org_id], onDelete: NoAction, onUpdate: NoAction)
+  organization                                 organization?    @relation(fields: [org_id], references: [org_id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model testtableperson {
@@ -51,9 +51,11 @@ model testtableschema {
 }
 
 model authentication {
-  person                               Int      @id @default(autoincrement())
+  person                               Int      @default(autoincrement())
   username                             String   @db.VarChar(50)
-  token                                String   @db.VarChar(36)
+  token                                String   @id @db.VarChar(36)
   expires                              DateTime @db.Timestamp(6)
   person_authentication_personToperson person   @relation("authentication_personToperson", fields: [person], references: [per_id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@unique([token, expires])
 }

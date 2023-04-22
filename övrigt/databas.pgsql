@@ -84,11 +84,12 @@ create table BookingSchema(
 );
 
 create table Authentication(
-	person serial primary key,
+	person serial not null,
 	username varchar(50) not null,
-	password varchar(30) not null,
-	org_id int,
-	foreign key(person) references Person(per_id)
+	token varchar(36) primary key,
+	expires timestamp not null,
+	foreign key(person) references Person(per_id),
+    unique(token, expires)
 );
 
 CREATE OR REPLACE PROCEDURE add_organization(
