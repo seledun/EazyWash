@@ -1,9 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { cookies } from 'next/headers';
 import prisma from '../../utils/prisma';
 import crypto from 'crypto';
-import { time } from "console";
-import { PrismaClient } from "@prisma/client";
 
 /**
  * @param req Request-object from the client.
