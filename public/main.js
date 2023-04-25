@@ -23,10 +23,11 @@ window.onscroll = () => {
 };
 /**
  * @author Oliver Jönsson
+ * @author Sebastian Ledung
  */
 document.getElementsByClassName("user")[0].addEventListener("click",function(){
   const USER_STATUS = document.getElementsByClassName("user")[0].classList[1];
-  
+
   if (USER_STATUS === "log-in-field") {
     document.querySelector(".popup").style.display="flex";
   } else {
@@ -37,7 +38,6 @@ document.getElementsByClassName("user")[0].addEventListener("click",function(){
  * @author Oliver Jönsson
  */
 document.getElementsByClassName("btn-close")[0].addEventListener("click",function(){
-  console.log("hej");
   document.querySelector(".popup").style.display = "none";	
 });
 /**
@@ -55,6 +55,8 @@ LOGINBUTTON.addEventListener('click', async function() {
   const USERNAME = USERNAMEINPUT.value;
   const PASSWORD = PASSWORDINPUT.value;
   
+  document.getElementsByClassName("popup-content")[0].style.display="none";
+
   fetch('/api/login', {
     method: 'POST',
     headers:{
@@ -87,5 +89,9 @@ LOGINBUTTON.addEventListener('click', async function() {
     // Catch-all for authentication errors.
     .catch(function() {
       console.log("Authentication failed");
+    })
+    
+    .finally(function() {
+      document.getElementsByClassName("popup-content")[0].style.display="flex";
     });
 });
