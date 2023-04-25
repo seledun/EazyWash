@@ -73,6 +73,7 @@ LOGINBUTTON.addEventListener('click', async function() {
     .then(json => {
       console.log(json);
       document.querySelector(".popup").style.display = "none";
+      document.querySelector(".user").innerHTML = "<i class='bx bx-log-out'></i>Logga ut " + json.username;
     })
 
     // Catch-all for authentication errors.
