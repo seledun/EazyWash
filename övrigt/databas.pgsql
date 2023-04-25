@@ -83,6 +83,15 @@ create table BookingSchema(
 	foreign key(per_id) references Person(per_id)
 );
 
+create table Authentication(
+	person serial not null,
+	username varchar(50) not null,
+	token varchar(36) primary key,
+	expires timestamp not null,
+	foreign key(person) references Person(per_id),
+    unique(token, expires)
+);
+
 CREATE OR REPLACE PROCEDURE add_organization(
     p_name VARCHAR(60),
     p_address VARCHAR(100),

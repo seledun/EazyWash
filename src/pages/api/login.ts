@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { PrismaClient } from '@prisma/client'
+import prisma from '../../utils/prisma';
+import crypto from 'crypto';
 
 /**
  * @param req Request-object from the client.
@@ -14,8 +15,12 @@ import { PrismaClient } from '@prisma/client'
  * check: pin can only be between 1-30 characters long
  * @author Sebastian Ledung
  */
-function validatePinCode(pin: string) {
-  return (pin.length > 0 && pin.length <= 30);
+function validatePinCode(pin: string) : boolean {
+  if (pin !== undefined) {
+    return (pin.length > 0 && pin.length <= 30);
+  }
+  
+  return false;
 }
 
 /**
@@ -25,10 +30,14 @@ function validatePinCode(pin: string) {
  * @return true if id passes the checks above.
  * @author Sebastian Ledung 
  */
-function validateUserName(id: string) {
-  const lengthValid = (id.length > 0 && id.length <= 50);
-  const charsValid = id.match(/^[A-Za-z0-9]*$/);
-  return (lengthValid && charsValid);
+function validateUsername(id: string) : boolean {
+  if (id !== undefined) {
+    const LENGHTVALID = (id.length > 0 && id.length <= 50);
+    const CHARSVALID = id.match(/^[A-Za-z0-9]*$/);
+    return (LENGHTVALID && (CHARSVALID !== null));
+  }
+
+  return false;
 }
 
 /**
@@ -49,26 +58,57 @@ export default async function login(
   if (req.method === 'POST') {
 
     const {id, pin} = req.body;
-    
- 
-    if (validateUserName(id) && validatePinCode(pin)) {
-      const prisma = new PrismaClient()
-      res.status(200).json({success: 'true'});
+     
+    if (validateUsername(id) && validatePinCode(pin)) {
+      
+      type LoginRequest = {
+        status: boolean;
+      };
 
-      // const result = await prisma.$queryRaw`call add_person('test1231', '123', 2);`;
+      const RESULT:LoginRequest[] = await prisma.$queryRaw`select log_in(${id}, ${pin}) as status`;
 
-      const result = await prisma.$queryRaw`select log_in(${id}, ${pin})`;
-      console.log(result);
-
-      if (result === true) {
+      if (RESULT[0].status === true) {
         console.log("Nice! du är inne");
+
+        const FIND_ID = await prisma.person.findFirst({
+          where: {
+            username: id
+          }
+        });
+
+        // Creates session variables.
+        const PERSON_ID = FIND_ID?.per_id;
+        const TOKEN = crypto.randomUUID();
+        const EXPIRES = new Date((Date.now() + (1000 * 60 * 30)));
+
+        // Creates a session for the authenticated user.
+        await prisma.authentication.create({
+          data: {
+            person: PERSON_ID,
+            username: id,
+            token: TOKEN,
+            expires: new Date(EXPIRES)
+          }
+        });
+
+        // Sets the client cookie with a session-id and the expiry time for the cookie.
+        res.setHeader('set-cookie', [
+          'session-id=' + TOKEN 
+          + '; SameSite=strict' 
+          + '; Expires=' + EXPIRES.toUTCString()
+        ]);
+
+        res.status(200).json({success: 'true', username: id, session: TOKEN}); // Authentication success.
+
+      } else {
+        res.status(401).json({success: 'false'}); // Wrong username or password.
       }
 
       prisma.$disconnect;
     } 
         
     else {
-      res.status(500).json({success: 'false'});
+      res.status(500).json({success: 'false'}); // If any validation fails.
     }
 
   } else {
