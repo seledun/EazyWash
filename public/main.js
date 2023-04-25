@@ -72,6 +72,7 @@ LOGINBUTTON.addEventListener('click', async function() {
     // Outputs the JSON-response to console.
     .then(json => {
       console.log(json);
+      document.querySelector(".popup").style.display = "none";
     })
 
     // Catch-all for authentication errors.
