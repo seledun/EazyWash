@@ -23,7 +23,7 @@ export default function Index() {
         
 
           <div className="main">
-            <a href="#" className="user"><i className="ri-user-fill"></i>Logga in</a>
+            <a href="#" className="user log-in-field"><i className="ri-user-fill"></i>Logga in</a>
           </div>
           <div className="popup">
             <div className="popup-content">

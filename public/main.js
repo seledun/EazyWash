@@ -25,7 +25,13 @@ window.onscroll = () => {
  * @author Oliver Jönsson
  */
 document.getElementsByClassName("user")[0].addEventListener("click",function(){
-  document.querySelector(".popup").style.display="flex";
+  const USER_STATUS = document.getElementsByClassName("user")[0].classList[1];
+  
+  if (USER_STATUS === "log-in-field") {
+    document.querySelector(".popup").style.display="flex";
+  } else {
+    console.log("Clicked log out button");
+  }
 });
 /**
  * @author Oliver Jönsson
@@ -74,6 +80,8 @@ LOGINBUTTON.addEventListener('click', async function() {
       console.log(json);
       document.querySelector(".popup").style.display = "none";
       document.querySelector(".user").innerHTML = "<i class='bx bx-log-out'></i>Logga ut " + json.username;
+      document.getElementsByClassName("user")[0].classList.remove("log-in-field");
+      document.getElementsByClassName("user")[0].classList.remove("log-out-field");
     })
 
     // Catch-all for authentication errors.
