@@ -222,7 +222,6 @@ header{
     justify-content: center;
     align-items: center;
     background: var(--bg-color);
-    font-size: 100px;
     color: var(--text-color);
     font-weight: 600;
   }

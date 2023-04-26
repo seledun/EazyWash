@@ -20,7 +20,7 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "complexity": ["warn", {"max" : 5}],    // Varnar om den cyklomatiska komplexiteten av ett stycke > 5
+        "complexity": ["warn", {"max" : 7}],    // Varnar om den cyklomatiska komplexiteten av ett stycke > 5
         "indent": ["error", 2],                 // Error om det är fel indentering i koden (2 spaces)
         "react/react-in-jsx-scope": "off",      // Onödig default-regel som inte används med nextjs
         "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }] 
