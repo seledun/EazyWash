@@ -7,7 +7,6 @@ export default function Index() {
         <meta charSet="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <script src="main.js"></script>
         <title>Document</title>
       </Head>
 
@@ -84,7 +83,6 @@ export default function Index() {
           <div id="newEventModal">
             <h2>Boka tid</h2>
       
-      
             <button id="Tid1">8:00- 12:00</button>
             <button id="Tid2">12:00-16:00</button>
             <button id="Tid3">16:00-20:00</button>
@@ -109,8 +107,10 @@ export default function Index() {
         </section>
         <section id="tips">Tips</section>
         <section id="kontaktaOss">Kontakta oss</section>
-     
+
+        
         <script src="script.js"></script>
+        <script src="main.js"></script>
 
       </main>
   
