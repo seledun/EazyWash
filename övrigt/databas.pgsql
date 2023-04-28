@@ -198,7 +198,9 @@ BEGIN
 COMMIT;
 END;
 $$;
-
+/**
+ * @author Petter Carlsson
+ */
 CREATE OR REPLACE FUNCTION get_booking_info_by_org_id(
 	p_org_id INT
 	)
@@ -219,7 +221,9 @@ END;
 $$ 
 
 //select * from get_booking_info_by_org_id(n);
-
+/**
+ * @author Petter Carlsson
+ */
 CREATE OR REPLACE FUNCTION check_booking_limit(
 	p_id int
 )
@@ -235,7 +239,9 @@ END;
 $$ 
 
 //select check_booking_limit(n);
-
+/**
+ * @author Petter Carlsson
+ */
 CREATE OR REPLACE FUNCTION delete_past_bookings()
 RETURNS TRIGGER 
 LANGUAGE plpgsql
@@ -245,12 +251,16 @@ BEGIN
   RETURN NULL;
 END;
 $$
-
+/**
+ * @author Petter Carlsson
+ */
 CREATE TRIGGER delete_past_bookings_trigger
 AFTER INSERT OR UPDATE ON BookingSchema
 FOR EACH ROW
 EXECUTE FUNCTION delete_past_bookings();
-
+/**
+ * @author Petter Carlsson
+ */
 CREATE OR REPLACE FUNCTION log_in(
     p_username varchar(50),
     p_password varchar(30)
@@ -275,7 +285,9 @@ END;
 $$
 
 //select log_in('5B', '123')
-
+/**
+ * @author Petter Carlsson
+ */
 CREATE OR REPLACE FUNCTION get_person_id(
     p_username varchar(50),
     p_password varchar(30)
