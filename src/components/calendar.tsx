@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { startOfMonth } from 'date-fns';
 
 function getDaysInMonth(month: number, year: number): Date[] {
   const DATE = new Date(year, month, 1);
@@ -44,6 +43,8 @@ function Calendar() {
     SET_CURRENT_DATE(NEW_DATE);
     SET_PADDING(NEW_PADDING);
     
+    SET_DAYS_IN_MONTH([]);
+
     console.log("Padding: " + PADDING);
   }
 
@@ -69,13 +70,13 @@ function Calendar() {
         {
           Array(PADDING).fill(0).map((_, index) => (
             <button key={index} className='day padding'>
-              padding
+              *
             </button>
           ))
         }
         {
           DAYS_IN_MONTH.map(day => (
-            <button key={day.getDate()} className='day'>
+            <button key={day.getDate()} className='day' onClick={() => console.log(day)}>
               {day.getDate()}
             </button>
           ))
