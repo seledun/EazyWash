@@ -1,5 +1,11 @@
 import { useState } from 'react';
-
+/**
+ * Gets date objects for each of the dates within a month. 
+ * @param month Current month for the Calendar-state.
+ * @param year Current year for the Calendar-state.
+ * @returns Array of Date-objects for the current month.
+ * @author Sebastian Ledung
+ */
 function getDaysInMonth(month: number, year: number): Date[] {
   const DATE = new Date(year, month, 1);
   const DAYS: Date[] = [];
@@ -19,11 +25,22 @@ function Calendar() {
   const CURRENT_MONTH = CURRENT_DATE.getMonth();
   const CURRENT_YEAR = CURRENT_DATE.getFullYear();
 
+  /**
+   * Uses the getDaysInMonth function to get number of days
+   * for the supplied month, then changes the state of the DAYS-variable.
+   * @author Sebastian Ledung
+   */
   function updateDaysInMonth() {
     const DAYS = getDaysInMonth(CURRENT_MONTH, CURRENT_YEAR);
     SET_DAYS_IN_MONTH(DAYS);
   }
 
+  /**
+   * State change for the underlying date-variable, uses
+   * a react hook to update the calendar when the user changes the month.
+   * Reverses the calendar month by one month.
+   * @author Sebastian Ledung
+   */
   function goToPreviousMonth() {
     const NEW_DATE = new Date(CURRENT_YEAR, CURRENT_MONTH - 1, 1);
     const NEW_PADDING = Math.abs(1 - NEW_DATE.getDay());
@@ -32,10 +49,14 @@ function Calendar() {
     SET_PADDING(NEW_PADDING);
 
     SET_DAYS_IN_MONTH([]);
-  
-    console.log("Padding: " + PADDING);
   }
 
+  /**
+   * State change for the underlying date-variable, uses
+   * a react hook to update the calendar when the user changes the month.
+   * Forwards the calendar month by one month.
+   * @author Sebastian Ledung
+   */
   function goToNextMonth() {
     const NEW_DATE = new Date(CURRENT_YEAR, CURRENT_MONTH + 1, 1);
     const NEW_PADDING = Math.abs(1 - NEW_DATE.getDay());
@@ -44,8 +65,6 @@ function Calendar() {
     SET_PADDING(NEW_PADDING);
     
     SET_DAYS_IN_MONTH([]);
-
-    console.log("Padding: " + PADDING);
   }
 
   if (DAYS_IN_MONTH.length === 0) {
@@ -67,7 +86,8 @@ function Calendar() {
         <div>Söndag</div>
       </div>
       <ul>
-        {
+        { 
+          // Padding for the calendar, adds empty spaces if the first doesn't occur on a monday.
           Array(PADDING).fill(0).map((_, index) => (
             <button key={index} className='day padding'>
               *
@@ -75,6 +95,7 @@ function Calendar() {
           ))
         }
         {
+          // For each day of the month, add a button to the calendar (with corresponding date).
           DAYS_IN_MONTH.map(day => (
             <button key={day.getDate()} className='day' onClick={() => console.log(day)}>
               {day.getDate()}
