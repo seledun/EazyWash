@@ -63,8 +63,6 @@ export default function Index() {
         <section id="tips">Tips</section>
         <section id="kontaktaOss">Kontakta oss</section>
 
-        
-        <script src="script.js"></script>
         <script src="main.js"></script>
 
       </main>

@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import { startOfMonth } from 'date-fns';
 
 function getDaysInMonth(month: number, year: number): Date[] {
   const DATE = new Date(year, month, 1);
   const DAYS: Date[] = [];
-  
+
   while (DATE.getMonth() === month) {
     DAYS.push(new Date(DATE));
     DATE.setDate(DATE.getDate() + 1);
@@ -14,6 +15,8 @@ function getDaysInMonth(month: number, year: number): Date[] {
 function Calendar() {
   const [CURRENT_DATE, SET_CURRENT_DATE] = useState(new Date());
   const [DAYS_IN_MONTH, SET_DAYS_IN_MONTH] = useState<Date[]>([]);
+  const [PADDING, SET_PADDING] = useState(Math.abs(1 - CURRENT_DATE.getDay()));
+
   const CURRENT_MONTH = CURRENT_DATE.getMonth();
   const CURRENT_YEAR = CURRENT_DATE.getFullYear();
 
@@ -24,14 +27,24 @@ function Calendar() {
 
   function goToPreviousMonth() {
     const NEW_DATE = new Date(CURRENT_YEAR, CURRENT_MONTH - 1, 1);
+    const NEW_PADDING = Math.abs(1 - NEW_DATE.getDay());
+
     SET_CURRENT_DATE(NEW_DATE);
+    SET_PADDING(NEW_PADDING);
+
     SET_DAYS_IN_MONTH([]);
+  
+    console.log("Padding: " + PADDING);
   }
 
   function goToNextMonth() {
     const NEW_DATE = new Date(CURRENT_YEAR, CURRENT_MONTH + 1, 1);
+    const NEW_PADDING = Math.abs(1 - NEW_DATE.getDay());
+
     SET_CURRENT_DATE(NEW_DATE);
-    SET_DAYS_IN_MONTH([]);
+    SET_PADDING(NEW_PADDING);
+    
+    console.log("Padding: " + PADDING);
   }
 
   if (DAYS_IN_MONTH.length === 0) {
@@ -53,11 +66,20 @@ function Calendar() {
         <div>sunday</div>
       </div>
       <ul>
-        {DAYS_IN_MONTH.map(day => (
-          <button key={day.getDate()} className='day'>
-            {day.getDate()}
-          </button>
-        ))}
+        {
+          Array(PADDING).fill(0).map((_, index) => (
+            <button key={index} className='day padding'>
+              padding
+            </button>
+          ))
+        }
+        {
+          DAYS_IN_MONTH.map(day => (
+            <button key={day.getDate()} className='day'>
+              {day.getDate()}
+            </button>
+          ))
+        }
       </ul>
     </div>
   );
