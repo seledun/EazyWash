@@ -54,16 +54,16 @@ function Calendar() {
   return (
     <div>
       <h1 id='header'>{CURRENT_YEAR + ' ' + CURRENT_DATE.toLocaleString('default', { month: 'short' })}</h1>
-      <button className='calendarControlButton' onClick={goToNextMonth}>Next</button>
       <button className='calendarControlButton' onClick={goToPreviousMonth}>Previous</button>
+      <button className='calendarControlButton' onClick={goToNextMonth}>Next</button>
       <div id='weekdays'>
-        <div>monday</div>
-        <div>tuesday</div>
-        <div>wed.</div>
-        <div>thu.</div>
-        <div>friday</div>
-        <div>sat.</div>
-        <div>sunday</div>
+        <div>Måndag</div>
+        <div>Tisdag</div>
+        <div>Onsdag</div>
+        <div>Torsdag</div>
+        <div>Fredag</div>
+        <div>Lördag</div>
+        <div>Söndag</div>
       </div>
       <ul>
         {
