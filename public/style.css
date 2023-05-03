@@ -4,6 +4,11 @@ body {
   justify-content: center;
   background-color: #FFFCFF;
 }
+
+ul {
+  padding: none;
+}
+
 button {
   width: 75px;
   cursor: pointer;
@@ -13,6 +18,11 @@ button {
   padding: 5px;
   border-radius: 5px;
   color: white;
+  color: black;
+}
+
+section {
+  max-width: 900px;
 }
 
 #header {
@@ -53,7 +63,7 @@ button {
   background-color: white;
   margin: 5px;
   box-shadow: 0px 0px 3px #CBD4C2;
-  display: flex;
+  display: inline-block;
   flex-direction: column;
   justify-content: space-between;
 }
@@ -122,4 +132,11 @@ button {
   height: 100vh;
   position: absolute;
   background-color: rgba(0,0,0,0.8);
+}
+
+.calendarControlButton {
+  float: right;
+  margin: 5px;
+  width: 100px;
+  height: 50px;
 }
