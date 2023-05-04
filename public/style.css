@@ -77,7 +77,7 @@ section {
 }
 
 .inPast {
-  background-color: #7e7d7d ;
+  background-color: #7e7d7d !important ;
 }
 
 .day:hover {
@@ -96,6 +96,7 @@ section {
   max-height: 55px;
   overflow: hidden;
 }
+
 .padding {
   cursor: default !important;
   background-color: #7e7d7d !important;
