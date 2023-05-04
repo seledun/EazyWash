@@ -96,10 +96,8 @@ export default async function booking(
 
       prisma.$connect;
 
-      console.log(QUERY);
       const RESULT = await prisma.$queryRawUnsafe(QUERY);
-      console.log(RESULT);
-    
+      
       prisma.$disconnect;
 
       res.status(200).json({sucess: 'true'});

@@ -73,6 +73,11 @@ function Calendar() {
     SET_DAYS_IN_MONTH([]);
   }
 
+  /**
+   * Toggles modal state (show / hide)
+   * @param date The date to show in the modal.
+   * @author Sebastian Ledung
+   */
   function toggleModal(date: Date) {
     SET_SELECTED_DATE(date);
     SET_MODAL_SHOW(!MODAL_SHOW);
