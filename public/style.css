@@ -60,7 +60,6 @@ section {
 }
 .day {
   width: 100px;
-  padding: 10px;
   height: 80px;
   cursor: pointer;
   box-sizing: border-box;
@@ -180,7 +179,7 @@ ul.calendarModalTimes li .right {
 }
 
 .modal-dialog {
-  max-width: 600px !important;
+  max-width: 750px !important;
 }
 
 .selected {
@@ -190,7 +189,7 @@ ul.calendarModalTimes li .right {
 
 #contentDiv {
   width: 850px;
-  padding-right: 50px;
-  padding-left: 50px;
+  padding-right: 100px;
+  padding-left: 100px;
   background-color: #222327;
 }

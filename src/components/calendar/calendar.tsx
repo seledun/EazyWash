@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import DateSelectModal from '@/components/calendar/dateSelectModal';
-import { startOfMonth, isSameDay, startOfDay, isBefore, addHours } from 'date-fns';
-import { JsxElement } from 'typescript';
+import { startOfMonth, isSameDay, startOfDay, isBefore } from 'date-fns';
 
 /**
  * Gets date objects for each of the dates within a month. 
