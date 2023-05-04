@@ -28,7 +28,7 @@ section {
 #header {
   padding: 10px;
   color: #d36c6c;
-  font-size: 26px;
+  font-size: 2.2rem;
   font-family: sans-serif;
   display: flex;
   justify-content: space-between;
@@ -45,9 +45,12 @@ section {
   color: #247BA0;
 }
 #weekdays div {
+  font-size: 1.2rem;
+  text-align: center;
   width: 100px;
-  padding: 10px;
-  margin: 5px;
+  padding: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 #calendar {
   width: 100%;
@@ -58,7 +61,7 @@ section {
 .day {
   width: 100px;
   padding: 10px;
-  height: 100px;
+  height: 80px;
   cursor: pointer;
   box-sizing: border-box;
   background-color: white;
@@ -139,8 +142,8 @@ section {
   align-items: center;
   float: left;
   margin: 5px;
-  width: 100px;
-  height: 50px;
+  width: 150px;
+  height: 55px;
 }
 
 .btn-close {
@@ -157,11 +160,18 @@ ul.calendarModalTimes li {
   display: block;
   padding-left: 15px;
   padding-right: 15px;
-  padding-top: 25px;
-  padding-bottom: 25px;
-  margin: 5px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  margin: 15px;
 }
 
 ul.calendarModalTimes li .right {
   float: right;
+}
+
+#contentDiv {
+  width: 850px;
+  padding-right: 50px;
+  padding-left: 50px;
+  background-color: #222327;
 }

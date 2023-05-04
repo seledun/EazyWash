@@ -52,17 +52,19 @@ export default function Index() {
                                 
         </header>
 
-        <section id="home">EazyWash</section>
-        <section></section>
-        <section></section>
-        <section></section>
-        <section></section>
-        <section id="bookTime">
-          <Calendar />
-        </section>
-        <section id="tips">Tips</section>
-        <section id="kontaktaOss">Kontakta oss</section>
-
+        <div id='contentDiv'>
+          <section id="home">EazyWash</section>
+          <section></section>
+          <section></section>
+          <section></section>
+          <section></section>
+          <section id="bookTime">
+            <Calendar />
+          </section>
+          <section id="tips">Tips</section>
+          <section id="kontaktaOss">Kontakta oss</section>
+        </div>
+        
         <script src="main.js"></script>
 
       </main>
