@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import DateSelectModal from '@/components/calendar/dateSelectModal';
-import { startOfMonth, isSameDay, startOfDay, isBefore } from 'date-fns';
+import { startOfMonth, isSameDay, startOfDay, isBefore, addHours } from 'date-fns';
 import { JsxElement } from 'typescript';
 
 /**
@@ -89,12 +89,14 @@ function Calendar() {
     let classString = isSameDay(date, TODAYS_DATE) ? 'day today' : 'day';
     let inPast = false;
 
-    if (isBefore(startOfDay(date), startOfDay(TODAYS_DATE))) {
+    const TODAY = startOfDay(TODAYS_DATE);
+
+    if (isBefore(startOfDay(date), TODAY)) {
       classString = classString + ' inPast';
       inPast = true;
     }
 
-    if (inPast) {
+    if (inPast) { // if affter 20 (latest booking) don't show modal.
       return <button key={date.getDate()} className={classString} onClick={() => false}>{date.getDate()}</button>
     } else {
       return <button key={date.getDate()} className={classString} onClick={() => toggleModal(date)}>{date.getDate()}</button>
