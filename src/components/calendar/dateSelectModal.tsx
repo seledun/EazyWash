@@ -33,14 +33,19 @@ interface Props {
 function DateSelectModal(props: Props) {
 
   const [SELECTED_TIME, SET_SELECTED_TIME] = useState(0);
+  const [BOOK_BUTTON_STATE, SET_BOOK_BUTTON_STATE] = useState(true);
 
   function toggleModal() {
     props.setModalShow(!props.setModalShow);
     SET_SELECTED_TIME(0);
+    SET_BOOK_BUTTON_STATE(true);
   }
 
   function selectTime(id: number) {
     SET_SELECTED_TIME(id);
+    if (id !== 0) {
+      SET_BOOK_BUTTON_STATE(false);
+    }
   }
 
   function bookSelected() {
@@ -87,7 +92,7 @@ function DateSelectModal(props: Props) {
         <Button variant="secondary" onClick={toggleModal}>
           Stäng
         </Button>
-        <Button variant="primary" onClick={bookSelected}>
+        <Button variant="primary" onClick={bookSelected} disabled={BOOK_BUTTON_STATE}>
           Boka tid
         </Button>
       </Modal.Footer>
