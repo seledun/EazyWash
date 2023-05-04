@@ -169,6 +169,10 @@ ul.calendarModalTimes li .right {
   float: right;
 }
 
+.modal-dialog {
+  max-width: 600px !important;
+}
+
 #contentDiv {
   width: 850px;
   padding-right: 50px;
