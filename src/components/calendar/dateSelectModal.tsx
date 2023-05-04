@@ -40,7 +40,14 @@ function DateSelectModal(props: Props) {
       <Modal.Header closeButton>
         <Modal.Title>{"Tider för " + getDateString(props.selectedDate)}</Modal.Title>
       </Modal.Header>
-      <Modal.Body>Woohoo, youre reading this text in a modal!</Modal.Body>
+      <Modal.Body>
+        <ul className='calendarModalTimes'>
+          <li>08:00 - 12:00<span className='right'>Bokad</span></li>
+          <li>12:00 - 16:00<span className='right'>Obokad</span></li>
+          <li>16:00 - 20:00<span className='right'>Bokad</span></li>
+          <li>20:00 - 24:00<span className='right'>Bokad</span></li>
+        </ul>
+      </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={toggleModal}>
           Stäng

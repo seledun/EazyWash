@@ -150,3 +150,18 @@ section {
   margin-top: 12px !important;
   margin-right: 12px !important;
 }
+
+ul.calendarModalTimes li {
+  border-radius: 8px;
+  background-color: #e6e6e6;
+  display: block;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  margin: 5px;
+}
+
+ul.calendarModalTimes li .right {
+  float: right;
+}
