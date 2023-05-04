@@ -2,14 +2,6 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from '../../utils/prisma';
 import { parse } from 'cookie';
 
-/**
- * Booking API, needs a POST-object from the user containing 
- * day and timeslot to book.
- * @param req Request-object from the client.
- * @param res Response-object to for the client to get a response
- * @author Sebastian Ledung
- */
-
 type TimeSlot = {
   startDate: string,
   endDate: string
@@ -19,6 +11,7 @@ type TimeSlot = {
  * Formats the date to a PostgresQL allowed format 
  * @param date the date to format
  * @returns ISO-8601 formatted string (1995-11-01).
+ * @author Sebastian Ledung
  */
 function formatDateISO8601(date: Date) : string {
   const YEAR = date.getFullYear().toString();
@@ -33,7 +26,8 @@ function formatDateISO8601(date: Date) : string {
  * a span.
  * @param DATE_SELECTED The supplied date to book a time.
  * @param timeSlot Client selected time-slot.
- * @returns Formatted strings for 
+ * @returns Formatted strings for timeSlots
+ * @author Sebastian Ledung
  */
 function timeSlots(timeSlot: string) : TimeSlot | undefined {
   if (timeSlot === '1') {
@@ -68,6 +62,13 @@ function timeSlots(timeSlot: string) : TimeSlot | undefined {
 
 }
 
+/**
+ * Booking API, needs a POST-object from the user containing 
+ * day and timeslot to book.
+ * @param req Request-object from the client.
+ * @param res Response-object to for the client to get a response
+ * @author Sebastian Ledung
+ */
 export default async function booking(
   req: NextApiRequest,
   res: NextApiResponse
