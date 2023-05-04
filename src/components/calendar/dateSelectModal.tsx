@@ -43,10 +43,10 @@ function DateSelectModal(props: Props) {
       <Modal.Body>Woohoo, youre reading this text in a modal!</Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={toggleModal}>
-          Close
+          Stäng
         </Button>
         <Button variant="primary" onClick={toggleModal}>
-          Save Changes
+          Boka tid
         </Button>
       </Modal.Footer>
     </Modal>
