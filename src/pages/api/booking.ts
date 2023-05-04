@@ -84,7 +84,7 @@ export default async function booking(
     const USER_ID : number = parseInt(COOKIES['user-id']);
 
     if (DATES !== undefined && !Number.isNaN(COOKIES)) {
-      const DATE_NOW_ISO_8601 = formatDateISO8601(new Date());
+      const DATE_NOW_ISO_8601 = formatDateISO8601(new Date(day));
       const QUERY = "call add_booking('" 
         + DATES.startDate 
         + "', '" + DATES.endDate 
