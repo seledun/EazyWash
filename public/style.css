@@ -142,3 +142,11 @@ section {
   width: 100px;
   height: 50px;
 }
+
+.btn-close {
+  margin: 3px !important; 
+  height: 20px !important;
+  width: 20px !important;
+  margin-top: 12px !important;
+  margin-right: 12px !important;
+}
