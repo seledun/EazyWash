@@ -101,7 +101,7 @@ function Calendar() {
           // Padding for the calendar, adds empty spaces if the first doesn't occur on a monday.
           Array(PADDING).fill(0).map((_, index) => (
             <button key={index} className='day padding'>
-              *
+              &#8205;
             </button>
           ))
         }
