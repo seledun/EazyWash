@@ -173,6 +173,11 @@ ul.calendarModalTimes li .right {
   max-width: 600px !important;
 }
 
+.selected {
+  outline: dashed;
+  outline-width: 2px;
+}
+
 #contentDiv {
   width: 850px;
   padding-right: 50px;

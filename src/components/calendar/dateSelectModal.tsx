@@ -1,4 +1,5 @@
 import { Modal, Button } from 'react-bootstrap'
+import { useState } from 'react';
 
 /**
  * Formats the Date-object to a human readable format.
@@ -31,8 +32,15 @@ interface Props {
 
 function DateSelectModal(props: Props) {
 
+  const [SELECTED_TIME, SET_SELECTED_TIME] = useState(0);
+
   function toggleModal() {
     props.setModalShow(!props.setModalShow);
+    SET_SELECTED_TIME(0);
+  }
+
+  function selectTime(id: number) {
+    SET_SELECTED_TIME(id);
   }
 
   return (
@@ -42,10 +50,10 @@ function DateSelectModal(props: Props) {
       </Modal.Header>
       <Modal.Body>
         <ul className='calendarModalTimes'>
-          <li>08:00 - 12:00<span className='right'>Bokad</span></li>
-          <li>12:00 - 16:00<span className='right'>Obokad</span></li>
-          <li>16:00 - 20:00<span className='right'>Bokad</span></li>
-          <li>20:00 - 24:00<span className='right'>Bokad</span></li>
+          <li key={1} className={SELECTED_TIME === 1 ? 'selected' : ''} onClick={() => selectTime(1)}>08:00 - 12:00<span className='right'>Bokad</span></li>
+          <li key={2} className={SELECTED_TIME === 2 ? 'selected' : ''} onClick={() => selectTime(2)}>12:00 - 16:00<span className='right'>Obokad</span></li>
+          <li key={3} className={SELECTED_TIME === 3 ? 'selected' : ''} onClick={() => selectTime(3)}>16:00 - 20:00<span className='right'>Bokad</span></li>
+          <li key={4} className={SELECTED_TIME === 4 ? 'selected' : ''} onClick={() => selectTime(4)}>20:00 - 24:00<span className='right'>Bokad</span></li>
         </ul>
       </Modal.Body>
       <Modal.Footer>
