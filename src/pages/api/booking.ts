@@ -2,6 +2,11 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from '../../utils/prisma';
 import { parse } from 'cookie';
 
+/**
+ * Type definitions for the TimeSlot object,
+ * used to force types to avoid issues.
+ * @author Sebastian Ledung
+ */
 type TimeSlot = {
   startDate: string,
   endDate: string
@@ -92,7 +97,6 @@ export default async function booking(
         + "', " + USER_ID 
         + ", '" + DATE_NOW_ISO_8601 
         + "');"; 
-
 
       prisma.$connect;
 

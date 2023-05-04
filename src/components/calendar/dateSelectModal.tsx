@@ -92,11 +92,11 @@ function DateSelectModal(props: Props) {
         break;
         
       case 400:
-        // malformed request (dates not defined).
+        // malformed request (dates not correctly defined).
         break;
 
       default:
-        // general error.
+        // general error (no idea).
         break;
       }
 

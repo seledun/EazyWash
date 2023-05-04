@@ -71,6 +71,11 @@ section {
   flex-direction: column;
   justify-content: space-between;
 }
+
+.today {
+  background-color: #77c85f;
+}
+
 .day:hover {
   background-color: #e8faed;
 }
