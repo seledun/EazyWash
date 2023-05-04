@@ -14,9 +14,10 @@ type TimeSlot = {
  * @author Sebastian Ledung
  */
 function formatDateISO8601(date: Date) : string {
-  const YEAR = date.getFullYear().toString();
-  const MONTH = date.getMonth().toString().padStart(2, '0');
-  const DAY = date.getDay().toString().padStart(2, '0');
+  console.log(date);
+  const YEAR = date.getFullYear();
+  const MONTH = (date.getMonth() +1).toString().padStart(2, '0'); // months 0 - 11 (needs +1).
+  const DAY = date.getDate().toString().padStart(2, '0');
   return YEAR + '-' + MONTH + '-' + DAY;
 }
 
@@ -74,7 +75,6 @@ export default async function booking(
   res: NextApiResponse
 ) {
   if (req.method === 'POST') { // Only need to handle POST-requests for the login.
-    res.status(200).json({sucess: 'true'});
     
     const {day, timeSlot} = req.body;
 
@@ -83,7 +83,8 @@ export default async function booking(
     const COOKIES = parse(req.headers.cookie || '');
     const USER_ID : number = parseInt(COOKIES['user-id']);
 
-    if (DATES !== undefined && !Number.isNaN(COOKIES)) {
+    if (DATES !== undefined && !Number.isNaN(USER_ID)) {
+      
       const DATE_NOW_ISO_8601 = formatDateISO8601(new Date(day));
       const QUERY = "call add_booking('" 
         + DATES.startDate 
@@ -92,6 +93,7 @@ export default async function booking(
         + ", '" + DATE_NOW_ISO_8601 
         + "');"; 
 
+
       prisma.$connect;
 
       console.log(QUERY);
@@ -99,6 +101,20 @@ export default async function booking(
       console.log(RESULT);
     
       prisma.$disconnect;
+
+      res.status(200).json({sucess: 'true'});
+    }
+
+    else if (Number.isNaN(USER_ID)) { // User not authorized.
+      res.status(401).json({success: 'false'});
+    }
+
+    else if (DATES === undefined) { // Bad request, bad data supplied.
+      res.status(400).json({success: 'false'});
+    }
+
+    else { // If something happens that we don't handle.
+      res.status(500).json({success: 'false'});
     }
 
   } else {

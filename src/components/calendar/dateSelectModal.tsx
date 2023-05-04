@@ -48,31 +48,24 @@ function DateSelectModal(props: Props) {
     }
   }
 
-  function bookSelected() {
-    const promise = new Promise((resolve, reject) => {
-      try {
-        const RESPONSE = fetch('/api/booking', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          body: new URLSearchParams({
-            'day': props.selectedDate.toDateString(),
-            'timeSlot': SELECTED_TIME.toString()
-          })
-        });
-
-        resolve(RESPONSE);
-
-      } catch (error) {
-        console.log(error);
-        reject(error);
-      }
-    })
-
-    promise.then((response => {
-      console.log(response)
-    }));
+  async function bookSelected() {
+    try {
+      const response = await fetch('/api/booking', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({
+          'day': props.selectedDate.toUTCString(),
+          'timeSlot': SELECTED_TIME.toString()
+        })
+      });
+  
+      console.log(response.status);
+  
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
