@@ -1,22 +1,45 @@
 import { Modal, Button } from 'react-bootstrap'
-import { useState } from 'react'
 
-function DateSelectModal() {
+function getDateString(date: Date) : string {
+  const FORMAT_OPTIONS: Intl.DateTimeFormatOptions = {
+    weekday: 'long', 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric'
+  };
 
-    function toggleModal() {
-        SET_MODAL_SHOW(!MODAL_SHOW);
-    }
+  return date.toLocaleDateString(undefined, FORMAT_OPTIONS);
+}
 
-    function selectDate(date: Date) {
-        SET_SELECTED_DATE(date);
-    }
+interface Props {  
+  modalShow: boolean;
+  selectedDate: Date;
+  setSelectedDate: (date: Date) => void;
+  setModalShow: (show: boolean) => void;
+}
 
-    const [MODAL_SHOW, SET_MODAL_SHOW] = useState(false);
-    const [SELECTED_DATE, SET_SELECTED_DATE] = useState(new Date());
+function DateSelectModal(props: Props) {
 
-    return (
+  function toggleModal() {
+    props.setModalShow(!props.setModalShow);
+  }
 
-    );
+  return (
+    <Modal show={props.modalShow} onHide={toggleModal} centered>
+      <Modal.Header closeButton>
+        <Modal.Title>{"Tider för " + getDateString(props.selectedDate)}</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>Woohoo, youre reading this text in a modal!</Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={toggleModal}>
+          Close
+        </Button>
+        <Button variant="primary" onClick={toggleModal}>
+          Save Changes
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
 }
 
 export default DateSelectModal;

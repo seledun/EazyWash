@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import DateSelectModal from '@/components/calendar/dateSelectModal';
+
 /**
  * Gets date objects for each of the dates within a month. 
  * @param month Current month for the Calendar-state.
@@ -21,6 +23,9 @@ function Calendar() {
   const [CURRENT_DATE, SET_CURRENT_DATE] = useState(new Date());
   const [DAYS_IN_MONTH, SET_DAYS_IN_MONTH] = useState<Date[]>([]);
   const [PADDING, SET_PADDING] = useState(Math.abs(1 - CURRENT_DATE.getDay()));
+
+  const [MODAL_SHOW, SET_MODAL_SHOW] = useState(false);
+  const [SELECTED_DATE, SET_SELECTED_DATE] = useState(new Date());
 
   const CURRENT_MONTH = CURRENT_DATE.getMonth();
   const CURRENT_YEAR = CURRENT_DATE.getFullYear();
@@ -67,6 +72,11 @@ function Calendar() {
     SET_DAYS_IN_MONTH([]);
   }
 
+  function toggleModal(date: Date) {
+    SET_SELECTED_DATE(date);
+    SET_MODAL_SHOW(!MODAL_SHOW);
+  }
+
   if (DAYS_IN_MONTH.length === 0) {
     updateDaysInMonth();
   }
@@ -97,12 +107,18 @@ function Calendar() {
         {
           // For each day of the month, add a button to the calendar (with corresponding date).
           DAYS_IN_MONTH.map(day => (
-            <button key={day.getDate()} className='day' onClick={() => console.log(day)}>
+            <button key={day.getDate()} className='day' onClick={() =>toggleModal(day)}>
               {day.getDate()}
             </button>
           ))
         }
       </ul>
+      <DateSelectModal 
+        selectedDate={SELECTED_DATE}
+        modalShow={MODAL_SHOW}
+        setSelectedDate={SET_SELECTED_DATE} 
+        setModalShow={SET_MODAL_SHOW}
+      />
     </div>
   );
 }
