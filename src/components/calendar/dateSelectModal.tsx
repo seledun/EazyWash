@@ -43,6 +43,33 @@ function DateSelectModal(props: Props) {
     SET_SELECTED_TIME(id);
   }
 
+  function bookSelected() {
+    const promise = new Promise((resolve, reject) => {
+      try {
+        const RESPONSE = fetch('/api/booking', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: new URLSearchParams({
+            'day': props.selectedDate.toDateString(),
+            'timeSlot': SELECTED_TIME.toString()
+          })
+        });
+
+        resolve(RESPONSE);
+
+      } catch (error) {
+        console.log(error);
+        reject(error);
+      }
+    })
+
+    promise.then((response => {
+      console.log(response)
+    }));
+  }
+
   return (
     <Modal show={props.modalShow} onHide={toggleModal} centered>
       <Modal.Header closeButton>
@@ -60,7 +87,7 @@ function DateSelectModal(props: Props) {
         <Button variant="secondary" onClick={toggleModal}>
           Stäng
         </Button>
-        <Button variant="primary" onClick={toggleModal}>
+        <Button variant="primary" onClick={bookSelected}>
           Boka tid
         </Button>
       </Modal.Footer>

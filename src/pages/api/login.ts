@@ -93,6 +93,9 @@ export default async function login(
 
         // Sets the client cookie with a session-id and the expiry time for the cookie.
         res.setHeader('set-cookie', [
+          'user-id=' + PERSON_ID
+          + '; SameSite=strict' 
+          + '; Expires=' + EXPIRES.toUTCString(),
           'session-id=' + TOKEN 
           + '; SameSite=strict' 
           + '; Expires=' + EXPIRES.toUTCString()
