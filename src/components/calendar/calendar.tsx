@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import DateSelectModal from '@/components/calendar/dateSelectModal';
-import { startOfMonth, isSameDay } from 'date-fns';
+import { startOfMonth, isSameDay, startOfDay, isBefore } from 'date-fns';
+import { JsxElement } from 'typescript';
 
 /**
  * Gets date objects for each of the dates within a month. 
@@ -84,12 +85,20 @@ function Calendar() {
     SET_MODAL_SHOW(!MODAL_SHOW);
   }
 
-  function getDateClass(date: Date) {
-    if (isSameDay(date, TODAYS_DATE)) {
-      return 'day today'
+  function getButton(date: Date) : JSX.Element {
+    let classString = isSameDay(date, TODAYS_DATE) ? 'day today' : 'day';
+    let inPast = false;
+
+    if (isBefore(startOfDay(date), startOfDay(TODAYS_DATE))) {
+      classString = classString + ' inPast';
+      inPast = true;
     }
 
-    return 'day';
+    if (inPast) {
+      return <button key={date.getDate()} className={classString} onClick={() => false}>{date.getDate()}</button>
+    } else {
+      return <button key={date.getDate()} className={classString} onClick={() => toggleModal(date)}>{date.getDate()}</button>
+    }
   }
 
   if (DAYS_IN_MONTH.length === 0) {
@@ -122,11 +131,10 @@ function Calendar() {
         {
           // For each day of the month, add a button to the calendar (with corresponding date).
           DAYS_IN_MONTH.map(day => (
-            <button key={day.getDate()} className={getDateClass(day)} onClick={() =>toggleModal(day)}>
-              {day.getDate()}
-            </button>
+            getButton(day) 
           ))
         }
+
       </ul>
       <DateSelectModal 
         selectedDate={SELECTED_DATE}

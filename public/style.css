@@ -73,7 +73,11 @@ section {
 }
 
 .today {
-  background-color: #77c85f;
+  background-color: #93d47f;
+}
+
+.inPast {
+  background-color: #7e7d7d ;
 }
 
 .day:hover {
