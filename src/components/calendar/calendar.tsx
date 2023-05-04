@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import DateSelectModal from '@/components/calendar/dateSelectModal';
+import startOfMonth from 'date-fns/startOfMonth';
 
 /**
  * Gets date objects for each of the dates within a month. 
@@ -22,7 +23,7 @@ function getDaysInMonth(month: number, year: number): Date[] {
 function Calendar() {
   const [CURRENT_DATE, SET_CURRENT_DATE] = useState(new Date());
   const [DAYS_IN_MONTH, SET_DAYS_IN_MONTH] = useState<Date[]>([]);
-  const [PADDING, SET_PADDING] = useState(Math.abs(1 - CURRENT_DATE.getDay()));
+  const [PADDING, SET_PADDING] = useState(Math.abs(1 - startOfMonth(CURRENT_DATE).getDay()));
 
   const [MODAL_SHOW, SET_MODAL_SHOW] = useState(false);
   const [SELECTED_DATE, SET_SELECTED_DATE] = useState(new Date());
