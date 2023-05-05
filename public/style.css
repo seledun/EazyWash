@@ -60,7 +60,6 @@ section {
 }
 .day {
   width: 100px;
-  padding: 10px;
   height: 80px;
   cursor: pointer;
   box-sizing: border-box;
@@ -71,6 +70,15 @@ section {
   flex-direction: column;
   justify-content: space-between;
 }
+
+.today {
+  background-color: #93d47f;
+}
+
+.inPast {
+  background-color: #7e7d7d !important ;
+}
+
 .day:hover {
   background-color: #e8faed;
 }
@@ -87,6 +95,7 @@ section {
   max-height: 55px;
   overflow: hidden;
 }
+
 .padding {
   cursor: default !important;
   background-color: #7e7d7d !important;
@@ -170,7 +179,7 @@ ul.calendarModalTimes li .right {
 }
 
 .modal-dialog {
-  max-width: 600px !important;
+  max-width: 750px !important;
 }
 
 .selected {
@@ -180,7 +189,7 @@ ul.calendarModalTimes li .right {
 
 #contentDiv {
   width: 850px;
-  padding-right: 50px;
-  padding-left: 50px;
+  padding-right: 100px;
+  padding-left: 100px;
   background-color: #222327;
 }

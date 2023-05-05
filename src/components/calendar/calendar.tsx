@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import DateSelectModal from '@/components/calendar/dateSelectModal';
-import startOfMonth from 'date-fns/startOfMonth';
+import { startOfMonth, isSameDay, startOfDay, isBefore } from 'date-fns';
 
 /**
  * Gets date objects for each of the dates within a month. 
@@ -24,6 +24,7 @@ function Calendar() {
   const [CURRENT_DATE, SET_CURRENT_DATE] = useState(new Date());
   const [DAYS_IN_MONTH, SET_DAYS_IN_MONTH] = useState<Date[]>([]);
   const [PADDING, SET_PADDING] = useState(Math.abs(1 - startOfMonth(CURRENT_DATE).getDay()));
+  const TODAYS_DATE = new Date();
 
   const [MODAL_SHOW, SET_MODAL_SHOW] = useState(false);
   const [SELECTED_DATE, SET_SELECTED_DATE] = useState(new Date());
@@ -73,9 +74,32 @@ function Calendar() {
     SET_DAYS_IN_MONTH([]);
   }
 
+  /**
+   * Toggles modal state (show / hide)
+   * @param date The date to show in the modal.
+   * @author Sebastian Ledung
+   */
   function toggleModal(date: Date) {
     SET_SELECTED_DATE(date);
     SET_MODAL_SHOW(!MODAL_SHOW);
+  }
+
+  function getButton(date: Date) : JSX.Element {
+    let classString = isSameDay(date, TODAYS_DATE) ? 'day today' : 'day';
+    let inPast = false;
+
+    const TODAY = startOfDay(TODAYS_DATE);
+
+    if (isBefore(startOfDay(date), TODAY)) {
+      classString = classString + ' inPast';
+      inPast = true;
+    }
+
+    if (inPast) { // if affter 20 (latest booking) don't show modal.
+      return <button key={date.getDate()} className={classString} onClick={() => false}>{date.getDate()}</button>
+    } else {
+      return <button key={date.getDate()} className={classString} onClick={() => toggleModal(date)}>{date.getDate()}</button>
+    }
   }
 
   if (DAYS_IN_MONTH.length === 0) {
@@ -108,11 +132,10 @@ function Calendar() {
         {
           // For each day of the month, add a button to the calendar (with corresponding date).
           DAYS_IN_MONTH.map(day => (
-            <button key={day.getDate()} className='day' onClick={() =>toggleModal(day)}>
-              {day.getDate()}
-            </button>
+            getButton(day) 
           ))
         }
+
       </ul>
       <DateSelectModal 
         selectedDate={SELECTED_DATE}

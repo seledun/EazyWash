@@ -57,12 +57,15 @@ header{
 }
 
 .navbar a{
-    color: var(--text-color);
-    font-size: 1.1rem;
-    font-weight: 500;
-    padding:5px 0;
-    margin:0px 30px;
-    transition: all .50s ease;
+  color: var(--text-color);
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding:5px 0;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-right: 15px;
+  margin-left: 15px;
+  transition: all .50s ease;
 }
 
 .navbar a:hover{

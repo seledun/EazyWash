@@ -35,12 +35,24 @@ function DateSelectModal(props: Props) {
   const [SELECTED_TIME, SET_SELECTED_TIME] = useState(0);
   const [BOOK_BUTTON_STATE, SET_BOOK_BUTTON_STATE] = useState(true);
 
+  /**
+   * Toggled the modal (show / hide).
+   * Reverts SELECTED_TIME & BOOK_BUTTON_STATE to default values.
+   * @author Sebastian Ledung
+   */
   function toggleModal() {
     props.setModalShow(!props.setModalShow);
     SET_SELECTED_TIME(0);
     SET_BOOK_BUTTON_STATE(true);
   }
 
+  /**
+   * State-selects the time pressed by the client,
+   * if the selected time is valid, also change state
+   * of the BOOK_BUTTON (makes booking available).
+   * @param id Selected time slot in the modal (1..n).
+   * @author Sebastian Ledung
+   */
   function selectTime(id: number) {
     SET_SELECTED_TIME(id);
     if (id !== 0) {
@@ -48,31 +60,49 @@ function DateSelectModal(props: Props) {
     }
   }
 
-  function bookSelected() {
-    const promise = new Promise((resolve, reject) => {
-      try {
-        const RESPONSE = fetch('/api/booking', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          body: new URLSearchParams({
-            'day': props.selectedDate.toDateString(),
-            'timeSlot': SELECTED_TIME.toString()
-          })
-        });
+  /**
+   * Tries to book the client-selected time slot,
+   * handles the responses and tries to print out a
+   * error message on error.
+   * @author Sebastian Ledung
+   */
+  async function bookSelected() {
+    try {
+      const response = await fetch('/api/booking', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({
+          'day': props.selectedDate.toUTCString(),
+          'timeSlot': SELECTED_TIME.toString()
+        })
+      });
+  
+      console.log(response.status);
+  
+      switch (response.status) {
+      case 200:
+        // success, time was successfully booked.
+        toggleModal();
+        break;
 
-        resolve(RESPONSE);
+      case 401:
+        // unauthorized (not logged in).
+        break;
+        
+      case 400:
+        // malformed request (dates not correctly defined).
+        break;
 
-      } catch (error) {
-        console.log(error);
-        reject(error);
+      default:
+        // general error (no idea).
+        break;
       }
-    })
 
-    promise.then((response => {
-      console.log(response)
-    }));
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
