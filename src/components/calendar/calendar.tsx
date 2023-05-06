@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import DateSelectModal from '@/components/calendar/dateSelectModal';
-import { startOfMonth, isSameDay, startOfDay, isBefore } from 'date-fns';
+import { startOfMonth, isSameDay, addMonths, subMonths, startOfDay, isBefore, isSameMonth } from 'date-fns';
 
 /**
  * Gets date objects for each of the dates within a month. 
@@ -29,6 +29,8 @@ function Calendar() {
   const [MODAL_SHOW, SET_MODAL_SHOW] = useState(false);
   const [SELECTED_DATE, SET_SELECTED_DATE] = useState(new Date());
 
+  const [IS_NEXT_MONTH, SET_IS_NEXT_MONTH] = useState(false);
+
   const CURRENT_MONTH = CURRENT_DATE.getMonth();
   const CURRENT_YEAR = CURRENT_DATE.getFullYear();
 
@@ -52,6 +54,11 @@ function Calendar() {
     const NEW_DATE = new Date(CURRENT_YEAR, CURRENT_MONTH - 1, 1);
     const NEW_PADDING = Math.abs(1 - NEW_DATE.getDay());
 
+    if (isSameMonth(subMonths(TODAYS_DATE, 1), NEW_DATE)) {
+      return;
+    }
+
+    SET_IS_NEXT_MONTH(false);
     SET_CURRENT_DATE(NEW_DATE);
     SET_PADDING(NEW_PADDING);
 
@@ -68,6 +75,11 @@ function Calendar() {
     const NEW_DATE = new Date(CURRENT_YEAR, CURRENT_MONTH + 1, 1);
     const NEW_PADDING = Math.abs(1 - NEW_DATE.getDay());
 
+    if (isSameMonth(addMonths(TODAYS_DATE, 2), NEW_DATE)) {
+      return;
+    }
+
+    SET_IS_NEXT_MONTH(true);
     SET_CURRENT_DATE(NEW_DATE);
     SET_PADDING(NEW_PADDING);
     
@@ -84,7 +96,7 @@ function Calendar() {
     SET_MODAL_SHOW(!MODAL_SHOW);
   }
 
-  function getButton(date: Date) : JSX.Element {
+  function getDateSquareButton(date: Date) : JSX.Element {
     let classString = isSameDay(date, TODAYS_DATE) ? 'day today' : 'day';
     let inPast = false;
 
@@ -109,8 +121,8 @@ function Calendar() {
   return (
     <div>
       <h1 id='header'>{CURRENT_YEAR + ' ' + CURRENT_DATE.toLocaleString('SV', { month: 'short' })}</h1>
-      <button className='calendarControlButton' onClick={goToPreviousMonth}>Föregående</button>
-      <button className='calendarControlButton' onClick={goToNextMonth}>Nästa</button>
+      <button className='calendarControlButton btn btn-secondary' onClick={goToPreviousMonth} disabled={!IS_NEXT_MONTH}>Föregående</button>
+      <button className='calendarControlButton btn btn-secondary' onClick={goToNextMonth} disabled={IS_NEXT_MONTH}>Nästa</button>
       <div id='weekdays'>
         <div>Måndag</div>
         <div>Tisdag</div>
@@ -132,7 +144,7 @@ function Calendar() {
         {
           // For each day of the month, add a button to the calendar (with corresponding date).
           DAYS_IN_MONTH.map(day => (
-            getButton(day) 
+            getDateSquareButton(day) 
           ))
         }
 
