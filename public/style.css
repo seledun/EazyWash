@@ -68,6 +68,7 @@ section {
   display: inline-block;
   flex-direction: column;
   justify-content: space-between;
+  transition: 0.2s;
 }
 
 .today {
@@ -79,7 +80,7 @@ section {
 }
 
 .day:hover {
-  background-color: #e8faed;
+  background-color: #72cef9;
 }
 
 .day + #currentDay {

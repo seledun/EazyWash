@@ -39,7 +39,7 @@ function Calendar() {
    * for the supplied month, then changes the state of the DAYS-variable.
    * @author Sebastian Ledung
    */
-  function updateDaysInMonth() {
+  function updateDaysInMonth() : void {
     const DAYS = getDaysInMonth(CURRENT_MONTH, CURRENT_YEAR);
     SET_DAYS_IN_MONTH(DAYS);
   }
@@ -50,7 +50,7 @@ function Calendar() {
    * Reverses the calendar month by one month.
    * @author Sebastian Ledung
    */
-  function goToPreviousMonth() {
+  function goToPreviousMonth() : void { 
     const NEW_DATE = new Date(CURRENT_YEAR, CURRENT_MONTH - 1, 1);
     const NEW_PADDING = Math.abs(1 - NEW_DATE.getDay());
 
@@ -71,7 +71,7 @@ function Calendar() {
    * Forwards the calendar month by one month.
    * @author Sebastian Ledung
    */
-  function goToNextMonth() {
+  function goToNextMonth() : void {
     const NEW_DATE = new Date(CURRENT_YEAR, CURRENT_MONTH + 1, 1);
     const NEW_PADDING = Math.abs(1 - NEW_DATE.getDay());
 
@@ -91,7 +91,7 @@ function Calendar() {
    * @param date The date to show in the modal.
    * @author Sebastian Ledung
    */
-  function toggleModal(date: Date) {
+  function toggleModal(date: Date) : void {
     SET_SELECTED_DATE(date);
     SET_MODAL_SHOW(!MODAL_SHOW);
   }
