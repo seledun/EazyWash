@@ -27,9 +27,8 @@ section {
 
 #header {
   padding: 10px;
-  color: #d36c6c;
-  font-size: 2.2rem;
-  font-family: sans-serif;
+  color: #29bafd;
+  font-size: 2.3rem;
   display: flex;
   justify-content: space-between;
 }
