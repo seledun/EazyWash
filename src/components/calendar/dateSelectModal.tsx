@@ -111,6 +111,15 @@ function DateSelectModal(props: Props) {
         <Modal.Title>{"Tider för " + getDateString(props.selectedDate)}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        <div className="alert alert-warning" role="alert">
+          Något gick fel med bokningen, vänligen försök igen senare.
+        </div>
+        <div className="alert alert-success" role="alert">
+          Tiden {getDateString(props.selectedDate)} 08:00 - 12:00 är nu bokad.
+        </div>
+        <div className="alert alert-danger" role="alert">
+          En arg ruta för arg information
+        </div>
         <ul className='calendarModalTimes'>
           <li key={1} className={SELECTED_TIME === 1 ? 'selected' : ''} onClick={() => selectTime(1)}>08:00 - 12:00<span className='right'>Bokad</span></li>
           <li key={2} className={SELECTED_TIME === 2 ? 'selected' : ''} onClick={() => selectTime(2)}>12:00 - 16:00<span className='right'>Obokad</span></li>
@@ -122,6 +131,7 @@ function DateSelectModal(props: Props) {
         <Button variant="secondary" onClick={toggleModal}>
           Stäng
         </Button>
+
         <Button variant="primary" onClick={bookSelected} disabled={BOOK_BUTTON_STATE}>
           Boka tid
         </Button>
