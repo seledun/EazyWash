@@ -312,3 +312,55 @@ END;
 $$
 
 //select get_person_id('5B', '123')
+
+/**
+ * @author Petter Carlsson
+ */
+CREATE OR REPLACE FUNCTION count_bookings(year_in INT, month_in INT, org_id_in INT)
+RETURNS TABLE (
+    booking_date DATE,
+    count INT
+)
+AS $$
+DECLARE
+    start_date DATE := (year_in || '-' || month_in || '-01')::DATE;
+    end_date DATE := (start_date + INTERVAL '1 MONTH')::DATE;
+BEGIN
+    RETURN QUERY
+    SELECT bs.booking_date, COUNT(*)::INTEGER AS count
+    FROM BookingSchema bs
+    JOIN Person p ON bs.per_id = p.per_id
+    WHERE p.org_id = org_id_in
+    AND bs.booking_date >= start_date
+    AND bs.booking_date < end_date
+    GROUP BY bs.booking_date;
+END;
+$$
+LANGUAGE plpgsql;
+
+//Året, Måndaden, org_id
+//select * from count_bookings(2023, 5, 2)
+
+/**
+ * @author Petter Carlsson
+ */
+CREATE OR REPLACE FUNCTION get_booked_times_for_specific_day(org_id_in INT, booking_date_in DATE)
+RETURNS TABLE (
+    per_id INT,
+    start_time TIME,
+    end_time TIME
+)
+AS $$
+BEGIN
+    RETURN QUERY
+    SELECT bs.per_id, bs.start_time, bs.end_time
+    FROM BookingSchema bs
+    JOIN Person p ON bs.per_id = p.per_id
+    WHERE p.org_id = org_id_in
+    AND bs.booking_date = booking_date_in;
+END;
+$$
+LANGUAGE plpgsql;
+
+//Org_id och specifikt datum
+//SELECT * FROM get_booked_times_for_specific_day(2, '2023-05-18');
