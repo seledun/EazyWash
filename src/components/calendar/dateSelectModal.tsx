@@ -34,6 +34,7 @@ function DateSelectModal(props: Props) {
 
   const [SELECTED_TIME, SET_SELECTED_TIME] = useState(0);
   const [BOOK_BUTTON_STATE, SET_BOOK_BUTTON_STATE] = useState(true);
+  const [ALERT, SET_ALERT] = useState(<div></div>);
 
   /**
    * Toggled the modal (show / hide).
@@ -44,6 +45,29 @@ function DateSelectModal(props: Props) {
     props.setModalShow(!props.setModalShow);
     SET_SELECTED_TIME(0);
     SET_BOOK_BUTTON_STATE(true);
+    SET_ALERT(<div></div>);
+  }
+
+  function setAlert(type: string, message: string) : void {
+    let alert = 'alert alert-';
+    
+    if (type === 'success') {
+      alert = alert + 'success';
+    }
+
+    else if (type === 'warning') {
+      alert = alert + 'warning';
+    }
+
+    else if (type === 'danger') {
+      alert = alert + 'danger';
+    }
+
+    SET_ALERT(
+      <div className={alert} role="alert">
+        {message}
+      </div>
+    );
   }
 
   /**
@@ -79,16 +103,15 @@ function DateSelectModal(props: Props) {
         })
       });
   
-      console.log(response.status);
-  
       switch (response.status) {
       case 200:
         // success, time was successfully booked.
-        toggleModal();
+        setAlert('success', 'Tiden är nu bokad.');
         break;
 
       case 401:
         // unauthorized (not logged in).
+        setAlert('danger', 'Vänligen logga in på nytt.');
         break;
         
       case 400:
@@ -96,7 +119,7 @@ function DateSelectModal(props: Props) {
         break;
 
       default:
-        // general error (no idea).
+        setAlert('warning', 'Något gick fel med bokningen, vänligen försök igen senare.');
         break;
       }
 
@@ -111,15 +134,7 @@ function DateSelectModal(props: Props) {
         <Modal.Title>{"Tider för " + getDateString(props.selectedDate)}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div className="alert alert-warning" role="alert">
-          Något gick fel med bokningen, vänligen försök igen senare.
-        </div>
-        <div className="alert alert-success" role="alert">
-          Tiden {getDateString(props.selectedDate)} 08:00 - 12:00 är nu bokad.
-        </div>
-        <div className="alert alert-danger" role="alert">
-          En arg ruta för arg information
-        </div>
+        {ALERT}
         <ul className='calendarModalTimes'>
           <li key={1} className={SELECTED_TIME === 1 ? 'selected' : ''} onClick={() => selectTime(1)}>08:00 - 12:00<span className='right'>Bokad</span></li>
           <li key={2} className={SELECTED_TIME === 2 ? 'selected' : ''} onClick={() => selectTime(2)}>12:00 - 16:00<span className='right'>Obokad</span></li>
