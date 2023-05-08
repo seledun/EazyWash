@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from '../../utils/prisma';
+import { parse } from 'cookie';
 
 /**
  * Function that handles the endpoint /api/list.ts\
@@ -7,6 +8,7 @@ import prisma from '../../utils/prisma';
  * @param req Request-object handling information sent by the user.
  * @param res Response-object handling our response to the requesting user.
  * @author Petter Carlsson
+ * @author Sebastian Ledung
  */
 export default async function getAllBookingsByOrg(
   req: NextApiRequest,
@@ -14,12 +16,26 @@ export default async function getAllBookingsByOrg(
 ) {
   if (req.method === 'GET') { 
 
-    const { orgId } = req.query;
+    const COOKIES = parse(req.headers.cookie || '');
+    const ORG_ID : number = parseInt(COOKIES['user-id']);
 
-    const result = await prisma.$queryRaw`select * from get_booking_info_by_org_id(${orgId})`;
+    const { SPAN, DATE } = req.query;
 
-    res.status(200).json({success: true, data: result});
-        
+    if (SPAN === 'day' && !isNaN(ORG_ID)) {
+      
+      type resp = {
+        record: string;
+      };
+      
+      const RESULT : resp = await prisma.$queryRaw`select get_booked_times_for_specific_day(${ORG_ID}, ${DATE})`;
+      console.log(RESULT);
+
+      res.status(200).json({success: true, data: RESULT.record});
+    
+    } else {
+      res.status(401).json({success: false});
+    }
+
   } else {
     res.status(501); 
   }
