@@ -14,23 +14,22 @@ export default async function getAllBookingsByOrg(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method === 'GET') { 
-
+  if (req.method === 'POST') { 
     const COOKIES = parse(req.headers.cookie || '');
-    const ORG_ID : number = parseInt(COOKIES['user-id']);
+    const ORG_ID : number = parseInt(COOKIES['org-id']);
 
     const { SPAN, DATE } = req.query;
 
     if (SPAN === 'day' && !isNaN(ORG_ID)) {
       
       type resp = {
-        record: string;
+        record: string[];
       };
       
       const RESULT : resp = await prisma.$queryRaw`select get_booked_times_for_specific_day(${ORG_ID}, ${DATE})`;
       console.log(RESULT);
 
-      res.status(200).json({success: true, data: RESULT.record});
+      res.status(200).json({success: true, data: JSON.stringify(RESULT)});
     
     } else {
       res.status(401).json({success: false});
