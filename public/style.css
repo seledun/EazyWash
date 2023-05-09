@@ -193,3 +193,7 @@ ul.calendarModalTimes li .right {
   padding-left: 100px;
   background-color: #222327;
 }
+
+.modalAlert {
+  transition: .5s;
+}

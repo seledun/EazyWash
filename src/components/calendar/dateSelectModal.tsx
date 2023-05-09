@@ -35,7 +35,7 @@ function DateSelectModal(props: Props) {
 
   const [SELECTED_TIME, SET_SELECTED_TIME] = useState(0);
   const [BOOK_BUTTON_STATE, SET_BOOK_BUTTON_STATE] = useState(true);
-  const [ALERT, SET_ALERT] = useState(<div></div>);
+  const [ALERT, SET_ALERT] = useState(<div className="modalAlert"></div>);
 
   /**
    * Toggled the modal (show / hide).
@@ -50,7 +50,7 @@ function DateSelectModal(props: Props) {
   }
 
   function setAlert(type: string, message: string) : void {
-    let alert = 'alert alert-';
+    let alert = 'alert modalAlert alert-';
     
     if (type === 'success') {
       alert = alert + 'success';
@@ -69,6 +69,11 @@ function DateSelectModal(props: Props) {
         {message}
       </div>
     );
+
+    setTimeout (() => { // only show for 2 seconds.
+      SET_ALERT(<div className="modalAlert"></div>);
+    }, 3000);
+
   }
 
   /**
