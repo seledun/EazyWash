@@ -92,6 +92,12 @@ create table Authentication(
     unique(token, expires)
 );
 
+/**
+ * Adds an organization to the system
+ * @param p_name VARCHAR(60), the name of the organization
+ * @param p_address VARCHAR(100), the address of the organization
+ * @param p_email VARCHAR(50), the email of the organization
+ */
 CREATE OR REPLACE PROCEDURE add_organization(
     p_name VARCHAR(60),
     p_address VARCHAR(100),
@@ -106,6 +112,12 @@ COMMIT;
 END;
 $$;
 
+/**
+ * Adds a person to a specific organization
+ * @param p_username VARCHAR(50), the username of the person
+ * @param p_password VARCHAR(30), the password of the person
+ * @param p_org_id INT, the id of an organization
+ */
 CREATE OR REPLACE PROCEDURE add_person(
     p_username VARCHAR(50),
     p_password VARCHAR(30),
@@ -120,6 +132,13 @@ COMMIT;
 END;
 $$;
 
+/**
+ * Adds a specific booking for a specific person
+ * @param p_per_id INT, the id of the person
+ * @param p_start_time TIME, the start time of the booking
+ * @param p_end_time TIME, the end time of the booking
+ * @param  p_booking_date DATE, the date of the booking
+ */
 CREATE OR REPLACE PROCEDURE add_booking(
     p_start_time TIME,
     p_end_time TIME,
@@ -135,6 +154,13 @@ COMMIT;
 END;
 $$;
 
+/**
+ * Removes a specific booking for a specific person
+ * @param p_per_id INT, the id of the person
+ * @param p_start_time TIME, the start time of the booking
+ * @param p_end_time TIME, the end time of the booking
+ * @param  p_booking_date DATE, the date of the booking
+ */
 CREATE OR REPLACE PROCEDURE remove_booking(
     p_per_id INT,
     p_start_time TIME,
@@ -149,6 +175,10 @@ COMMIT;
 END;
 $$;
 
+/**
+ * Removes all bookings for a specific person
+ * @param p_per_id INT, the id of the person
+ */
 CREATE OR REPLACE PROCEDURE remove_all_bookings_for_person(
     p_per_id INT
 )
@@ -160,6 +190,11 @@ COMMIT;
 END;
 $$;
 
+/**
+ * Removes a specific person from an organization
+ * @param p_username VARCHAR(50), the username of a person
+ * @param p_org_id INT, the org id of an organization that the person is associated with it
+ */
 CREATE OR REPLACE PROCEDURE remove_person(
 	p_username VARCHAR(50), 
 	p_org_id INT
@@ -172,6 +207,10 @@ COMMIT;
 END;
 $$;
 
+/**
+ * Removes all persons associated with a specific organizations
+ * @param p_org_id INT, The id of an organization
+ */
 CREATE OR REPLACE PROCEDURE remove_all_persons_for_org(
     p_org_id INT
 )
@@ -185,6 +224,10 @@ COMMIT;
 END;
 $$;
 
+/**
+ * Removes an organization and with it all associated persons and the booked times with it
+ * @param p_org_id INT, The id of an organization
+ */
 CREATE OR REPLACE PROCEDURE remove_org(
     p_org_id INT
 )
@@ -198,8 +241,12 @@ BEGIN
 COMMIT;
 END;
 $$;
+
 /**
+ * Gives all the bookings for a specific organizations
  * @author Petter Carlsson
+ * @param p_org_id INT, The id of an organization
+ * @returns Table, Returns a table with start time and end time of the booking as well as the date
  */
 CREATE OR REPLACE FUNCTION get_booking_info_by_org_id(
 	p_org_id INT
@@ -222,7 +269,11 @@ $$
 
 //select * from get_booking_info_by_org_id(n);
 /**
+ * Checks if the person is allowed to book another time
  * @author Petter Carlsson
+ * @param p_id int, The id of a person
+ * @returns boolean, returns true if the person has booked less that 2 times and returns
+ * false when its 2 or more
  */
 CREATE OR REPLACE FUNCTION check_booking_limit(
 	p_id int
@@ -240,6 +291,7 @@ $$
 
 //select check_booking_limit(n);
 /**
+ * Delets all bookings that is older than the current date
  * @author Petter Carlsson
  */
 CREATE OR REPLACE FUNCTION delete_past_bookings()
@@ -252,6 +304,8 @@ BEGIN
 END;
 $$
 /**
+ * Trigger that modifies that insert command into the BookingSchema that calls for the function
+ * that delets all past bookings
  * @author Petter Carlsson
  */
 CREATE TRIGGER delete_past_bookings_trigger
@@ -259,7 +313,11 @@ AFTER INSERT OR UPDATE ON BookingSchema
 FOR EACH ROW
 EXECUTE FUNCTION delete_past_bookings();
 /**
+ * Checks if the log in credentials are correct
  * @author Petter Carlsson
+ * @param p_username varchar(50), The given username
+ * @param p_password varchar(30), The given password
+ * @returns boolean, returns true if there is a person that matches the given password and username
  */
 CREATE OR REPLACE FUNCTION log_in(
     p_username varchar(50),
@@ -286,7 +344,11 @@ $$
 
 //select log_in('5B', '123')
 /**
+ * Gives the person id from the log in credentials
  * @author Petter Carlsson
+ * @param p_username varchar(50), The given username
+ * @param p_password varchar(30), The given password
+ * @returns person_id, gives the person id that the password and username matches
  */
 CREATE OR REPLACE FUNCTION get_person_id(
     p_username varchar(50),
@@ -314,9 +376,18 @@ $$
 //select get_person_id('5B', '123')
 
 /**
+ * Counts all the booked times per day of a given month and year
  * @author Petter Carlsson
+ * @param year_in INT, The year that needs checked
+ * @param month_in INT, The month that needs checked
+ * @param org_id_in INT, The person id
+ * @returns table, A table with the booking dates and the amount of times booked on those days
  */
-CREATE OR REPLACE FUNCTION count_bookings(year_in INT, month_in INT, org_id_in INT)
+CREATE OR REPLACE FUNCTION count_bookings(
+    year_in INT, 
+    month_in INT, 
+    org_id_in INT
+    )
 RETURNS TABLE (
     booking_date DATE,
     count INT
@@ -342,9 +413,16 @@ LANGUAGE plpgsql;
 //select * from count_bookings(2023, 5, 2)
 
 /**
+ * Checks what times are booked on a specific date for an organization
  * @author Petter Carlsson
+ * @param org_id_in INT, The id of a organization
+ * @param booking_date_in DATE, The date that will be checked
+ * @returns Table, A table with the person id that booked and the times for a specific date
  */
-CREATE OR REPLACE FUNCTION get_booked_times_for_specific_day(org_id_in INT, booking_date_in DATE)
+CREATE OR REPLACE FUNCTION get_booked_times_for_specific_day(
+    org_id_in INT, 
+    booking_date_in DATE
+    )
 RETURNS TABLE (
     per_id INT,
     start_time TIME,
