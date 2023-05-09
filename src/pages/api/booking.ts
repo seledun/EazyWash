@@ -91,7 +91,7 @@ export default async function booking(
     if (DATES !== undefined && !Number.isNaN(USER_ID)) {
       
       const DATE_NOW_ISO_8601 = formatDateISO8601(new Date(day));
-      const QUERY = "call add_booking('" 
+      const QUERY = "select book_time('" 
         + DATES.startDate 
         + "', '" + DATES.endDate 
         + "', " + USER_ID 
@@ -100,11 +100,20 @@ export default async function booking(
 
       prisma.$connect;
 
-      const RESULT = await prisma.$queryRawUnsafe(QUERY);
+      type response = { // Type response from DBMS.
+        book_time: boolean;
+      }
       
-      prisma.$disconnect;
+      const RESULT: response[] = await prisma.$queryRawUnsafe(QUERY);
 
-      res.status(200).json({sucess: 'true'});
+      if (RESULT[0].book_time === false) {
+        res.status(409).json({success: 'false'});
+
+      } else {
+        res.status(200).json({sucess: 'true'});
+      }
+
+      prisma.$disconnect;
     }
 
     else if (Number.isNaN(USER_ID)) { // User not authorized.

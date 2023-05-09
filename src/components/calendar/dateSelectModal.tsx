@@ -1,5 +1,6 @@
 import { Modal, Button } from 'react-bootstrap'
 import { useState } from 'react';
+import { isWhiteSpaceLike } from 'typescript';
 
 /**
  * Formats the Date-object to a human readable format.
@@ -114,6 +115,10 @@ function DateSelectModal(props: Props) {
         setAlert('danger', 'Vänligen logga in på nytt.');
         break;
         
+      case 409:
+        setAlert('danger', 'Det gick inte att boka din tid.');
+        break;
+
       case 400:
         // malformed request (dates not correctly defined).
         break;
