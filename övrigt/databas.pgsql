@@ -364,3 +364,52 @@ LANGUAGE plpgsql;
 
 //Org_id och specifikt datum
 //SELECT * FROM get_booked_times_for_specific_day(2, '2023-05-18');
+
+/**
+ * Books a time if there is no other time booked in that block in the organizations and if the
+ * person_id doesn't have two booked times already ascocieted with it.
+ * @author Petter Carlsson
+ * @param in_start_time TIME, The start time of the block
+ * @param in_end_time TIME, The end time of the block
+ * @param in_per_id INT, The person id
+ * @param in_booking_date DATE, the date of the selected block
+ * @returns boolean, Returns true if everything checks out otherwise returns false
+ */
+CREATE OR REPLACE FUNCTION book_time(
+    in_start_time TIME,
+    in_end_time TIME,
+    in_per_id INT,
+    in_booking_date DATE
+) 
+RETURNS BOOLEAN AS $$
+DECLARE
+    conflict_count INT;
+    booking_count INT;
+BEGIN
+    SELECT COUNT(*) INTO conflict_count FROM BookingSchema bs
+    JOIN Person p ON bs.per_id = p.per_id
+    JOIN Organization o ON p.org_id = o.org_id
+    WHERE bs.booking_date = in_booking_date
+        AND ((bs.start_time >= in_start_time AND bs.start_time < in_end_time)
+            OR (bs.end_time > in_start_time AND bs.end_time <= in_end_time)
+            OR (bs.start_time < in_start_time AND bs.end_time > in_end_time))
+        AND (p.per_id = in_per_id OR o.org_id = (SELECT org_id FROM Person WHERE per_id = in_per_id));
+
+    IF conflict_count = 0 THEN
+        SELECT COUNT(*) INTO booking_count FROM BookingSchema WHERE per_id = in_per_id;
+        IF booking_count < 2 THEN
+            INSERT INTO BookingSchema(start_time, end_time, per_id, booking_date) 
+			VALUES (in_start_time, in_end_time, in_per_id, in_booking_date);
+            RETURN TRUE;
+        ELSE
+            RETURN FALSE;
+        END IF;
+    ELSE
+        RETURN FALSE;
+    END IF;
+END;
+$$ 
+LANGUAGE plpgsql;
+
+//starttid, sluttid, person_id, datum
+//SELECT book_time('08:00:00', '12:00:00', 7, '2023-05-26');
