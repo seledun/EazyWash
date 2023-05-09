@@ -1,5 +1,7 @@
+// oliver
 let sections = document.querySelectorAll('section');
 let navLinks = document.querySelectorAll('header .navbar a');
+// oliver
 /**
  * @author Oliver Jönsson, Sebastian Ledung
  */
@@ -21,6 +23,11 @@ window.onscroll = () => {
     }
   });
 };
+// oliver
+document.getElementsByClassName("user")[0].addEventListener("click",function(){
+  document.querySelector(".popup").style.display="flex";
+})
+// Oliver 
 /**
  * @author Oliver Jönsson
  */
