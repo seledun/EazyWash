@@ -131,6 +131,7 @@ function DateSelectModal(props: Props) {
 
     SET_SELECTED_TIME(-1);
     SET_IS_LOADING(false);
+
   }
 
   /**
@@ -255,8 +256,9 @@ function DateSelectModal(props: Props) {
       <Modal.Body>
         {ALERT}
         {IS_LOADING ? 
-          <div className="spinner-grow text-primary" role="status">
-            <span className="sr-only"></span>
+          <div className="text-center">
+            <div className="spinner-border text-primary" style={{width: '3rem', height: '3rem', marginTop: '2rem'}} role="status" />
+            <h5 className="text-center"><br />Laddar tider..</h5>
           </div>
           : 
           <ul className='calendarModalTimes'>
