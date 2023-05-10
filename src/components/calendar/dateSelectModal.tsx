@@ -72,6 +72,7 @@ function DateSelectModal(props: Props) {
     }
 
     SET_IS_LOADING(false);
+
   }
 
   /**
@@ -182,12 +183,18 @@ function DateSelectModal(props: Props) {
       </Modal.Header>
       <Modal.Body>
         {ALERT}
-        <ul className='calendarModalTimes'>
-          <li key={1} className={SELECTED_TIME === 1 ? 'selected' : ''} onClick={() => selectTime(1)}>08:00 - 12:00<span className='right'>Bokad</span></li>
-          <li key={2} className={SELECTED_TIME === 2 ? 'selected' : ''} onClick={() => selectTime(2)}>12:00 - 16:00<span className='right'>Obokad</span></li>
-          <li key={3} className={SELECTED_TIME === 3 ? 'selected' : ''} onClick={() => selectTime(3)}>16:00 - 20:00<span className='right'>Bokad</span></li>
-          <li key={4} className={SELECTED_TIME === 4 ? 'selected' : ''} onClick={() => selectTime(4)}>20:00 - 24:00<span className='right'>Bokad</span></li>
-        </ul>
+        {IS_LOADING ? 
+          <div className="spinner-grow text-primary" role="status">
+            <span className="sr-only"></span>
+          </div>
+          : 
+          <ul className='calendarModalTimes'>
+            <li key={1} className={SELECTED_TIME === 1 ? 'selected' : ''} onClick={() => selectTime(1)}>08:00 - 12:00<span className='right'>Bokad</span></li>
+            <li key={2} className={SELECTED_TIME === 2 ? 'selected' : ''} onClick={() => selectTime(2)}>12:00 - 16:00<span className='right'>Obokad</span></li>
+            <li key={3} className={SELECTED_TIME === 3 ? 'selected' : ''} onClick={() => selectTime(3)}>16:00 - 20:00<span className='right'>Bokad</span></li>
+            <li key={4} className={SELECTED_TIME === 4 ? 'selected' : ''} onClick={() => selectTime(4)}>20:00 - 24:00<span className='right'>Bokad</span></li>
+          </ul>
+        }
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={toggleModal}>

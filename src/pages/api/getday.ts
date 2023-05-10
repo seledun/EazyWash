@@ -18,9 +18,9 @@ export default async function getday (
 
     const DATE = req.query.date;
     const COOKIES = parse(req.headers.cookie || '');
-    const SESSION : string = COOKIES['session-id'];
+    const SESSION : string | undefined = COOKIES['session-id'];
 
-    if (SESSION.length > 0 && DATE !== undefined) {
+    if (SESSION != undefined && DATE !== undefined) {
 
       type sessionData = {
         username: string,
@@ -43,7 +43,7 @@ export default async function getday (
       prisma.$disconnect;
 
     } else {
-      res.status(501);
+      res.status(501).json({success: false}); // malformed request.
     }
   }
 }
