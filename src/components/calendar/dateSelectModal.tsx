@@ -128,6 +128,8 @@ function DateSelectModal(props: Props) {
     } else {
       SET_FETCH_OK(false);
     }
+
+    SET_SELECTED_TIME(-1);
     SET_IS_LOADING(false);
   }
 
@@ -137,10 +139,15 @@ function DateSelectModal(props: Props) {
    * @author Sebastian Ledung
    */
   function toggleModal() {
+    if (props.modalShow === true) {
+      SET_TIME_SLOTS(new Array<slot>); // Clears array on close.
+    }
+
     props.setModalShow(!props.setModalShow);
     SET_SELECTED_TIME(-1);
     SET_BOOK_BUTTON_STATE(true);
     SET_ALERT(<div></div>);
+    
   }
 
   /**
@@ -214,6 +221,7 @@ function DateSelectModal(props: Props) {
       case 200:
         // success, time was successfully booked.
         setAlert('success', 'Tiden är nu bokad.');
+        fetchTimeSlots();
         break;
 
       case 401:
