@@ -197,3 +197,15 @@ ul.calendarModalTimes li .right {
 .modalAlert {
   transition: .5s;
 }
+
+.modal-li-booked {
+  background-color: #df9292 !important;
+}
+
+.modal-li-unbooked {
+  background-color: #88c497 !important;
+}
+
+.alert {
+  margin-bottom: 0 !important;
+}

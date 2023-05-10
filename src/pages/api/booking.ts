@@ -36,28 +36,28 @@ function formatDateISO8601(date: Date) : string {
  * @author Sebastian Ledung
  */
 function timeSlots(timeSlot: string) : TimeSlot | undefined {
-  if (timeSlot === '1') {
+  if (timeSlot === '0') {
     return ({
       startDate: '08:00', // 08:00 - 12:00
       endDate: '12:00'
     });
   }
 
-  else if (timeSlot === '2') {
+  else if (timeSlot === '1') {
     return ({
       startDate: '12:00', // 12:00 - 16:00
       endDate: '16:00'
     });
   }
 
-  else if (timeSlot === '3') {
+  else if (timeSlot === '2') {
     return ({
       startDate: '16:00', // 16:00 - 20:00
       endDate: '20:00'
     });
   }
 
-  else if (timeSlot === '4') {
+  else if (timeSlot === '3') {
     return ({
       startDate: '20:00', // 20:00 - 24:00
       endDate: '24:00'
