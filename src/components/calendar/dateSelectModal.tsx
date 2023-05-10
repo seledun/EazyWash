@@ -1,6 +1,7 @@
+import type { NextApiRequest, NextApiResponse } from "next";
 import { Modal, Button } from 'react-bootstrap'
-import { useState } from 'react';
-import { isWhiteSpaceLike } from 'typescript';
+import { useEffect, useState } from 'react';
+
 
 /**
  * Formats the Date-object to a human readable format.
@@ -17,6 +18,13 @@ function getDateString(date: Date) : string {
   };
 
   return date.toLocaleDateString(undefined, FORMAT_OPTIONS);
+}
+
+function formatDateISO8601(date: Date) : string {
+  const YEAR = date.getFullYear();
+  const MONTH = (date.getMonth() +1).toString().padStart(2, '0'); // months 0 - 11 (needs +1).
+  const DAY = date.getDate().toString().padStart(2, '0');
+  return YEAR + '-' + MONTH + '-' + DAY;
 }
 
 /**
@@ -36,6 +44,35 @@ function DateSelectModal(props: Props) {
   const [SELECTED_TIME, SET_SELECTED_TIME] = useState(0);
   const [BOOK_BUTTON_STATE, SET_BOOK_BUTTON_STATE] = useState(true);
   const [ALERT, SET_ALERT] = useState(<div className="modalAlert"></div>);
+
+  const [IS_LOADING, SET_IS_LOADING] = useState(true);
+  const [TIME_SLOTS, SET_TIME_SLOTS] = useState([]);
+
+  useEffect(() => {
+    if (props.modalShow === true) {
+      fetchTimeSlots();
+    }
+  }, [props.selectedDate, props.modalShow]);
+
+  async function fetchTimeSlots() {
+    SET_IS_LOADING(true);
+
+    const response = await fetch(`/api/getday?date=${formatDateISO8601(props.selectedDate)}`);
+    if (response.ok) {
+
+      const DATA = await response.json();
+      const SLOTS : Array<slot> = DATA.data;
+
+      type slot = {
+        per_id: number,
+        start_time: string,
+        end_time: string
+      }
+
+    }
+
+    SET_IS_LOADING(false);
+  }
 
   /**
    * Toggled the modal (show / hide).
