@@ -78,6 +78,8 @@ export default async function login(
 
         // Creates session variables.
         const PERSON_ID = FIND_ID?.per_id;
+        const ORG_ID = FIND_ID?.org_id;
+
         const TOKEN = crypto.randomUUID();
         const EXPIRES = new Date((Date.now() + (1000 * 60 * 30)));
 
@@ -93,6 +95,12 @@ export default async function login(
 
         // Sets the client cookie with a session-id and the expiry time for the cookie.
         res.setHeader('set-cookie', [
+          'user-id=' + PERSON_ID
+          + '; SameSite=strict' 
+          + '; Expires=' + EXPIRES.toUTCString(),
+          'org-id=' + ORG_ID
+          + '; SameSite=strict' 
+          + '; Expires=' + EXPIRES.toUTCString(),
           'session-id=' + TOKEN 
           + '; SameSite=strict' 
           + '; Expires=' + EXPIRES.toUTCString()
