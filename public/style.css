@@ -164,6 +164,7 @@ section {
 }
 
 ul.calendarModalTimes li {
+  font-size: 1.2rem;
   border-radius: 8px;
   background-color: #e6e6e6;
   display: block;
@@ -183,8 +184,9 @@ ul.calendarModalTimes li .right {
 }
 
 .selected {
-  outline: dashed;
-  outline-width: 2px;
+  outline: solid;
+  outline-width: 4px;
+  outline-color: #324f27;
 }
 
 #contentDiv {
