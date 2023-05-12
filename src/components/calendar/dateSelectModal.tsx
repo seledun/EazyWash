@@ -1,4 +1,3 @@
-import type { NextApiRequest, NextApiResponse } from "next";
 import { Modal, Button } from 'react-bootstrap'
 import { useEffect, useState } from 'react';
 
@@ -37,19 +36,15 @@ function getSlotIdFromStartTime(start_time : string) : number {
   switch (start_time) {
   case '08:00':
     return 1;
-    break;
   
   case '12:00':
     return 2;
-    break;
 
   case '16:00':
     return 3;
-    break;
 
   case '20:00':
     return 4;
-    break;
 
   default:
     return 0;

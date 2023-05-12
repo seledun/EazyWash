@@ -32,7 +32,7 @@ export default async function getday (
 
       const QUERY = `select per.username, per.per_id, per.org_id from Authentication auth
       join person per on auth.person = per.per_id
-      where auth.token = '${SESSION}';`
+      where auth.token = '${SESSION}';`;
       const SESSION_DATA : sessionData[] = await prisma.$queryRawUnsafe(QUERY);
       
       const DATE_QUERY = `select * from get_booked_times_for_specific_day(${SESSION_DATA[0].org_id}, '${DATE}')`;
