@@ -1,6 +1,6 @@
 /**
-*@author Petter Carlsson, Teo Gefors
-*
+*@author Petter Carlsson
+*@author Teo Gefors
 */
 
 create table TestTablePerson (
