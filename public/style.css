@@ -181,6 +181,7 @@ ul.calendarModalTimes li .right {
 
 .modal-dialog {
   max-width: 750px !important;
+  color: #000000 !important;
 }
 
 .selected {

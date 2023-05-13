@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Calendar from '@/components/calendar/calendar'
+import Login from '@/components/login/login'
 
 export default function Index() {
 
@@ -23,32 +24,7 @@ export default function Index() {
             <li><a href="#kontaktaOss"> Kontakta oss</a></li>
           </ul>
         
-
-          <div className="main">
-            <a href="#" className="user"><i className="ri-user-fill"></i>Logga in</a>
-          </div>
-          <div className="popup">
-            <div className="popup-content">
-              <form><i className="ri-user-fill"></i>
-                <button data-close-button className="btn-close">&times;</button>
-                <h2>Sign in</h2>
-                <div className="InputBox">
-                  <input type="text" required={true} />
-                  <span>Username</span>
-                  <i></i>
-                </div>
-                <div className="InputBox">
-                  <input type="password" required={true} />
-                  <span>password</span>
-                  <i></i>
-                </div>
-                <div className="Links"> 
-                  <a href="#">Forgot Password</a>
-                </div>
-                <a href="#" className="button">Login</a>
-              </form>
-            </div>
-          </div>
+          <Login />
                                 
         </header>
 
