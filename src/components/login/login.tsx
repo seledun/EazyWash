@@ -12,7 +12,6 @@ function Login() {
   const [PASSWORD, SET_PASSWORD] = useState("");
 
   const TOGGLE_MODAL = () => SET_MODAL_SHOW(!MODAL_SHOW);
-
   /**
    * Sets the modal alert data, prints out a message to the user
    * with varying levels of importance (success | warning | danger).
@@ -92,9 +91,9 @@ function Login() {
   return (
     <div className="main">
       {!AUTHENTICATED ? 
-        <span className="user" onClick={TOGGLE_MODAL}><i className="ri-user-fill"></i>Logga in</span>
+        <a className="user" onClick={TOGGLE_MODAL}><i className="ri-user-fill"></i>Logga in</a>
         :
-        <span className="user" onClick={() => logOut()}><i className='ri-logout-box-fill'></i>{USERNAME} - Logga ut</span>
+        <a className="user" onClick={() => logOut()}><i className='ri-logout-box-fill'></i>{USERNAME} - Logga ut</a>
       }
       
       <Modal show={MODAL_SHOW} onHide={TOGGLE_MODAL} centered>
