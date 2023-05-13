@@ -12,6 +12,7 @@ function Login() {
   const [PASSWORD, SET_PASSWORD] = useState("");
 
   const TOGGLE_MODAL = () => SET_MODAL_SHOW(!MODAL_SHOW);
+
   /**
    * Sets the modal alert data, prints out a message to the user
    * with varying levels of importance (success | warning | danger).
@@ -79,8 +80,7 @@ function Login() {
         console.log(json);
       })
       .catch(function() {
-        console.log("authentication failed");
-        setAlert('warning', 'Fel lägenhetsnummer eller lösenord, försök igen.');
+        setAlert('danger', 'Fel lägenhetsnummer eller lösenord, försök igen.');
         SET_AUTHENTICATED(false);
       })
       .finally(function() {
@@ -125,12 +125,17 @@ function Login() {
             void(0)  
           }
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={TOGGLE_MODAL}>
-          Stäng
-          </Button>
-          <Button variant="primary" onClick={() => logIn()}>Logga in</Button>
-        </Modal.Footer>
+        
+        {!AUTHENTICATED && !IS_LOADING ? 
+          <Modal.Footer>
+            <Button variant="secondary" onClick={TOGGLE_MODAL}>
+            Stäng
+            </Button>
+            <Button variant="primary" onClick={() => logIn()}>Logga in</Button>  
+          </Modal.Footer>
+          :
+          void(0)
+        }
       </Modal>
     </div>
   );
