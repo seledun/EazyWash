@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Modal, Button } from 'react-bootstrap'
 import { useEffect, useState } from 'react';
+import { getHours, isSameDay } from "date-fns";
 
 type slot = {
   per_id?: number,
@@ -85,6 +86,8 @@ function DateSelectModal(props: Props) {
   const [TIME_SLOTS, SET_TIME_SLOTS] = useState(Array<slot>); // Time-slots for the current day.
   const [FETCH_OK, SET_FETCH_OK] = useState(false); // State whether the fetch was ok or not.
 
+  const [CLIENT_DATE, SET_CLIENT_DATE] = useState(new Date());
+
   /**
    * When the selectedDate or modalShow changes state,
    * fetches new times from the database.
@@ -95,6 +98,11 @@ function DateSelectModal(props: Props) {
       fetchTimeSlots();
     }
   }, [props.selectedDate, props.modalShow]);
+
+  useEffect(() => {
+    SET_CLIENT_DATE(new Date());
+  }, []);
+
 
   /**
    * Fetches times from the database to list in the client view,
@@ -120,6 +128,11 @@ function DateSelectModal(props: Props) {
       FETCHED_SLOTS.forEach(element => {
         element.start_time = element.start_time.slice(11, 16);
         element.end_time = element.end_time.slice(11, 16);
+
+        if (element.end_time === '00:00') {
+          element.end_time = '24:00';
+        }
+
         SLOTS[getSlotIdFromStartTime(element.start_time) -1] = element;
       });
 
@@ -199,6 +212,37 @@ function DateSelectModal(props: Props) {
     }
   }
 
+  function getTimeSlot(slot: slot, index: number) : JSX.Element {
+    
+    let inPast = false;
+    let className = '';
+
+    if (isSameDay(CLIENT_DATE, props.selectedDate)) {
+      if (parseInt(slot.end_time) < getHours(CLIENT_DATE)) {
+        className = className + ' modal-li-past';
+        inPast = true;
+      }
+    }
+
+    return (            
+      <li 
+        key={index} 
+        className={`${
+          SELECTED_TIME === index ? 'selected' : ''
+        } ${
+          slot.per_id === undefined ? 'modal-li-unbooked' : 'modal-li-booked'
+        } ${
+          className 
+        }`}
+        onClick={() => slot.per_id === undefined && !inPast ? selectTime(index) : void(0)}>{slot.start_time} - {slot.end_time}
+        {inPast ? void(0) :
+          <span 
+            className='right'>{slot.per_id === undefined ? 'Ledig' : 'Bokad'}
+          </span>
+        }
+      </li>);
+  } 
+
   /**
    * Tries to book the client-selected time slot,
    * handles the responses and tries to print out a
@@ -231,7 +275,7 @@ function DateSelectModal(props: Props) {
         break;
         
       case 409:
-        setAlert('danger', 'Det gick inte att boka din tid.');
+        setAlert('danger', 'Det gick inte att boka din tid, kontrollera att du inte har för många bokade tider.');
         break;
 
       case 400:
@@ -263,18 +307,7 @@ function DateSelectModal(props: Props) {
           : 
           <ul className='calendarModalTimes'>
             {TIME_SLOTS.map((slot, index) => (
-              <li 
-                key={index} 
-                className={`${
-                  SELECTED_TIME === index ? 'selected' : ''
-                } ${
-                  slot.per_id === undefined ? 'modal-li-unbooked' : 'modal-li-booked'
-                }`}
-                onClick={() => slot.per_id === undefined ? selectTime(index) : void(0)}>{slot.start_time} - {slot.end_time}
-                <span 
-                  className='right'>{slot.per_id === undefined ? 'Ledig' : 'Bokad'}
-                </span>
-              </li>
+              getTimeSlot(slot, index)
             ))}
           </ul>
         }

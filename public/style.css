@@ -41,7 +41,7 @@ section {
 #weekdays {
   width: 100%;
   display: flex;
-  color: #247BA0;
+  color: #29bafd;
 }
 #weekdays div {
   font-size: 1.2rem;
@@ -181,6 +181,7 @@ ul.calendarModalTimes li .right {
 
 .modal-dialog {
   max-width: 750px !important;
+  color: #000000 !important;
 }
 
 .selected {
@@ -208,6 +209,16 @@ ul.calendarModalTimes li .right {
   background-color: #88c497 !important;
 }
 
+.modal-li-past {
+  background-color: #a6a6a6 !important;
+}
+
 .alert {
   margin-bottom: 0 !important;
+}
+
+.calender-astrix {
+  color: rgb(206, 119, 119);
+  display: block;
+  margin: 1rem;
 }

@@ -148,6 +148,7 @@ function Calendar() {
           ))
         }
 
+        <br /><span className='calender-astrix'>* Det går endast att ha två inbokade tider i kalendern åt gången.</span>
       </ul>
       <DateSelectModal 
         selectedDate={SELECTED_DATE}
