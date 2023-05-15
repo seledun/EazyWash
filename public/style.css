@@ -41,7 +41,7 @@ section {
 #weekdays {
   width: 100%;
   display: flex;
-  color: #247BA0;
+  color: #29bafd;
 }
 #weekdays div {
   font-size: 1.2rem;
