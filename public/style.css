@@ -212,3 +212,9 @@ ul.calendarModalTimes li .right {
 .alert {
   margin-bottom: 0 !important;
 }
+
+.calender-astrix {
+  color: rgb(206, 119, 119);
+  display: block;
+  margin: 1rem;
+}
