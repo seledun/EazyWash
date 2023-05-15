@@ -108,7 +108,7 @@ function DateSelectModal(props: Props) {
   async function fetchTimeSlots() {
     SET_IS_LOADING(true);
 
-    const response = await fetch(`/api/getday?date=${formatDateISO8601(props.selectedDate)}`);
+    const response = await fetch(`/api/calendar/get-times?date=${formatDateISO8601(props.selectedDate)}`);
     if (response.ok) {
 
       const DATA = await response.json();
@@ -250,7 +250,7 @@ function DateSelectModal(props: Props) {
    */
   async function bookSelected() {
     try {
-      const response = await fetch('/api/booking', {
+      const response = await fetch('/api/calendar/book-time', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'

@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import prisma from '../../utils/prisma';
+import prisma from '../../../utils/prisma';
 import { parse } from 'cookie';
 
 /**
@@ -75,7 +75,7 @@ function timeSlots(timeSlot: string) : TimeSlot | undefined {
  * @param res Response-object to for the client to get a response
  * @author Sebastian Ledung
  */
-export default async function booking(
+export default async function BookTime(
   req: NextApiRequest,
   res: NextApiResponse
 ) {

@@ -43,7 +43,7 @@ function Login(props: Props) {
    * @author Sebastian Ledung
    */
   async function isAuthenticated() {
-    const RESPONSE = await fetch('/api/isauthenticated');
+    const RESPONSE = await fetch('/api/auth/check-authentication');
 
     if (RESPONSE.ok) {
       RESPONSE.json().then((json) => {
@@ -86,7 +86,7 @@ function Login(props: Props) {
   }
 
   async function logOut() {
-    const RESPONSE = await fetch('/api/logout');
+    const RESPONSE = await fetch('/api/auth/logout');
 
     if (RESPONSE.ok) {
       RESPONSE.json().then(() => {
@@ -110,7 +110,7 @@ function Login(props: Props) {
   async function logIn() {
     SET_IS_LOADING(true);
   
-    await fetch('/api/login', {
+    await fetch('/api/auth/login', {
       method: 'POST',
       headers:{
         'Content-Type': 'application/x-www-form-urlencoded'
