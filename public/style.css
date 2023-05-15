@@ -228,13 +228,17 @@ ul.calendarModalTimes li .right {
 }
 
 #bookedTimes ul li {
+  font-size: 1.2rem;
+  background-color: #353535;
+  border-radius: 8px;
   display: block;
+  padding: .8rem;
   margin: 1rem;
 }
 
 #bookedTimes ul li a {
   float: right;
-  margin-left: 2rem;
+  margin-left: 4rem;
   color: #ea6868;
 }
 

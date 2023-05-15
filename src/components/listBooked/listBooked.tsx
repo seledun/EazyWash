@@ -1,4 +1,3 @@
-import BookTime from "@/pages/api/calendar/book-time";
 import { useState, useEffect } from "react";
 
 type bookedTimes = {
@@ -18,10 +17,6 @@ interface Props {
     setLoggedIn: (status: boolean) => void
 }
 
-function deleteBooking(bok_id: number) {
-  console.log(bok_id);
-}
-
 function ListBooked(props: Props) {
   
   const [BOOKED_TIMES, SET_BOOKED_TIMES] = useState(Array<bookedTimes>);
@@ -38,6 +33,17 @@ function ListBooked(props: Props) {
     }
   }, [props.loggedIn]);
   
+  function deleteBooking(booking: bookedTimes) {
+    if (confirm("Är du säker på att du vill avboka tiden\n" 
+      + booking.booking_date + ' '
+      + booking.start_time + ' - '
+      + booking.end_time + '?'
+    )) {
+      // confirm ok.
+      updateTimes(); // hämtar nya tider.
+    }
+  }
+ 
   /**
    * Fetches booked times for the client,
    * uses a spinner as a wait for the server to respond.
@@ -64,14 +70,12 @@ function ListBooked(props: Props) {
     
       SET_BOOKED_TIMES(NEW_TIMES_ARRAY); 
     }
-    setTimeout(() => {
-      SET_LOADING(false);
-    }, 3000);
+    SET_LOADING(false);
   }
 
   return (
     <div id="bookedTimes">
-      <h4>Bokade tider</h4>
+      <h2 style={{textAlign: 'center'}}>Bokade tider</h2>
       {LOADING ? 
         <div className="text-center">
           <div className="spinner-border text-primary" style={{width: '3rem', height: '3rem', marginTop: '1rem'}} role="status" />
@@ -88,7 +92,7 @@ function ListBooked(props: Props) {
       {props.loggedIn && !LOADING ?
         <ul>
           {BOOKED_TIMES.map((time, key) => (
-            <li key={key}>{time.booking_date} {time.start_time} - {time.end_time}<a onClick={() => deleteBooking(time.bok_id)} className='float-right'>Avboka tid</a></li>
+            <li key={key}>{time.booking_date} {time.start_time} - {time.end_time}<a onClick={() => deleteBooking(time)} className='float-right'>Avboka tid</a></li>
           ))
           }
         </ul>
