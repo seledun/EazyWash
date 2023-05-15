@@ -1,4 +1,3 @@
-import type { NextApiRequest, NextApiResponse } from "next";
 import { Modal, Button } from 'react-bootstrap'
 import { useEffect, useState } from 'react';
 import { getHours, isSameDay } from "date-fns";
@@ -38,19 +37,15 @@ function getSlotIdFromStartTime(start_time : string) : number {
   switch (start_time) {
   case '08:00':
     return 1;
-    break;
   
   case '12:00':
     return 2;
-    break;
 
   case '16:00':
     return 3;
-    break;
 
   case '20:00':
     return 4;
-    break;
 
   default:
     return 0;
@@ -218,7 +213,7 @@ function DateSelectModal(props: Props) {
     let className = '';
 
     if (isSameDay(CLIENT_DATE, props.selectedDate)) {
-      if (parseInt(slot.end_time) < getHours(CLIENT_DATE)) {
+      if (parseInt(slot.end_time) <= getHours(CLIENT_DATE)) {
         className = className + ' modal-li-past';
         inPast = true;
       }
@@ -235,7 +230,11 @@ function DateSelectModal(props: Props) {
           className 
         }`}
         onClick={() => slot.per_id === undefined && !inPast ? selectTime(index) : void(0)}>{slot.start_time} - {slot.end_time}
-        {inPast ? void(0) :
+        {inPast ?  
+          <span 
+            className='right'>Passerad
+          </span>
+          :
           <span 
             className='right'>{slot.per_id === undefined ? 'Ledig' : 'Bokad'}
           </span>
@@ -316,7 +315,7 @@ function DateSelectModal(props: Props) {
             Kunde inte hämta tider för valt datum, kontrollera att du är inloggad.
           </div>
           :
-          void(0)
+          null
         }
       </Modal.Body>
       <Modal.Footer>

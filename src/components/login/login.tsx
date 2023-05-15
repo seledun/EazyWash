@@ -151,7 +151,7 @@ function Login() {
               <h5 className="text-center"><br />Loggar in..</h5>
             </div>
             :
-            void(0)
+            null
           }
           {!AUTHENTICATED && !IS_LOADING ?
             <Form>
@@ -165,7 +165,7 @@ function Login() {
               </Form.Group>
             </Form>
             :
-            void(0)  
+            null  
           }
         </Modal.Body>
         
@@ -177,7 +177,7 @@ function Login() {
             <Button variant="primary" onClick={() => logIn()}>Logga in</Button>  
           </Modal.Footer>
           :
-          void(0)
+          null
         }
       </Modal>
     </div>
