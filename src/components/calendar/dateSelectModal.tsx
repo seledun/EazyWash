@@ -231,7 +231,7 @@ function DateSelectModal(props: Props) {
         break;
         
       case 409:
-        setAlert('danger', 'Det gick inte att boka din tid.');
+        setAlert('danger', 'Det gick inte att boka din tid, kontrollera att du inte har för många bokade tider.');
         break;
 
       case 400:
