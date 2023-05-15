@@ -82,6 +82,7 @@ function Login() {
         SET_USERNAME('');
         SET_PASSWORD('');
         SET_AUTHENTICATED(false);
+        alert("Du är nu utloggad.");
       });
     }
   }
