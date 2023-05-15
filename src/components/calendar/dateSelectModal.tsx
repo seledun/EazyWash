@@ -120,6 +120,11 @@ function DateSelectModal(props: Props) {
       FETCHED_SLOTS.forEach(element => {
         element.start_time = element.start_time.slice(11, 16);
         element.end_time = element.end_time.slice(11, 16);
+
+        if (element.end_time === '00:00') {
+          element.end_time = '24:00';
+        }
+
         SLOTS[getSlotIdFromStartTime(element.start_time) -1] = element;
       });
 
