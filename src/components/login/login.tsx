@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
 
 function Login() {
@@ -8,10 +8,43 @@ function Login() {
   const [IS_LOADING, SET_IS_LOADING] = useState(false);
   const [ALERT, SET_ALERT] = useState(<div className="modalAlert"></div>);
 
+  const [INITIAL_LOAD, SET_INITIAL_LOAD] = useState(false);
+
   const [USERNAME, SET_USERNAME] = useState("");
   const [PASSWORD, SET_PASSWORD] = useState("");
 
   const TOGGLE_MODAL = () => SET_MODAL_SHOW(!MODAL_SHOW);
+
+  /**
+   * On-load check if the client is already logged in,
+   * and then update the user interface to match the authentication
+   * status.
+   * @author Sebastian Ledung
+   */
+  useEffect(() => {
+    if (!INITIAL_LOAD) {
+      SET_INITIAL_LOAD(true);
+      isAuthenticated();
+    }
+  }, []);
+
+  /**
+   * Sends a GET-request to the API to get client authentication status.
+   * @author Sebastian Ledung
+   */
+  async function isAuthenticated() {
+    const RESPONSE = await fetch('/api/isauthenticated');
+
+    if (RESPONSE.ok) {
+      RESPONSE.json().then((json) => {
+        if (json.username !== undefined) {
+          SET_USERNAME(json.username);
+          SET_AUTHENTICATED(true);
+        }
+      });
+    }
+    SET_INITIAL_LOAD(false);
+  }
 
   /**
    * Sets the modal alert data, prints out a message to the user
@@ -42,11 +75,21 @@ function Login() {
   }
 
   async function logOut() {
-    // todo
+    const RESPONSE = await fetch('/api/logout');
+
+    if (RESPONSE.ok) {
+      RESPONSE.json().then(() => {
+        SET_USERNAME('');
+        SET_PASSWORD('');
+        SET_AUTHENTICATED(false);
+      });
+    }
   }
 
   /**
-   * Logs in the client to the website.
+   * Logs in the client to the website,
+   * sends the username & password to the api
+   * which in turn sets the user cookie.
    * @author Sebastian Ledung
    */
   async function logIn() {
@@ -95,7 +138,6 @@ function Login() {
         :
         <a className="user" onClick={() => logOut()}><i className='ri-logout-box-fill'></i>{USERNAME} - Logga ut</a>
       }
-      
       <Modal show={MODAL_SHOW} onHide={TOGGLE_MODAL} centered>
         <Modal.Header closeButton>
           <Modal.Title>Logga in</Modal.Title>
