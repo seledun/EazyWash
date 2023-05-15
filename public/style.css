@@ -209,6 +209,10 @@ ul.calendarModalTimes li .right {
   background-color: #88c497 !important;
 }
 
+.modal-li-past {
+  background-color: #a6a6a6 !important;
+}
+
 .alert {
   margin-bottom: 0 !important;
 }
