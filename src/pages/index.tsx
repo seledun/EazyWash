@@ -1,8 +1,12 @@
 import Head from 'next/head'
 import Calendar from '@/components/calendar/calendar'
 import Login from '@/components/login/login'
+import ListBooked from '@/components/listBooked/listBooked'
+import { useState } from 'react'
 
 export default function Index() {
+
+  const [LOGGED_IN, SET_LOGGED_IN] = useState(false);
 
   return (
     <>
@@ -23,9 +27,10 @@ export default function Index() {
             <li><a href="#tips"> Tips</a></li>
             <li><a href="#kontaktaOss"> Kontakta oss</a></li>
           </ul>
-        
-          <Login />
-                                
+          <Login  
+            setLoggedIn={SET_LOGGED_IN}
+            loggedIn={LOGGED_IN} 
+          />           
         </header>
 
         <div id='contentDiv'>
@@ -36,6 +41,12 @@ export default function Index() {
           <section></section>
           <section id="bookTime">
             <Calendar />
+          </section>
+          <section id="listTime">
+            <ListBooked 
+              setLoggedIn={SET_LOGGED_IN}
+              loggedIn={LOGGED_IN} 
+            />
           </section>
           <section id="tips">Tips</section>
           <section id="kontaktaOss">Kontakta oss</section>

@@ -222,3 +222,20 @@ ul.calendarModalTimes li .right {
   display: block;
   margin: 1rem;
 }
+
+#bookedTimes h4 {
+  text-align: center;
+}
+
+#bookedTimes ul li {
+  display: block;
+  margin: 1rem;
+}
+
+#bookedTimes ul li a {
+  margin-left: 2rem;
+  color: #ea6868;
+
+#bookedTimes ul li a:hover {
+  color: #ddd;
+}

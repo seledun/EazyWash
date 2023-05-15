@@ -1,7 +1,17 @@
 import { useState, useEffect } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
 
-function Login() {
+/**
+ * Up-shifts the useState to the component using this object,
+ * the component importing controls the date & state of the modal.
+ * @author Sebastian Ledung
+ */
+interface Props {  
+  loggedIn: boolean,
+  setLoggedIn: (status: boolean) => void
+}
+
+function Login(props: Props) {
     
   const [MODAL_SHOW, SET_MODAL_SHOW] = useState(false);
   const [AUTHENTICATED, SET_AUTHENTICATED] = useState(false);  
@@ -40,6 +50,7 @@ function Login() {
         if (json.username !== undefined) {
           SET_USERNAME(json.username);
           SET_AUTHENTICATED(true);
+          props.setLoggedIn(true);
         }
       });
     }
@@ -82,11 +93,14 @@ function Login() {
         SET_USERNAME('');
         SET_PASSWORD('');
         SET_AUTHENTICATED(false);
+        props.setLoggedIn(false);
         alert("Du är nu utloggad.");
       });
     }
   }
 
+
+  
   /**
    * Logs in the client to the website,
    * sends the username & password to the api
@@ -111,6 +125,7 @@ function Login() {
 
         if (response.ok) {
           SET_AUTHENTICATED(true);
+          props.setLoggedIn(true);
           setAlert('success', 'Du är nu inloggad, denna ruta stängs automatiskt.');
           setTimeout(() => {
             TOGGLE_MODAL();
