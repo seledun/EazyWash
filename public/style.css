@@ -233,8 +233,10 @@ ul.calendarModalTimes li .right {
 }
 
 #bookedTimes ul li a {
+  float: right;
   margin-left: 2rem;
   color: #ea6868;
+}
 
 #bookedTimes ul li a:hover {
   color: #ddd;

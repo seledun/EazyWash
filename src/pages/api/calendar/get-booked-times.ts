@@ -25,14 +25,15 @@ export default async function GetBookedTimes (
   
         prisma.$connect;
   
-        const QUERY = `per.per_id from Authentication auth
+        const QUERY = `select per.per_id from Authentication auth
         join person per on auth.person = per.per_id
-        where auth.token = '${SESSION}';`
+        where auth.token = '${SESSION}';`;
+
         const SESSION_DATA : sessionData[] = await prisma.$queryRawUnsafe(QUERY);
         
-        const BOOKINGS_QUERY = `select * from BookingSchema 
-                            where per_id=${SESSION_DATA[0].per_id}
-                            and booking_date >= CURRENT_DATE;`;
+        const BOOKINGS_QUERY = `select bok_id, start_time, end_time, booking_date from BookingSchema 
+                                where per_id=${SESSION_DATA[0].per_id} 
+                                and booking_date >= CURRENT_DATE;`;
 
         const RESULT = await prisma.$queryRawUnsafe(BOOKINGS_QUERY);
   
