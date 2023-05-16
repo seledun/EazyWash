@@ -68,16 +68,31 @@ function ListBooked(props: Props) {
     }
   }, [props.loggedIn]);
   
-  function deleteBooking(booking: bookedTimes) {
+  async function deleteBooking(booking: bookedTimes) {
     if (confirm("Är du säker på att du vill avboka tiden\n" 
       + booking.booking_date + ' '
       + booking.start_time + ' - '
       + booking.end_time + '?'
     )) {
-      // confirm ok.
-      updateTimes(); // hämtar nya tider.
+      const RESPONSE = await fetch('/api/calendar/delete-booking', {
+        method: 'POST',
+        headers:{
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },    
+        body: new URLSearchParams({
+          bookingId: booking.bok_id.toString()
+        })
+      })
+
+      if (RESPONSE.ok) {
+        alert("Din tid är nu avbokad.");
+        updateTimes();
+      }
+    } else {
+      return;
     }
   }
+ 
  
   /**
    * Fetches booked times for the client,
