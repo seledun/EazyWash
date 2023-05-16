@@ -65,10 +65,12 @@ function formatDateISO8601(date: Date) : string {
  * @author Sebastian Ledung
  */
 interface Props {  
-  modalShow: boolean;
-  selectedDate: Date;
-  setSelectedDate: (date: Date) => void;
-  setModalShow: (show: boolean) => void;
+  modalShow: boolean,
+  updateDatelist: boolean,
+  selectedDate: Date,
+  setSelectedDate: (date: Date) => void,
+  setModalShow: (show: boolean) => void,
+  setUpdateDatelist: (toggle: boolean) => void
 }
 
 function DateSelectModal(props: Props) {
@@ -97,7 +99,6 @@ function DateSelectModal(props: Props) {
   useEffect(() => {
     SET_CLIENT_DATE(new Date());
   }, []);
-
 
   /**
    * Fetches times from the database to list in the client view,
@@ -152,11 +153,10 @@ function DateSelectModal(props: Props) {
       SET_TIME_SLOTS(new Array<slot>); // Clears array on close.
     }
 
-    props.setModalShow(!props.setModalShow);
+    props.setModalShow(!props.modalShow);
     SET_SELECTED_TIME(-1);
     SET_BOOK_BUTTON_STATE(true);
     SET_ALERT(<div></div>);
-    
   }
 
   /**
@@ -266,6 +266,7 @@ function DateSelectModal(props: Props) {
         // success, time was successfully booked.
         setAlert('success', 'Tiden är nu bokad.');
         fetchTimeSlots();
+        props.setUpdateDatelist(!props.updateDatelist);
         break;
 
       case 401:

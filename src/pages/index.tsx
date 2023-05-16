@@ -7,6 +7,7 @@ import { useState } from 'react'
 export default function Index() {
 
   const [LOGGED_IN, SET_LOGGED_IN] = useState(false);
+  const [UPDATE_DATELIST, SET_UPDATE_DATELIST] = useState(false);
 
   return (
     <>
@@ -40,10 +41,15 @@ export default function Index() {
           <section></section>
           <section></section>
           <section id="bookTime">
-            <Calendar />
+            <Calendar 
+              updateDatelist={UPDATE_DATELIST}
+              setUpdateDatelist={SET_UPDATE_DATELIST}
+            />
           </section>
           <section id="listTime">
-            <ListBooked 
+            <ListBooked
+              updateDatelist={UPDATE_DATELIST}
+              setUpdateDatelist={SET_UPDATE_DATELIST} 
               setLoggedIn={SET_LOGGED_IN}
               loggedIn={LOGGED_IN} 
             />

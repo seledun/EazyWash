@@ -15,13 +15,13 @@ function getDayString(date: string) {
   const MONTH = getMonth(DATE);
 
   const DAY_STRING: string[] = [
-    'Sön',
-    'Mån',
-    'Tis',
-    'Ons',
-    'Tors',
-    'Fre',
-    'Lör'
+    'Söndag',
+    'Måndag',
+    'Tisdag',
+    'Onsdag',
+    'Torsdag',
+    'Fredag',
+    'Lördag'
   ];
   
   const MONTH_STRING: string[] = [
@@ -49,7 +49,9 @@ function getDayString(date: string) {
  */
 interface Props {  
     loggedIn: boolean,
-    setLoggedIn: (status: boolean) => void
+    setLoggedIn: (status: boolean) => void,
+    updateDatelist: boolean,
+    setUpdateDatelist: (toggle: boolean) => void
 }
 
 function ListBooked(props: Props) {
@@ -64,15 +66,19 @@ function ListBooked(props: Props) {
    * @author Sebastian Ledung
    */
   useEffect(() => {
+    console.log('allo');
     if(props.loggedIn) {
       updateTimes();
     }
-  }, [props.loggedIn]);
+  }, [props.loggedIn, props.updateDatelist]);
   
   async function deleteBooking(booking: bookedTimes) {
-    if (confirm("Är du säker på att du vill avboka tiden\n" 
-      + booking.booking_date + ' '
-      + booking.start_time + ' - '
+
+    // {getDayString(time.booking_date)}, {time.start_time} - {time.end_time}
+
+    if (confirm("Är du säker på att du vill avboka din tvättid\n" 
+      + getDayString(booking.booking_date) + ', '
+      + booking.start_time + '-'
       + booking.end_time + '?'
     )) {
       const RESPONSE = await fetch('/api/calendar/delete-booking', {
@@ -88,6 +94,13 @@ function ListBooked(props: Props) {
       if (RESPONSE.ok) {
         setAlert('success', 'Din tid är nu avbokad.');
         updateTimes();
+      } else {
+        if (RESPONSE.status === 406) {
+          setAlert('warning', 'Kunde inte avboka din tid, vänligen logga in på nytt.');
+        } 
+        else if (RESPONSE.status === 304 || RESPONSE.status === 500) {
+          setAlert('warning', 'Något gick fel med avbokningen, vänligen försök igen senare.');
+        } 
       }
     } else {
       return;
@@ -153,7 +166,7 @@ function ListBooked(props: Props) {
 
   return (
     <div id="bookedTimes">
-      <h2 style={{textAlign: 'center'}}>Bokade tider</h2>
+      <h2 style={{textAlign: 'center'}}>Dina bokade tider</h2>
       {ALERT}
       {LOADING ? 
         <div className="text-center">

@@ -20,7 +20,12 @@ function getDaysInMonth(month: number, year: number): Date[] {
   return DAYS;
 }
 
-function Calendar() {
+interface Props {  
+  updateDatelist: boolean,
+  setUpdateDatelist: (toggle: boolean) => void
+}
+
+function Calendar(props: Props) {
   const [CURRENT_DATE, SET_CURRENT_DATE] = useState(new Date());
   const [DAYS_IN_MONTH, SET_DAYS_IN_MONTH] = useState<Date[]>([]);
   const [PADDING, SET_PADDING] = useState(Math.abs(1 - startOfMonth(CURRENT_DATE).getDay()));
@@ -155,6 +160,8 @@ function Calendar() {
         modalShow={MODAL_SHOW}
         setSelectedDate={SET_SELECTED_DATE} 
         setModalShow={SET_MODAL_SHOW}
+        updateDatelist={props.updateDatelist}
+        setUpdateDatelist={props.setUpdateDatelist}
       />
     </div>
   );
