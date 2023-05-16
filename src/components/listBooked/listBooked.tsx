@@ -56,7 +56,8 @@ function ListBooked(props: Props) {
   
   const [BOOKED_TIMES, SET_BOOKED_TIMES] = useState(Array<bookedTimes>);
   const [LOADING, SET_LOADING] = useState(false);
-  
+  const [ALERT, SET_ALERT] = useState(<div></div>)
+
   /**
    * When login-status changes to true,
    * update times from the database. 
@@ -85,7 +86,7 @@ function ListBooked(props: Props) {
       })
 
       if (RESPONSE.ok) {
-        alert("Din tid är nu avbokad.");
+        setAlert('success', 'Din tid är nu avbokad.');
         updateTimes();
       }
     } else {
@@ -93,7 +94,34 @@ function ListBooked(props: Props) {
     }
   }
  
- 
+  /**
+   * Sets the modal alert data, prints out a message to the user
+   * with varying levels of importance (success | warning | danger).
+   * @param type Level of importance
+   * @param message Message to print to the user.
+   * @author Sebastian Ledung
+   */
+  function setAlert(type: string, message: string) : void {
+    let alert = 'alert listAlert alert-';
+    if (type === 'success') {
+      alert = alert + 'success';
+    }
+    else if (type === 'warning') {
+      alert = alert + 'warning';
+    }
+    else if (type === 'danger') {
+      alert = alert + 'danger';
+    }
+    SET_ALERT(
+      <div className={alert} role="alert">
+        {message}
+      </div>
+    );
+    setTimeout (() => { // only show for 2 seconds.
+      SET_ALERT(<div></div>);
+    }, 3000);
+  }
+
   /**
    * Fetches booked times for the client,
    * uses a spinner as a wait for the server to respond.
@@ -126,6 +154,7 @@ function ListBooked(props: Props) {
   return (
     <div id="bookedTimes">
       <h2 style={{textAlign: 'center'}}>Bokade tider</h2>
+      {ALERT}
       {LOADING ? 
         <div className="text-center">
           <div className="spinner-border text-primary" style={{width: '3rem', height: '3rem', marginTop: '1rem'}} role="status" />
@@ -145,6 +174,7 @@ function ListBooked(props: Props) {
             <li key={key}>{getDayString(time.booking_date)}, {time.start_time} - {time.end_time}<a onClick={() => deleteBooking(time)} className='float-right'>Avboka tid</a></li>
           ))
           }
+          {BOOKED_TIMES.length > 0 ? null : <span>Du har inga bokade tider för närvarande</span>}
         </ul>
         :
         null  
