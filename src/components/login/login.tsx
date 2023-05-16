@@ -85,22 +85,24 @@ function Login(props: Props) {
     }, 3000);
   }
 
+  /**
+   * Does a GET-request to the logout endpoint
+   * which in turn deletes the session-cookies
+   * @author Sebastian Ledung
+   */
   async function logOut() {
     const RESPONSE = await fetch('/api/auth/logout');
 
     if (RESPONSE.ok) {
       RESPONSE.json().then(() => {
-        SET_USERNAME('');
-        SET_PASSWORD('');
-        SET_AUTHENTICATED(false);
-        props.setLoggedIn(false);
+        SET_USERNAME('');           // Clears state-variables.
+        SET_PASSWORD('');           // Clears state-variables.
+        SET_AUTHENTICATED(false);   // Clears state-variables.
+        props.setLoggedIn(false);   // Clears state-variables.
         alert("Du är nu utloggad.");
       });
     }
   }
-
-
-  
   /**
    * Logs in the client to the website,
    * sends the username & password to the api

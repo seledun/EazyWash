@@ -10,7 +10,6 @@ export default async function LogOut(
     const SESSION = COOKIES['session-id'];
   
     if (SESSION !== undefined) {  
-      // Sets the client cookie with a session-id and the expiry time for the cookie.
       res.setHeader('set-cookie', [
         'user-id=""'
                     + '; Path=/api'

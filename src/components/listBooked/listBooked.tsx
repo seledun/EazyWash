@@ -75,6 +75,16 @@ function ListBooked(props: Props) {
     }
   }, [props.loggedIn, props.updateDatelist]);
   
+  /**
+   * Deletes the selected booking from the database,
+   * has multiple HTTP-responses
+   * 200: success
+   * 500: server-error
+   * 406: not authorized (could not validate session).
+   * 304: non-deletion
+   * @param booking The selected booking to delete.
+   * @author Sebastian Ledung
+   */
   async function deleteBooking(booking: bookedTimes) {
     if (confirm("Är du säker på att du vill avboka din tvättid\n" 
       + getDayString(booking.booking_date) + ', '

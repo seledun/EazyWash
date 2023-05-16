@@ -52,6 +52,12 @@ function getSlotIdFromStartTime(start_time : string) : number {
   }
 }
 
+/**
+ * Formats the date to a PostgreSQL acceptable date-format (ISO-8601)
+ * @param date Date to format
+ * @returns Formatted date-string
+ * @author Sebastian Ledung
+ */
 function formatDateISO8601(date: Date) : string {
   const YEAR = date.getFullYear();
   const MONTH = (date.getMonth() +1).toString().padStart(2, '0'); // months 0 - 11 (needs +1).
@@ -190,6 +196,15 @@ function DateSelectModal(props: Props) {
     }
   }
 
+  /**
+   * Generates time-slots for the day (based on current time for the client)
+   * if the slot end-time has passed, mark the slot as 'Passerad' and don't let the
+   * client select the slot.
+   * @param slot Time-slot for the day.
+   * @param index Index for the time slot, for selection purposes.
+   * @returns A <li> element to use in the calendar with appropriate values.
+   * @author Sebastian Ledung
+   */
   function getTimeSlot(slot: slot, index: number) : JSX.Element {
     
     let inPast = false;
@@ -224,7 +239,6 @@ function DateSelectModal(props: Props) {
         }
       </li>);
   } 
-
   /**
    * Tries to book the client-selected time slot,
    * handles the responses and tries to print out a
