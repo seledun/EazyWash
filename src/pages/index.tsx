@@ -49,8 +49,6 @@ export default function Index() {
           <section id="listTime">
             <ListBooked
               updateDatelist={UPDATE_DATELIST}
-              setUpdateDatelist={SET_UPDATE_DATELIST} 
-              setLoggedIn={SET_LOGGED_IN}
               loggedIn={LOGGED_IN} 
             />
           </section>

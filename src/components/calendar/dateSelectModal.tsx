@@ -167,30 +167,13 @@ function DateSelectModal(props: Props) {
    * @author Sebastian Ledung
    */
   function setAlert(type: string, message: string) : void {
-    let alert = 'alert modalAlert alert-';
+    const ALERT = `alert listAlert alert-${type}`;
+
+    SET_ALERT(<div className={ALERT} role="alert">{message}</div>);
     
-    if (type === 'success') {
-      alert = alert + 'success';
-    }
-
-    else if (type === 'warning') {
-      alert = alert + 'warning';
-    }
-
-    else if (type === 'danger') {
-      alert = alert + 'danger';
-    }
-
-    SET_ALERT(
-      <div className={alert} role="alert">
-        {message}
-      </div>
-    );
-
-    setTimeout (() => { // only show for 2 seconds.
-      SET_ALERT(<div className="modalAlert"></div>);
+    setTimeout (() => { // only show for 3 seconds.
+      SET_ALERT(<div></div>);
     }, 3000);
-
   }
 
   /**

@@ -8,12 +8,28 @@ type bookedTimes = {
   end_time: string
 }
 
+/**
+ * States the props for this component to use,
+ * loggedIn and updateDateList is upstream events
+ * for this component to use.
+ * @author Sebastian Ledung
+ */
+interface Props {  
+  loggedIn: boolean,          // Listener for other component state, if 'true', user logged in, else 'false'.                 
+  updateDatelist: boolean,    // Listener for other components calling for a fetch of new times.
+}
+
+/**
+ * Generates the day-string for the 'confirm'-dialog to use,
+ * represents the time the client is trying to unbook in a more
+ * friendly format.
+ * @param date The date-object to format friendly.
+ * @returns Formatted string.
+ * @author Sebastian Ledung
+ */
 function getDayString(date: string) {
   const DATE = new Date(date);
-  const DAY = getDay(DATE);
-  const DATE_IN_MONTH = getDate(DATE);
-  const MONTH = getMonth(DATE);
-
+  
   const DAY_STRING: string[] = [
     'Söndag',
     'Måndag',
@@ -39,19 +55,7 @@ function getDayString(date: string) {
     'December'
   ];
 
-  return DAY_STRING[DAY] + ' ' + DATE_IN_MONTH + ' ' + MONTH_STRING[MONTH];
-}
-
-/**
- * Up-shifts the useState to the component using this object,
- * the component importing controls the date & state of the modal.
- * @author Sebastian Ledung
- */
-interface Props {  
-    loggedIn: boolean,
-    setLoggedIn: (status: boolean) => void,
-    updateDatelist: boolean,
-    setUpdateDatelist: (toggle: boolean) => void
+  return DAY_STRING[getDay(DATE)] + ' ' + getDate(DATE) + ' ' + MONTH_STRING[getMonth(DATE)];
 }
 
 function ListBooked(props: Props) {
@@ -72,37 +76,34 @@ function ListBooked(props: Props) {
   }, [props.loggedIn, props.updateDatelist]);
   
   async function deleteBooking(booking: bookedTimes) {
-
-    // {getDayString(time.booking_date)}, {time.start_time} - {time.end_time}
-
     if (confirm("Är du säker på att du vill avboka din tvättid\n" 
       + getDayString(booking.booking_date) + ', '
       + booking.start_time + '-'
       + booking.end_time + '?'
     )) {
+      
       const RESPONSE = await fetch('/api/calendar/delete-booking', {
         method: 'POST',
         headers:{
           'Content-Type': 'application/x-www-form-urlencoded'
         },    
-        body: new URLSearchParams({
-          bookingId: booking.bok_id.toString()
-        })
-      })
+        body: new URLSearchParams({bookingId: booking.bok_id.toString()})
+      });
 
       if (RESPONSE.ok) {
         setAlert('success', 'Din tid är nu avbokad.');
         updateTimes();
       } else {
-        if (RESPONSE.status === 406) {
-          setAlert('warning', 'Kunde inte avboka din tid, vänligen logga in på nytt.');
-        } 
-        else if (RESPONSE.status === 304 || RESPONSE.status === 500) {
+        switch (RESPONSE.status) {
+        case 500:
+        case 304:
           setAlert('warning', 'Något gick fel med avbokningen, vänligen försök igen senare.');
-        } 
+          break;
+        
+        case 406:
+          setAlert('warning', 'Kunde inte avboka din tid, vänligen logga in på nytt.');
+        }
       }
-    } else {
-      return;
     }
   }
  
@@ -114,22 +115,11 @@ function ListBooked(props: Props) {
    * @author Sebastian Ledung
    */
   function setAlert(type: string, message: string) : void {
-    let alert = 'alert listAlert alert-';
-    if (type === 'success') {
-      alert = alert + 'success';
-    }
-    else if (type === 'warning') {
-      alert = alert + 'warning';
-    }
-    else if (type === 'danger') {
-      alert = alert + 'danger';
-    }
-    SET_ALERT(
-      <div className={alert} role="alert">
-        {message}
-      </div>
-    );
-    setTimeout (() => { // only show for 2 seconds.
+    const ALERT = `alert listAlert alert-${type}`;
+
+    SET_ALERT(<div className={ALERT} role="alert">{message}</div>);
+    
+    setTimeout (() => { // only show for 3 seconds.
       SET_ALERT(<div></div>);
     }, 3000);
   }
