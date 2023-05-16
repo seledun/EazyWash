@@ -1,10 +1,45 @@
 import { useState, useEffect } from "react";
+import { getDay, getDate, getMonth } from "date-fns";
 
 type bookedTimes = {
   bok_id: number,
   booking_date: string,
   start_time: string,
   end_time: string
+}
+
+function getDayString(date: string) {
+  const DATE = new Date(date);
+  const DAY = getDay(DATE);
+  const DATE_IN_MONTH = getDate(DATE);
+  const MONTH = getMonth(DATE);
+
+  const DAY_STRING: string[] = [
+    'Sön',
+    'Mån',
+    'Tis',
+    'Ons',
+    'Tors',
+    'Fre',
+    'Lör'
+  ];
+  
+  const MONTH_STRING: string[] = [
+    'Januari',
+    'Februari',
+    'Mars',
+    'April',
+    'Maj',
+    'Jun',
+    'Juli',
+    'Augusti',
+    'September',
+    'Oktober',
+    'November',
+    'December'
+  ];
+
+  return DAY_STRING[DAY] + ' ' + DATE_IN_MONTH + ' ' + MONTH_STRING[MONTH];
 }
 
 /**
@@ -92,7 +127,7 @@ function ListBooked(props: Props) {
       {props.loggedIn && !LOADING ?
         <ul>
           {BOOKED_TIMES.map((time, key) => (
-            <li key={key}>{time.booking_date} {time.start_time} - {time.end_time}<a onClick={() => deleteBooking(time)} className='float-right'>Avboka tid</a></li>
+            <li key={key}>{getDayString(time.booking_date)}, {time.start_time} - {time.end_time}<a onClick={() => deleteBooking(time)} className='float-right'>Avboka tid</a></li>
           ))
           }
         </ul>
