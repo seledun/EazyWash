@@ -68,8 +68,6 @@ export default async function login(
       const RESULT:LoginRequest[] = await prisma.$queryRaw`select log_in(${id}, ${pin}) as status`;
 
       if (RESULT[0].status === true) {
-        console.log("Nice! du är inne");
-
         const FIND_ID = await prisma.person.findFirst({
           where: {
             username: id

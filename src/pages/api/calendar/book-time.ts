@@ -19,7 +19,6 @@ type TimeSlot = {
  * @author Sebastian Ledung
  */
 function formatDateISO8601(date: Date) : string {
-  console.log(date);
   const YEAR = date.getFullYear();
   const MONTH = (date.getMonth() +1).toString().padStart(2, '0'); // months 0 - 11 (needs +1).
   const DAY = date.getDate().toString().padStart(2, '0');

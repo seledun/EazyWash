@@ -66,7 +66,6 @@ function ListBooked(props: Props) {
    * @author Sebastian Ledung
    */
   useEffect(() => {
-    console.log('allo');
     if(props.loggedIn) {
       updateTimes();
     }
@@ -177,7 +176,7 @@ function ListBooked(props: Props) {
         null
       } 
       {!props.loggedIn && !LOADING ? 
-        <span>Vänligen logga in för att se dina bokade tider.</span>
+        <span>Vänligen logga in för att se dina bokade tider</span>
         :
         null
       }

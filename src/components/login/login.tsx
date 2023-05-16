@@ -135,9 +135,6 @@ function Login(props: Props) {
         }
         return response.json();
       })
-      .then(json => {
-        console.log(json);
-      })
       .catch(function() {
         setAlert('danger', 'Fel lägenhetsnummer eller lösenord, försök igen.');
         SET_AUTHENTICATED(false);
