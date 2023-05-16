@@ -77,10 +77,12 @@ section {
 
 .inPast {
   background-color: #7e7d7d !important ;
+  cursor: default !important;
 }
 
 .day:hover {
   background-color: #72cef9;
+  cursor: pointer;
 }
 
 .day + #currentDay {
@@ -244,4 +246,5 @@ ul.calendarModalTimes li .right {
 
 #bookedTimes ul li a:hover {
   color: #ddd;
+  cursor: pointer;
 }
