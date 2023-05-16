@@ -65,10 +65,12 @@ function formatDateISO8601(date: Date) : string {
  * @author Sebastian Ledung
  */
 interface Props {  
-  modalShow: boolean;
-  selectedDate: Date;
-  setSelectedDate: (date: Date) => void;
-  setModalShow: (show: boolean) => void;
+  modalShow: boolean,
+  updateDatelist: boolean,
+  selectedDate: Date,
+  setSelectedDate: (date: Date) => void,
+  setModalShow: (show: boolean) => void,
+  setUpdateDatelist: (toggle: boolean) => void
 }
 
 function DateSelectModal(props: Props) {
@@ -98,7 +100,6 @@ function DateSelectModal(props: Props) {
     SET_CLIENT_DATE(new Date());
   }, []);
 
-
   /**
    * Fetches times from the database to list in the client view,
    * populates the li-tags in the view with information from the
@@ -108,7 +109,7 @@ function DateSelectModal(props: Props) {
   async function fetchTimeSlots() {
     SET_IS_LOADING(true);
 
-    const response = await fetch(`/api/getday?date=${formatDateISO8601(props.selectedDate)}`);
+    const response = await fetch(`/api/calendar/get-times?date=${formatDateISO8601(props.selectedDate)}`);
     if (response.ok) {
 
       const DATA = await response.json();
@@ -152,11 +153,10 @@ function DateSelectModal(props: Props) {
       SET_TIME_SLOTS(new Array<slot>); // Clears array on close.
     }
 
-    props.setModalShow(!props.setModalShow);
+    props.setModalShow(!props.modalShow);
     SET_SELECTED_TIME(-1);
     SET_BOOK_BUTTON_STATE(true);
     SET_ALERT(<div></div>);
-    
   }
 
   /**
@@ -250,7 +250,7 @@ function DateSelectModal(props: Props) {
    */
   async function bookSelected() {
     try {
-      const response = await fetch('/api/booking', {
+      const response = await fetch('/api/calendar/book-time', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
@@ -266,6 +266,7 @@ function DateSelectModal(props: Props) {
         // success, time was successfully booked.
         setAlert('success', 'Tiden är nu bokad.');
         fetchTimeSlots();
+        props.setUpdateDatelist(!props.updateDatelist);
         break;
 
       case 401:
