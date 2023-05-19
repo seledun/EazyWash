@@ -1,7 +1,13 @@
 import Head from 'next/head'
 import Calendar from '@/components/calendar/calendar'
+import Login from '@/components/login/login'
+import ListBooked from '@/components/listBooked/listBooked'
+import { useState } from 'react'
 
 export default function Index() {
+
+  const [LOGGED_IN, SET_LOGGED_IN] = useState(false);
+  const [UPDATE_DATELIST, SET_UPDATE_DATELIST] = useState(false);
 
   return (
     <>
@@ -22,34 +28,10 @@ export default function Index() {
             <li><a href="#tips"> Tips</a></li>
             <li><a href="#kontaktaOss"> Kontakta oss</a></li>
           </ul>
-        
-
-          <div className="main">
-            <a href="#" className="user"><i className="ri-user-fill"></i>Logga in</a>
-          </div>
-          <div className="popup">
-            <div className="popup-content">
-              <form><i className="ri-user-fill"></i>
-                <button data-close-button className="btn-close">&times;</button>
-                <h2>Sign in</h2>
-                <div className="InputBox">
-                  <input type="text" required={true} />
-                  <span>Username</span>
-                  <i></i>
-                </div>
-                <div className="InputBox">
-                  <input type="password" required={true} />
-                  <span>password</span>
-                  <i></i>
-                </div>
-                <div className="Links"> 
-                  <a href="#">Forgot Password</a>
-                </div>
-                <a href="#" className="button">Login</a>
-              </form>
-            </div>
-          </div>
-                                
+          <Login  
+            setLoggedIn={SET_LOGGED_IN}
+            loggedIn={LOGGED_IN} 
+          />           
         </header>
 
         <div id='contentDiv'>
@@ -59,7 +41,16 @@ export default function Index() {
           <section></section>
           <section></section>
           <section id="bookTime">
-            <Calendar />
+            <Calendar 
+              updateDatelist={UPDATE_DATELIST}
+              setUpdateDatelist={SET_UPDATE_DATELIST}
+            />
+          </section>
+          <section id="listTime">
+            <ListBooked
+              updateDatelist={UPDATE_DATELIST}
+              loggedIn={LOGGED_IN} 
+            />
           </section>
           <section id="tips">Tips</section>
           <section id="kontaktaOss">Kontakta oss</section>

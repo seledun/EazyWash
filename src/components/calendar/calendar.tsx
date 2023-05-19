@@ -20,7 +20,12 @@ function getDaysInMonth(month: number, year: number): Date[] {
   return DAYS;
 }
 
-function Calendar() {
+interface Props {  
+  updateDatelist: boolean,
+  setUpdateDatelist: (toggle: boolean) => void
+}
+
+function Calendar(props: Props) {
   const [CURRENT_DATE, SET_CURRENT_DATE] = useState(new Date());
   const [DAYS_IN_MONTH, SET_DAYS_IN_MONTH] = useState<Date[]>([]);
   const [PADDING, SET_PADDING] = useState(Math.abs(1 - startOfMonth(CURRENT_DATE).getDay()));
@@ -135,7 +140,7 @@ function Calendar() {
       <ul>
         { 
           // Padding for the calendar, adds empty spaces if the first doesn't occur on a monday.
-          Array(PADDING).fill(0).map((_, index) => (
+          Array(PADDING).fill(null).map((_, index) => (
             <button key={index} className='day padding'>
               &#8205;
             </button>
@@ -148,12 +153,15 @@ function Calendar() {
           ))
         }
 
+        <br /><span className='calender-astrix'>* Det går endast att ha två inbokade tider i kalendern åt gången.</span>
       </ul>
       <DateSelectModal 
         selectedDate={SELECTED_DATE}
         modalShow={MODAL_SHOW}
         setSelectedDate={SET_SELECTED_DATE} 
         setModalShow={SET_MODAL_SHOW}
+        updateDatelist={props.updateDatelist}
+        setUpdateDatelist={props.setUpdateDatelist}
       />
     </div>
   );

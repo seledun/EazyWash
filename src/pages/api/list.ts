@@ -27,7 +27,6 @@ export default async function getAllBookingsByOrg(
       };
       
       const RESULT : resp = await prisma.$queryRaw`select get_booked_times_for_specific_day(${ORG_ID}, ${DATE})`;
-      console.log(RESULT);
 
       res.status(200).json({success: true, data: JSON.stringify(RESULT)});
     

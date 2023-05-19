@@ -41,7 +41,7 @@ section {
 #weekdays {
   width: 100%;
   display: flex;
-  color: #247BA0;
+  color: #29bafd;
 }
 #weekdays div {
   font-size: 1.2rem;
@@ -77,10 +77,12 @@ section {
 
 .inPast {
   background-color: #7e7d7d !important ;
+  cursor: default !important;
 }
 
 .day:hover {
   background-color: #72cef9;
+  cursor: pointer;
 }
 
 .day + #currentDay {
@@ -181,6 +183,7 @@ ul.calendarModalTimes li .right {
 
 .modal-dialog {
   max-width: 750px !important;
+  color: #000000 !important;
 }
 
 .selected {
@@ -197,7 +200,7 @@ ul.calendarModalTimes li .right {
 }
 
 .modalAlert {
-  transition: .5s;
+  transition: height .5s;
 }
 
 .modal-li-booked {
@@ -208,6 +211,59 @@ ul.calendarModalTimes li .right {
   background-color: #88c497 !important;
 }
 
+.modal-li-past {
+  background-color: #a6a6a6 !important;
+}
+
 .alert {
   margin-bottom: 0 !important;
+}
+
+.calender-astrix {
+  color: rgb(206, 119, 119);
+  display: block;
+  margin: 1rem;
+}
+
+#bookedTimes {
+  background-color: #353535;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+#bookedTimes h2 {
+  margin: 0;
+  padding: 0;
+  color: #29bafd;
+}
+
+#bookedTimes ul li {
+  font-size: 1.2rem;
+  background-color: #111;
+  border-radius: 8px;
+  display: block;
+  padding: .8rem;
+  margin-top: 1rem;
+}
+
+#bookedTimes ul li a {
+  float: right;
+  margin-left: 8rem;
+  color: rgb(206, 119, 119);
+}
+
+#bookedTimes ul li a:hover {
+  color: #ddd;
+  cursor: pointer;
+}
+
+#bookedTimes span {
+  display: block;
+  margin-top: .4rem;
+}
+
+.listAlert {
+  margin-top: 2rem !important;
+  margin-bottom: 2rem !important;
+  transition: 1s;
 }

@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import prisma from '../../utils/prisma';
+import prisma from '../../../utils/prisma';
 import { parse } from 'cookie';
 
 /**
@@ -10,7 +10,7 @@ import { parse } from 'cookie';
  * @author Petter Carlsson
  * @author Sebastian Ledung
  */
-export default async function getday (
+export default async function GetTimes (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -46,4 +46,4 @@ export default async function getday (
       res.status(501).json({success: false}); // malformed request.
     }
   }
-}
+} 

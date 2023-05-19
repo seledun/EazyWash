@@ -25,14 +25,14 @@ window.onscroll = () => {
 };
 // oliver
 document.getElementsByClassName("user")[0].addEventListener("click",function(){
-  document.querySelector(".popup").style.display="flex";
+  // document.querySelector(".popup").style.display="flex";
 })
 // Oliver 
 /**
  * @author Oliver Jönsson
  */
 document.getElementsByClassName("user")[0].addEventListener("click",function(){
-  document.querySelector(".popup").style.display="flex";
+  // document.querySelector(".popup").style.display="flex";
 });
 /**
  * @author Oliver Jönsson
