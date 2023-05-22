@@ -186,11 +186,6 @@ function DateSelectModal(props: Props) {
         {message}
       </div>
     );
-
-    setTimeout (() => { // only show for 2 seconds.
-      SET_ALERT(<div className="modalAlert"></div>);
-    }, 3000);
-
   }
 
   /**

@@ -114,7 +114,7 @@ function Login() {
           setAlert('success', 'Du är nu inloggad, denna ruta stängs automatiskt.');
           setTimeout(() => {
             TOGGLE_MODAL();
-          }, 3000); // Closes the modal after 3 seconds.
+          }, 2000); // Closes the modal after 2 seconds.
         } else {
           throw new Error("Authentication failed, StatusCode: " + response.status);
         }
