@@ -52,6 +52,12 @@ function getSlotIdFromStartTime(start_time : string) : number {
   }
 }
 
+/**
+ * Formats the date to a PostgreSQL acceptable date-format (ISO-8601)
+ * @param date Date to format
+ * @returns Formatted date-string
+ * @author Sebastian Ledung
+ */
 function formatDateISO8601(date: Date) : string {
   const YEAR = date.getFullYear();
   const MONTH = (date.getMonth() +1).toString().padStart(2, '0'); // months 0 - 11 (needs +1).
@@ -65,10 +71,12 @@ function formatDateISO8601(date: Date) : string {
  * @author Sebastian Ledung
  */
 interface Props {  
-  modalShow: boolean;
-  selectedDate: Date;
-  setSelectedDate: (date: Date) => void;
-  setModalShow: (show: boolean) => void;
+  modalShow: boolean,
+  updateDatelist: boolean,
+  selectedDate: Date,
+  setSelectedDate: (date: Date) => void,
+  setModalShow: (show: boolean) => void,
+  setUpdateDatelist: (toggle: boolean) => void
 }
 
 function DateSelectModal(props: Props) {
@@ -98,7 +106,6 @@ function DateSelectModal(props: Props) {
     SET_CLIENT_DATE(new Date());
   }, []);
 
-
   /**
    * Fetches times from the database to list in the client view,
    * populates the li-tags in the view with information from the
@@ -108,7 +115,7 @@ function DateSelectModal(props: Props) {
   async function fetchTimeSlots() {
     SET_IS_LOADING(true);
 
-    const response = await fetch(`/api/getday?date=${formatDateISO8601(props.selectedDate)}`);
+    const response = await fetch(`/api/calendar/get-times?date=${formatDateISO8601(props.selectedDate)}`);
     if (response.ok) {
 
       const DATA = await response.json();
@@ -152,11 +159,10 @@ function DateSelectModal(props: Props) {
       SET_TIME_SLOTS(new Array<slot>); // Clears array on close.
     }
 
-    props.setModalShow(!props.setModalShow);
+    props.setModalShow(!props.modalShow);
     SET_SELECTED_TIME(-1);
     SET_BOOK_BUTTON_STATE(true);
     SET_ALERT(<div></div>);
-    
   }
 
   /**
@@ -167,25 +173,13 @@ function DateSelectModal(props: Props) {
    * @author Sebastian Ledung
    */
   function setAlert(type: string, message: string) : void {
-    let alert = 'alert modalAlert alert-';
+    const ALERT = `alert listAlert alert-${type}`;
+
+    SET_ALERT(<div className={ALERT} role="alert">{message}</div>);
     
-    if (type === 'success') {
-      alert = alert + 'success';
-    }
-
-    else if (type === 'warning') {
-      alert = alert + 'warning';
-    }
-
-    else if (type === 'danger') {
-      alert = alert + 'danger';
-    }
-
-    SET_ALERT(
-      <div className={alert} role="alert">
-        {message}
-      </div>
-    );
+    setTimeout (() => { // only show for 3 seconds.
+      SET_ALERT(<div></div>);
+    }, 3000);
   }
 
   /**
@@ -202,6 +196,15 @@ function DateSelectModal(props: Props) {
     }
   }
 
+  /**
+   * Generates time-slots for the day (based on current time for the client)
+   * if the slot end-time has passed, mark the slot as 'Passerad' and don't let the
+   * client select the slot.
+   * @param slot Time-slot for the day.
+   * @param index Index for the time slot, for selection purposes.
+   * @returns A <li> element to use in the calendar with appropriate values.
+   * @author Sebastian Ledung
+   */
   function getTimeSlot(slot: slot, index: number) : JSX.Element {
     
     let inPast = false;
@@ -236,7 +239,6 @@ function DateSelectModal(props: Props) {
         }
       </li>);
   } 
-
   /**
    * Tries to book the client-selected time slot,
    * handles the responses and tries to print out a
@@ -245,7 +247,7 @@ function DateSelectModal(props: Props) {
    */
   async function bookSelected() {
     try {
-      const response = await fetch('/api/booking', {
+      const response = await fetch('/api/calendar/book-time', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
@@ -261,6 +263,7 @@ function DateSelectModal(props: Props) {
         // success, time was successfully booked.
         setAlert('success', 'Tiden är nu bokad.');
         fetchTimeSlots();
+        props.setUpdateDatelist(!props.updateDatelist);
         break;
 
       case 401:

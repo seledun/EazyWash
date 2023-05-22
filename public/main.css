@@ -103,6 +103,7 @@ header{
 
 .main a:hover{
     color:var(--main-color);
+    cursor: pointer;
 }
 
 #menu-icon{

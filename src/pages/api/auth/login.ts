@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import prisma from '../../utils/prisma';
+import prisma from '../../../utils/prisma';
 import crypto from 'crypto';
 
 /**
@@ -68,8 +68,6 @@ export default async function login(
       const RESULT:LoginRequest[] = await prisma.$queryRaw`select log_in(${id}, ${pin}) as status`;
 
       if (RESULT[0].status === true) {
-        console.log("Nice! du är inne");
-
         const FIND_ID = await prisma.person.findFirst({
           where: {
             username: id
@@ -96,12 +94,15 @@ export default async function login(
         // Sets the client cookie with a session-id and the expiry time for the cookie.
         res.setHeader('set-cookie', [
           'user-id=' + PERSON_ID
+          + '; Path=/api'
           + '; SameSite=strict' 
           + '; Expires=' + EXPIRES.toUTCString(),
           'org-id=' + ORG_ID
+          + '; Path=/api'
           + '; SameSite=strict' 
           + '; Expires=' + EXPIRES.toUTCString(),
           'session-id=' + TOKEN 
+          + '; Path=/api'
           + '; SameSite=strict' 
           + '; Expires=' + EXPIRES.toUTCString()
         ]);

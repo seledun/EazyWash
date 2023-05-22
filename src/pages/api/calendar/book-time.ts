@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import prisma from '../../utils/prisma';
+import prisma from '../../../utils/prisma';
 import { parse } from 'cookie';
 
 /**
@@ -19,7 +19,6 @@ type TimeSlot = {
  * @author Sebastian Ledung
  */
 function formatDateISO8601(date: Date) : string {
-  console.log(date);
   const YEAR = date.getFullYear();
   const MONTH = (date.getMonth() +1).toString().padStart(2, '0'); // months 0 - 11 (needs +1).
   const DAY = date.getDate().toString().padStart(2, '0');
@@ -75,7 +74,7 @@ function timeSlots(timeSlot: string) : TimeSlot | undefined {
  * @param res Response-object to for the client to get a response
  * @author Sebastian Ledung
  */
-export default async function booking(
+export default async function BookTime(
   req: NextApiRequest,
   res: NextApiResponse
 ) {

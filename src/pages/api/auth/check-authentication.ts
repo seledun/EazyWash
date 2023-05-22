@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import prisma from '../../utils/prisma';
+import prisma from '../../../utils/prisma';
 import { parse } from 'cookie';
 
 /**
@@ -9,7 +9,7 @@ import { parse } from 'cookie';
  * @param res Response object where we set the response data for the client.
  * @author Sebastian Ledung
  */
-export default async function IsAuthenticated(
+export default async function checkAuthentication (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
