@@ -75,6 +75,7 @@ function Login(props: Props) {
     else if (type === 'danger') {
       alert = alert + 'danger';
     }
+    
     SET_ALERT(
       <div className={alert} role="alert">
         {message}
@@ -82,7 +83,7 @@ function Login(props: Props) {
     );
     setTimeout (() => { // only show for 2 seconds.
       SET_ALERT(<div className="modalAlert"></div>);
-    }, 3000);
+    }, 2000);
   }
 
   /**

@@ -131,7 +131,7 @@ function ListBooked(props: Props) {
     
     setTimeout (() => { // only show for 3 seconds.
       SET_ALERT(<div></div>);
-    }, 3000);
+    }, 5000);
   }
 
   /**
