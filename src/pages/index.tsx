@@ -26,6 +26,7 @@ export default function Index() {
           <ul className="navbar">
             <li><a href="#home" className="active">Home</a></li>
             <li><a href="#bookTime">Boka Tid</a></li>
+            <li><a href="#listTime">Bokade tider</a></li>
             <li><a href="#tips"> Tips</a></li>
             <li><a href="#kontaktaOss"> Kontakta oss</a></li>
           </ul>
