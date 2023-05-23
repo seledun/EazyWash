@@ -124,7 +124,7 @@ function Calendar(props: Props) {
   }
 
   return (
-    <div>
+    <div style={{ zIndex: 100 }}>
       <h1 id='header'>{CURRENT_YEAR + ' ' + CURRENT_DATE.toLocaleString('SV', { month: 'short' })}</h1>
       <button className='calendarControlButton btn btn-secondary' onClick={goToPreviousMonth} disabled={!IS_NEXT_MONTH}>Föregående</button>
       <button className='calendarControlButton btn btn-secondary' onClick={goToNextMonth} disabled={IS_NEXT_MONTH}>Nästa</button>
