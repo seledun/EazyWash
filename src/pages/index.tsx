@@ -3,12 +3,14 @@ import Calendar from '@/components/calendar/calendar'
 import Login from '@/components/login/login'
 import ListBooked from '@/components/listBooked/listBooked'
 import { useState } from 'react'
+import SymbolsImage from '../../public/tvattsymboler.png'
+import styles from '../styles/index.module.css'
 
 export default function Index() {
 
   const [LOGGED_IN, SET_LOGGED_IN] = useState(false);
   const [UPDATE_DATELIST, SET_UPDATE_DATELIST] = useState(false);
-
+  console.log(SymbolsImage);
   return (
     <>
       <Head>
@@ -26,7 +28,7 @@ export default function Index() {
           <ul className="navbar">
             <li><a href="#home" className="active">Home</a></li>
             <li><a href="#bookTime">Boka Tid</a></li>
-            <li><a href="#tips"> Tips</a></li>
+            <li><a href="#tips"> Tvättips</a></li>
             <li><a href="#kontaktaOss"> Kontakta oss</a></li>
           </ul>
           <Login  
@@ -68,14 +70,16 @@ export default function Index() {
           <section id="tips"><div className="tips-container">
             <h2>Tips</h2>
                   
-            <div className="box">
-              <span>Box 1</span>
+            <div className={styles.box}>
+             <img width='500' className={styles.symbols} alt ='washing symbols' src={SymbolsImage.src} /> 
             </div>
-            <div className="box">
-              <span>Box 2</span>
-            </div>
+            
+            
           </div></section>
-          <section id="kontaktaOss">Kontakta oss</section>
+          <section id="kontaktaOss" className={styles.contactSection}>
+          <h2 className={styles.contactTitle}>Kontakta oss</h2> 
+          <p className={styles.mail}>EazyWash@no-reply.com</p>
+          </section>
         </div>
         
         <script src="main.js"></script>

@@ -173,3 +173,26 @@
      font-size: 1.5em;
      color: var(--main-color);
    }
+   .box{
+    display: flex;
+    background: white;
+    border-radius: 4px;
+    padding: 20px;
+   }
+   .symbols{
+    flex: 1;
+    height: auto;
+    
+   }
+   .mail{
+    font-size: 24px;
+    flex-basis: 100;
+   }
+   .contactSection{
+    display: flex;
+    flex-direction: column;
+   }
+   .contactTitle{
+    flex-basis: 100;
+    font-size: 64px;
+   }
