@@ -164,7 +164,7 @@ function ListBooked(props: Props) {
   }
 
   return (
-    <div id="bookedTimes">
+    <div id="bookedTimes" style={{zIndex: 1}}>
       <h2 style={{textAlign: 'center'}}>Dina bokade tider</h2>
       {ALERT}
       {LOADING ? 

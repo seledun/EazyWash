@@ -311,3 +311,13 @@ ul.calendarModalTimes li .right {
   z-index: 100;
 }
 
+#calendar-wrapper {
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(9.7px);
+  -webkit-backdrop-filter: blur(9.7px);
+  border: 1px solid rgba(255, 255, 255, 0.39);
+  color: white;
+}

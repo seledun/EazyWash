@@ -36,7 +36,7 @@ export default function Index() {
           />           
         </header>
 
-        <div id='contentDiv'>
+        <div id='contentDiv' style={{zIndex: 1}}>
           <section id="home">
             <div className="BigDivToClassHome">
               <div className="WelcomeHomePage"><h2>Välkommen!</h2></div>
