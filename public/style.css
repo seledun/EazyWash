@@ -27,7 +27,7 @@ section {
 
 #header {
   padding: 10px;
-  color: #29bafd;
+  color: #000000;
   font-size: 2.3rem;
   display: flex;
   justify-content: space-between;
@@ -41,8 +41,10 @@ section {
 #weekdays {
   width: 100%;
   display: flex;
-  color: #29bafd;
+  color: #000000;
 }
+
+
 #weekdays div {
   font-size: 1.2rem;
   text-align: center;
@@ -81,7 +83,7 @@ section {
 }
 
 .day:hover {
-  background-color: #72cef9;
+  background-color: #ba7b91;
   cursor: pointer;
 }
 
@@ -196,7 +198,6 @@ ul.calendarModalTimes li .right {
   width: 850px;
   padding-right: 100px;
   padding-left: 100px;
-  background-color: #222327;
 }
 
 .modalAlert {
@@ -204,52 +205,66 @@ ul.calendarModalTimes li .right {
 }
 
 .modal-li-booked {
-  background-color: #df9292 !important;
+  background-color: #ce7e7e !important;
 }
 
 .modal-li-unbooked {
-  background-color: #88c497 !important;
+  background-color: #63be7a !important;
 }
 
 .modal-li-past {
-  background-color: #a6a6a6 !important;
+  background-color: #918e8e !important;
 }
 
 .alert {
   margin-bottom: 0 !important;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  font-size: 1.2rem;
 }
 
 .calender-astrix {
-  color: rgb(206, 119, 119);
+  color: #000000;
   display: block;
   margin: 1rem;
 }
 
 #bookedTimes {
-  background-color: #353535;
   padding: 1.5rem;
   border-radius: 8px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(9.7px);
+  -webkit-backdrop-filter: blur(9.7px);
+  border: 1px solid rgba(255, 255, 255, 0.39);
+  font-size: 1.2rem;
 }
 
 #bookedTimes h2 {
   margin: 0;
   padding: 0;
-  color: #29bafd;
+  color: #000000;
+}
+
+#bookedTimes span {
+  font-size: 1rem;
+  color: #000000;
 }
 
 #bookedTimes ul li {
   font-size: 1.2rem;
-  background-color: #111;
   border-radius: 8px;
   display: block;
   padding: .8rem;
   margin-top: 1rem;
+  color: #000000;
 }
 
 #bookedTimes ul li a {
   float: right;
   margin-left: 8rem;
-  color: rgb(206, 119, 119);
+  color: rgb(255, 0, 0);
 }
 
 #bookedTimes ul li a:hover {
@@ -265,5 +280,20 @@ ul.calendarModalTimes li .right {
 .listAlert {
   margin-top: 2rem !important;
   margin-bottom: 2rem !important;
+  font-size: 1.2rem;
   transition: 1s;
+}
+
+.calendarDayButtons {
+  font-size: 1rem;
+}
+
+.modal-content {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(9.7px);
+  -webkit-backdrop-filter: blur(9.7px);
+  border: 1px solid rgba(255, 255, 255, 0.39);
+  color: white;
 }

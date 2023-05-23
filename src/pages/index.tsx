@@ -15,6 +15,7 @@ export default function Index() {
         <meta charSet="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://unpkg.com/scrollreveal"></script>
         <title>Document</title>
       </Head>
 
@@ -35,7 +36,19 @@ export default function Index() {
         </header>
 
         <div id='contentDiv'>
-          <section id="home">EazyWash</section>
+          <section id="home">
+            <div className="BigDivToClassHome">
+              <div className="WelcomeHomePage"><h2>Välkommen!</h2></div>
+              <div className="contentsectionHome">
+                <h1 className="HomeH1">EazyWash</h1>
+                <p className="contentText">
+                     Välkommen till EazyWash här får du möjlighet till att boka tvättid.
+                     Du kan även få hjälp med tips på hur man får bort fläckar från kläder
+                </p>
+              </div>
+              <div className="ImgHome"><img src="washing-demo.png" /></div>
+            </div>
+          </section>
           <section></section>
           <section></section>
           <section></section>
@@ -52,7 +65,16 @@ export default function Index() {
               loggedIn={LOGGED_IN} 
             />
           </section>
-          <section id="tips">Tips</section>
+          <section id="tips"><div className="tips-container">
+            <h2>Tips</h2>
+                  
+            <div className="box">
+              <span>Box 1</span>
+            </div>
+            <div className="box">
+              <span>Box 2</span>
+            </div>
+          </div></section>
           <section id="kontaktaOss">Kontakta oss</section>
         </div>
         

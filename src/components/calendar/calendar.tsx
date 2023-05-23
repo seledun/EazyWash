@@ -137,7 +137,7 @@ function Calendar(props: Props) {
         <div>Lördag</div>
         <div>Söndag</div>
       </div>
-      <ul>
+      <ul className="calendarDayButtons">
         { 
           // Padding for the calendar, adds empty spaces if the first doesn't occur on a monday.
           Array(PADDING).fill(null).map((_, index) => (
