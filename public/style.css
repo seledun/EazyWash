@@ -78,21 +78,29 @@ section {
   justify-content: space-between;
   transition: 0.2s;
   z-index: 100;
+  
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(9.7px);
+  -webkit-backdrop-filter: blur(9.7px);
+  border: 1px solid rgba(255, 255, 255, 0.39);
+  color: white;
 }
 
 .today {
-  background-color: #93d47f;
+  background-color: #93d47fd6;
   z-index: 100;
 }
 
 .inPast {
-  background-color: #7e7d7d !important ;
+  background-color: #7e7d7dbd !important;
   cursor: default !important;
   z-index: 100;
 }
 
 .day:hover {
-  background-color: #ba7b91;
+  background-color: #ba7b9180;
   cursor: pointer;
 }
 
@@ -111,7 +119,7 @@ section {
 
 .padding {
   cursor: default !important;
-  background-color: #7e7d7d !important;
+  background-color: #7e7d7dd4 !important;
   box-shadow: none !important;
 }
 #newEventModal, #deleteEventModal {
