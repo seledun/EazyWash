@@ -3,7 +3,7 @@ import Calendar from '@/components/calendar/calendar'
 import Login from '@/components/login/login'
 import ListBooked from '@/components/listBooked/listBooked'
 import { useState } from 'react'
-import SymbolsImage from '../../public/tvattsymboler.png'
+import SymbolsImage from '../../public/laundry-chart.jpg'
 import styles from '../styles/index.module.css'
 
 export default function Index() {
@@ -71,7 +71,7 @@ export default function Index() {
             <h2>Tips</h2>
                   
             <div className={styles.box}>
-             <img width='500' className={styles.symbols} alt ='washing symbols' src={SymbolsImage.src} /> 
+             <img width='820' className={styles.symbols} alt ='washing symbols' src={SymbolsImage.src} /> 
             </div>
             
             
