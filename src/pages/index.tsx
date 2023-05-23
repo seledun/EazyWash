@@ -50,10 +50,6 @@ export default function Index() {
               <div className="ImgHome"><img src="washing-demo.png" /></div>
             </div>
           </section>
-          <section></section>
-          <section></section>
-          <section></section>
-          <section></section>
           <section id="bookTime">
             <Calendar 
               updateDatelist={UPDATE_DATELIST}
