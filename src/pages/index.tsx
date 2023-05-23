@@ -25,8 +25,8 @@ export default function Index() {
 
           <ul className="navbar">
             <li><a href="#home" className="active">Home</a></li>
-            <li><a href="#bookTime">Boka Tid</a></li>
-            <li><a href="#listTime">Bokade tider</a></li>
+            {LOGGED_IN ? <li><a href="#bookTime">Boka Tid</a></li> : null}
+            {LOGGED_IN ? <li><a href="#listTime">Bokade tider</a></li> : null}
             <li><a href="#tips"> Tips</a></li>
             <li><a href="#kontaktaOss"> Kontakta oss</a></li>
           </ul>
@@ -50,18 +50,23 @@ export default function Index() {
               <div className="ImgHome"><img src="washing-demo.png" /></div>
             </div>
           </section>
-          <section id="bookTime">
-            <Calendar 
-              updateDatelist={UPDATE_DATELIST}
-              setUpdateDatelist={SET_UPDATE_DATELIST}
-            />
-          </section>
-          <section id="listTime">
-            <ListBooked
-              updateDatelist={UPDATE_DATELIST}
-              loggedIn={LOGGED_IN} 
-            />
-          </section>
+          {LOGGED_IN ?
+            <section id="bookTime">
+              <Calendar 
+                updateDatelist={UPDATE_DATELIST}
+                setUpdateDatelist={SET_UPDATE_DATELIST}
+              />
+            </section>
+            : null
+          }
+          {LOGGED_IN ? 
+            <section id="listTime">
+              <ListBooked
+                updateDatelist={UPDATE_DATELIST}
+                loggedIn={LOGGED_IN} 
+              />
+            </section>
+            : null}        
           <section id="tips"><div className="tips-container">
             <h2>Tips</h2>
                   
