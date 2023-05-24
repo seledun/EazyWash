@@ -262,6 +262,8 @@ ul.calendarModalTimes li .right {
   margin: 0;
   padding: 0;
   color: #000000;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid white;
 }
 
 #bookedTimes span {
@@ -269,12 +271,15 @@ ul.calendarModalTimes li .right {
   color: #000000;
 }
 
+#bookedTimes ul {
+  margin-top: 1rem;
+}
+
 #bookedTimes ul li {
   font-size: 1.2rem;
   border-radius: 8px;
   display: block;
   padding: .8rem;
-  margin-top: 1rem;
   color: #000000;
 }
 
@@ -295,8 +300,9 @@ ul.calendarModalTimes li .right {
 }
 
 .listAlert {
-  margin-top: 2rem !important;
-  margin-bottom: 2rem !important;
+  margin-top: 1rem;
+  padding-top: 1.5rem !important;
+  padding-bottom: 1.5rem !important;
   font-size: 1.2rem;
   transition: 1s;
 }
