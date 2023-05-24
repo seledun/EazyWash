@@ -18,15 +18,13 @@ export default function Index() {
         <script src="https://unpkg.com/scrollreveal"></script>
         <title>Document</title>
       </Head>
-
       <main>
         <header>
           <a href="#" className="logo"><i className='bx bxs-washer'></i><span>EazyWash</span></a>
-
           <ul className="navbar">
             <li><a href="#home" className="active">Home</a></li>
-            {LOGGED_IN ? <li><a href="#bookTime">Boka Tid</a></li> : null}
-            {LOGGED_IN ? <li><a href="#listTime">Bokade tider</a></li> : null}
+            <li><a href="#bookTime" hidden={LOGGED_IN ? false : true}>Boka tid</a></li>
+            <li><a href="#listTime" hidden={LOGGED_IN ? false : true}>Bokade tider</a></li>
             <li><a href="#tips"> Tips</a></li>
             <li><a href="#kontaktaOss"> Kontakta oss</a></li>
           </ul>
@@ -35,7 +33,6 @@ export default function Index() {
             loggedIn={LOGGED_IN} 
           />           
         </header>
-
         <div id='contentDiv' style={{zIndex: 1}}>
           <section id="home">
             <div className="BigDivToClassHome">
@@ -50,26 +47,20 @@ export default function Index() {
               <div className="ImgHome"><img src="washing-demo.png" /></div>
             </div>
           </section>
-          {LOGGED_IN ?
-            <section id="bookTime">
-              <Calendar 
-                updateDatelist={UPDATE_DATELIST}
-                setUpdateDatelist={SET_UPDATE_DATELIST}
-              />
-            </section>
-            : null
-          }
-          {LOGGED_IN ? 
-            <section id="listTime">
-              <ListBooked
-                updateDatelist={UPDATE_DATELIST}
-                loggedIn={LOGGED_IN} 
-              />
-            </section>
-            : null}        
+          <section id="bookTime" hidden={LOGGED_IN ? false : true}>
+            <Calendar 
+              updateDatelist={UPDATE_DATELIST}
+              setUpdateDatelist={SET_UPDATE_DATELIST}
+            />
+          </section>
+          <section id="listTime" hidden={LOGGED_IN ? false : true}>
+            <ListBooked
+              updateDatelist={UPDATE_DATELIST}
+              loggedIn={LOGGED_IN} 
+            />
+          </section>
           <section id="tips"><div className="tips-container">
             <h2>Tips</h2>
-                  
             <div className="box">
               <span>Box 1</span>
             </div>
@@ -79,11 +70,8 @@ export default function Index() {
           </div></section>
           <section id="kontaktaOss">Kontakta oss</section>
         </div>
-        
         <script src="main.js"></script>
-
       </main>
-  
     </>
   )
 }
