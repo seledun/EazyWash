@@ -7,6 +7,7 @@ body {
 
 ul {
   padding: 0;
+  z-index: 100;
 }
 
 button {
@@ -23,6 +24,7 @@ button {
 
 section {
   max-width: 850px;
+  z-index: 100;
 }
 
 #header {
@@ -37,11 +39,13 @@ section {
 }
 #container {
   width: 770px;
+  z-index: 100;
 }
 #weekdays {
   width: 100%;
   display: flex;
   color: #000000;
+  z-index: 100;
 }
 
 
@@ -52,12 +56,14 @@ section {
   padding: 5px;
   margin-left: 5px;
   margin-right: 5px;
+  z-index: 100;
 }
 #calendar {
   width: 100%;
   margin: auto;
   display: flex;
   flex-wrap: wrap;
+  z-index: 100;
 }
 .day {
   width: 100px;
@@ -71,19 +77,30 @@ section {
   flex-direction: column;
   justify-content: space-between;
   transition: 0.2s;
+  z-index: 100;
+  
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(9.7px);
+  -webkit-backdrop-filter: blur(9.7px);
+  border: 1px solid rgba(255, 255, 255, 0.39);
+  color: white;
 }
 
 .today {
-  background-color: #93d47f;
+  background-color: #93d47fd6;
+  z-index: 100;
 }
 
 .inPast {
-  background-color: #7e7d7d !important ;
+  background-color: #7e7d7dbd !important;
   cursor: default !important;
+  z-index: 100;
 }
 
 .day:hover {
-  background-color: #ba7b91;
+  background-color: #ba7b9180;
   cursor: pointer;
 }
 
@@ -102,7 +119,7 @@ section {
 
 .padding {
   cursor: default !important;
-  background-color: #7e7d7d !important;
+  background-color: #7e7d7dd4 !important;
   box-shadow: none !important;
 }
 #newEventModal, #deleteEventModal {
@@ -245,6 +262,8 @@ ul.calendarModalTimes li .right {
   margin: 0;
   padding: 0;
   color: #000000;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid white;
 }
 
 #bookedTimes span {
@@ -252,12 +271,15 @@ ul.calendarModalTimes li .right {
   color: #000000;
 }
 
+#bookedTimes ul {
+  margin-top: 1rem;
+}
+
 #bookedTimes ul li {
   font-size: 1.2rem;
   border-radius: 8px;
   display: block;
   padding: .8rem;
-  margin-top: 1rem;
   color: #000000;
 }
 
@@ -278,8 +300,9 @@ ul.calendarModalTimes li .right {
 }
 
 .listAlert {
-  margin-top: 2rem !important;
-  margin-bottom: 2rem !important;
+  margin-top: 1rem;
+  padding-top: 1.5rem !important;
+  padding-bottom: 1.5rem !important;
   font-size: 1.2rem;
   transition: 1s;
 }
@@ -289,6 +312,21 @@ ul.calendarModalTimes li .right {
 }
 
 .modal-content {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(9.7px);
+  -webkit-backdrop-filter: blur(9.7px);
+  border: 1px solid rgba(255, 255, 255, 0.39);
+  color: white;
+}
+
+.listTime{
+  z-index: 100;
+}
+
+#calendar-wrapper {
+  padding: 1rem;
   background: rgba(255, 255, 255, 0.3);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);

@@ -194,6 +194,7 @@ section{
   align-items: center;
   color: var(--text-color);
   font-weight: 600;
+  z-index: 100;
 }
 .ri-user-fill{
   font-size: 1.5em;
@@ -387,6 +388,7 @@ section{
   align-items: center;
   font-size: 64px;
   color: var(--text-color);
+  z-index: 100;
 }
 .ri-user-fill{
   font-size: 1.5em;
@@ -421,6 +423,7 @@ section{
   padding: 40px;
   display: flex;
   align-items: center;
+ 
 }
 .HomeH1 {
   display: flex;
@@ -523,6 +526,7 @@ section{
   font-size: 24px;
   color: #fff;
   margin: 10px;
+  z-index: 100;
 }
 .WelcomeHomePage{
   font-size: 30px;
@@ -542,3 +546,4 @@ section{
 .bubble:hover {
   opacity: 0.7;
 }
+

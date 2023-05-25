@@ -34,14 +34,6 @@ document.getElementsByClassName("user")[0].addEventListener("click",function(){
 document.getElementsByClassName("user")[0].addEventListener("click",function(){
   // document.querySelector(".popup").style.display="flex";
 });
-/**
- * @author Oliver Jönsson
- */
-/**
- * @author Sebastian Ledung
- * @author Teo Gefors
- * @author Petter Carlsson
- */  
 
 // Skapa en instans av ScrollReveal
 const sr = ScrollReveal();

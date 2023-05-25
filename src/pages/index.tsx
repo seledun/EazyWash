@@ -20,15 +20,14 @@ export default function Index() {
         <script src="https://unpkg.com/scrollreveal"></script>
         <title>Document</title>
       </Head>
-
       <main>
         <header>
           <a href="#" className="logo"><i className='bx bxs-washer'></i><span>EazyWash</span></a>
-
           <ul className="navbar">
             <li><a href="#home" className="active">Home</a></li>
-            <li><a href="#bookTime">Boka Tid</a></li>
-            <li><a href="#tips"> Tvättips</a></li>
+            <li><a href="#bookTime" hidden={LOGGED_IN ? false : true}>Boka tid</a></li>
+            <li><a href="#listTime" hidden={LOGGED_IN ? false : true}>Bokade tider</a></li>
+            <li><a href="#tips"> Tips</a></li>
             <li><a href="#kontaktaOss"> Kontakta oss</a></li>
           </ul>
           <Login  
@@ -36,8 +35,7 @@ export default function Index() {
             loggedIn={LOGGED_IN} 
           />           
         </header>
-
-        <div id='contentDiv'>
+        <div id='contentDiv' style={{zIndex: 1}}>
           <section id="home">
             <div className="BigDivToClassHome">
               <div className="WelcomeHomePage"><h2>Välkommen!</h2></div>
@@ -51,17 +49,13 @@ export default function Index() {
               <div className="ImgHome"><img src="washing-demo.png" /></div>
             </div>
           </section>
-          <section></section>
-          <section></section>
-          <section></section>
-          <section></section>
-          <section id="bookTime">
+          <section id="bookTime" hidden={LOGGED_IN ? false : true}>
             <Calendar 
               updateDatelist={UPDATE_DATELIST}
               setUpdateDatelist={SET_UPDATE_DATELIST}
             />
           </section>
-          <section id="listTime">
+          <section id="listTime" hidden={LOGGED_IN ? false : true}>
             <ListBooked
               updateDatelist={UPDATE_DATELIST}
               loggedIn={LOGGED_IN} 
@@ -81,11 +75,8 @@ export default function Index() {
           <p className={styles.mail}>EazyWash@no-reply.com</p>
           </section>
         </div>
-        
         <script src="main.js"></script>
-
       </main>
-  
     </>
   )
 }
