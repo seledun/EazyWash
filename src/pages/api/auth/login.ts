@@ -79,7 +79,7 @@ export default async function login(
         const ORG_ID = FIND_ID?.org_id;
 
         const TOKEN = crypto.randomUUID();
-        const EXPIRES = new Date((Date.now() + (1000 * 60 * 30)));
+        const EXPIRES = new Date((Date.now() + (1000 * 60 * 60 * 24)));
 
         // Creates a session for the authenticated user.
         await prisma.authentication.create({
